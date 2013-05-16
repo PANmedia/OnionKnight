@@ -51,7 +51,7 @@ eg: xmas-theme.scss, mothers-day-theme.scss
 
 PAN filestructure:
 
-SCSS >
+    SCSS >
 
     screen-modern.scss (compiles all scss for modern browsers)
 
