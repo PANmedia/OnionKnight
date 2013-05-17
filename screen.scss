@@ -1,23 +1,31 @@
-//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-// screen.scss
-// Template that imports other files. Add your custom files
-// Compiled down to css via screen-modern/legacy 
-//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+/**
+ * ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ * screen.scss
+ * Template that imports other files. Add your custom files
+ * Compiled down to css via screen-modern/legacy 
+ * ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ */
 
-//###########################################################
-// OnionKnight v1
-//###########################################################
-// https://github.com/tbredin/OnionKnight
-// SCSS Framework for BEM / SMACSS projects 
-// (and the bravest Lost Boy in all of Lordran)
-// Created by Thomas Bredin-Grey & Hemi Ormsby 17-05-2013
-//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-
+/**
+ * ##########################################################
+ * OnionKnight
+ * ##########################################################
+ * https://github.com/tbredin/OnionKnight
+ * SCSS Framework for BEM / SMACSS projects 
+ * (and the bravest Lost Boy in all of Lordran)
+ *
+ * @license TBC
+ * 
+ * @author Thomas Bredin-Grey <thomas@panmedia.co.nz>
+ * @author Hemi Ormsby <hemi@panmedia.co.nz>
+ * ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ */
 
 @import "compass";
 @import "susy";
 
 @import "base/variables",
+        "base/fonts",
         "base/normalize",
         "base/snippets",
         "base/tags";
