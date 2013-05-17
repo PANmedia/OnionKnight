@@ -1,26 +1,10 @@
 /**
- * ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
- * screen.scss
  * Template that imports other files. Add your custom files
  * Compiled down to css via screen-modern/legacy 
- * ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
- */
-
-/**
- * ##########################################################
- * OnionKnight
- * ##########################################################
- * https://github.com/tbredin/OnionKnight
- * SCSS Framework for BEM / SMACSS projects 
- * (and the bravest Lost Boy in all of Lordran)
- *
- * @license TBC
  * 
  * @author Thomas Bredin-Grey <thomas@panmedia.co.nz>
  * @author Hemi Ormsby <hemi@panmedia.co.nz>
- * ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
  */
-
 @import "compass";
 @import "susy";
 
@@ -35,8 +19,10 @@
 
 @import "modules/common-modules";
 
-//@import "states/";
+// @todo Add your state imports
+// @import "states/";
 
-//@import "theme/";
+// @todo Add your theme imports
+// @import "theme/";
 
 @import "shame";
