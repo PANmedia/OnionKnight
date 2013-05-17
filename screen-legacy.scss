@@ -1,25 +1,14 @@
 /**
- * ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
- * screen-legacy.scss
- * Master template for legacy browsers (ie8 and below)
- * ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
- */
-
-/**
- * import css frameworks
+ * Master template for legacy browsers (ie8 and below).
  */
 @import 'compass';
 @import 'susy';
 
-/**
- * breakpoint output settings for modern browsers
- */
+// Breakpoint output settings for modern browsers
 $breakpoint-media-output  : false;
 $breakpoint-ie-output     : true;
 
-/**
- * vendor prefixes aren't needed for legacy
- */
+// Vendor prefixes aren't needed for legacy
 $experimental-support-for-mozilla : false;
 $experimental-support-for-webkit : false;
 $support-for-original-webkit-gradients : false;
@@ -28,12 +17,8 @@ $experimental-support-for-microsoft : false;
 $experimental-support-for-khtml : false;
 $experimental-support-for-svg: false;
 
-/**
- * legacy support
- */
+// Legacy support
 $legacy-support-for-ie: true;
 
-/**
- * import styles
- */
+// Import styles
 @import "screen";
