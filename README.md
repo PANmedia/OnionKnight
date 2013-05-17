@@ -27,7 +27,7 @@ There are five types of categories:
 <strong>Base rules</strong> 
 are the defaults. They are almost exclusively single element selectors but it could include attribute selectors, pseudo-class selectors, child selectors or sibling selectors. Essentially, a base style says that wherever this element is on the page, it should look like this.
 
-including: Resets, Variables, Tag Styles / Basic Typography, (perhaps) non-site-specific modules?
+including: Resets, Variables, Tag Styles / Basic Typography, Non-site-specific Modules
 
 <em>eg: reset.scss, variables.scss, tags.scss, global-modules.scss</em>
 
@@ -57,7 +57,7 @@ including: Modifiers/overrides
 
 
 <strong>Theme rules</strong> 
-are similar to state rules in that they describe how modules or layouts might look. Most sites don’t require a layer of theming but it is good to be aware of it.
+are similar to state rules in that they describe how modules or layouts *might* look. Most sites don’t require a layer of theming but it is good to be aware of it.
 
 including: Overrides
 
