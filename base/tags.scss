@@ -1,0 +1,115 @@
+//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+// tags.scss
+// Any Typography and bare tag styles
+//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+body, html {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+code {
+    font-family: "inconsolata", "Consolas", "droid-sans-mono", "Droid Sans Mono", "Monaco", "Lucida Console", monospace;
+}
+
+h1, h2, h3, h4, h5, h6, p, dl, dd, hr, ul, ol, table {
+    margin-bottom: $gutter;
+    line-height: 1.6;
+}
+
+h1, h2, h3, h4 {
+    text-shadow: #fff 0 1px 0;
+    margin-bottom: 0;
+    padding-top: $gutter / 2;
+
+    &:first-child {
+        padding-top: 0;
+    }
+}
+
+%h1-style {
+    color: #ff7905;
+    font-size: 26px;
+    font-weight: 200;
+    text-transform: uppercase;
+}
+
+h1 {
+    @extend %h1-style;
+}
+
+h2 {
+    font-size: 19px;
+    text-transform: uppercase;
+    font-weight: bold;
+    color: #515e70;
+}
+
+h3 {
+    font-size: 18px;
+    font-weight: normal;
+    color: #515e70;
+}
+
+h4 {
+    font-size: 16px;
+    font-weight: normal;
+    color: #ff7905;
+}
+
+dt {
+    font-size: 12px;
+    text-transform: uppercase;
+    font-weight: normal;
+    color: #222;
+}
+
+dd, p, li, td, th {
+    font-size: 14px;
+}
+
+a:hover { text-decoration: none; }
+
+hr {
+    background-color: #cfcfcf;
+    height: 1px;
+    border-width: 1px 0 1px;
+    border-style: solid none solid;
+    border-color: #fff transparent #cfcfcf;
+}
+
+ul, ol {
+    list-style: disc outside;
+    padding-left: 16px;
+} 
+
+ol {
+    list-style: decimal outside;
+    padding-left: 20px;
+}
+
+dt {
+    text-transform: uppercase;
+    font-size: 12px;
+    font-weight: normal;
+}
+
+td, th {
+    padding: 6px 8px;
+    text-align: left;
+    text-shadow: #fff 0 1px 0;
+}
+
+th, caption {
+    font-size: 12px;
+    font-weight: normal;
+}
+
+label {
+    cursor: pointer;
+}
+
+section, article, aside {
+    display: block;
+}

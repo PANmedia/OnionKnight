@@ -1,0 +1,268 @@
+// Any non-site-specific tools and code snippets
+
+// Returns a unitless number
+@function no-unit($number) {
+    $result: 0;
+    @if unit($number) == "px" {
+        $result: $number / 1px;
+    } @else if unit($number) == "em" {
+        $result: $number / 1em;
+    } @else if unit($number) == "%" {
+        $result: $number / 1%;
+    }
+    @return $result;
+}
+
+// Converts a px value to ems. Should only work in absolute em document context (root level)
+@function px-to-ems($value) {
+    @if unit($value) == "px" {
+        $value : no-unit($value) / no-unit($base-font-size);
+        $value : $value * 1em;
+    }
+    @return $value;
+}
+
+// Converts an em value to px. Should only work in absolute em document context (root level)
+@function em-to-px($value) {
+    @if unit($value) == "em" {
+        $value : no-unit($value) * no-unit($base-font-size);
+        $value : $value * 1px;
+    }
+    @return $value;
+}
+
+// cross-browser rem units.
+@mixin rem($property, $value) {
+    #{$property}: #{$value}rem;
+    #{$property}: $value * $base-font-size;
+}
+
+// embosses box
+@mixin box-emboss($opacity, $opacity2){
+    box-shadow: white($opacity) 0 1px 0, inset black($opacity2) 0 1px 0;
+}
+
+// Gradient with background color fallback for legacy browsers
+@mixin gradient-with-bgc($colors...) {
+    @include background(linear-gradient($gradient-startpoint, $colors...));
+    $length: length($colors);
+    $middle: (ceil($length / 2));
+    @if $middle < 1 {
+        $middle: 1;
+    }
+    background-color: nth($colors, $middle);
+    //background-color: mix($colors...);
+}
+
+// Gradient with svg fallback for ie9
+@mixin gradient-with-svg($colors...) {
+    $experimental-support-for-svg: true;
+    @include background(linear-gradient($gradient-startpoint, $colors...));
+    $length: length($colors);
+    $middle: (ceil($length / 2));
+    @if $middle < 1 {
+        $middle: 1;
+    }
+    background-color: nth($colors, $middle);
+}
+
+// resets lists
+%plain-list {
+    list-style: none;
+    padding-left: 0;
+
+    > li {
+        list-style: none;
+        padding-left: 0;
+    }
+}
+
+// block item  - where text needs to be hidden for image replacement (usually)
+@mixin block-item($x, $y: $x) {
+    @extend %block-properties;
+    padding-top: $y;
+    width: $x;
+}
+
+//block item helper
+%block-properties {
+    overflow: hidden;
+    height: 0;
+    display: block;
+}
+
+
+// new clearfix hack
+@mixin clearfix {
+    &:before,
+    &:after {
+        content: " "; /* 1 */
+        display: table; /* 2 */
+    }
+
+    &:after { clear: both; }
+
+    /**
+     * For IE 6/7 only
+     * Include this rule to trigger hasLayout and contain floats.
+     */
+    *zoom: 1;
+}
+
+// selection color
+// includes futureproofing for support of gradients (not surrently in spec)
+@mixin selection-color($background, $color: false, $text-shadow: false) {
+    ::selection
+    {
+        @include gradient-with-bgc(lighten($background, 4%), $background, darken($background, 4%));
+        @if $color != false {
+            color: $color;
+        }
+        @if $text-shadow == false {
+            text-shadow: none;
+        } @else {
+            text-shadow: $text-shadow;
+        }
+    }
+    ::-moz-selection
+    {
+        @include gradient-with-bgc(lighten($background, 4%), $background, darken($background, 4%));
+        @if $color != false {
+            color: $color;
+        }
+        @if $text-shadow == false {
+            text-shadow: none;
+        } @else {
+            text-shadow: $text-shadow;
+        }
+    }
+}
+
+// For future support for blend modes. Can be tested in Chromium
+@mixin blend-mode($mode) {
+    -webkit-blend-mode: $mode;
+    -moz-blend-mode: $mode;
+    -ms-blend-mode: $mode;
+    blend-mode: $mode;
+}
+
+// code font
+%codeFont { font-family: "inconsolata", "droid-sans-mono", "Lucida Console", monospace!important; }
+
+// common white frame core
+%standard-padding {
+    padding: 10/16 * $grid-padding $grid-padding $grid-padding;
+}
+
+// better than writing longhand rgba for transparent black
+@function black($opacity){
+    @return rgba(0, 0, 0, $opacity);
+}
+
+// better than writing longhand rgba for transparent white
+@function white($opacity){
+    @return rgba(255, 255, 255, $opacity);
+}
+
+// multi-line text-overflow
+@mixin text-overflow($height, $color: #fff) {
+    @extend %text-overflow;
+    height: $height;
+
+    &:before {
+        height: $height;
+    }
+
+    $rgba: rgba($color, 1);
+    $rgb0: transparentize($rgba, 1);
+
+    &:after {
+        @include background(linear-gradient(left top, $rgb0, $rgba, $rgba));
+    }
+}
+
+// helper for above
+%text-overflow {
+    overflow: hidden;
+
+    &:before {
+        content:"";
+        float: left;
+        width: 5px; 
+    }
+     > *:first-child {
+        float: right;
+        width: 100%;
+        margin-left: -5px;
+    }
+    &:after {
+        content: "\02026";  
+
+        @include box-sizing(content-box);
+
+        float: right;
+        position: relative;
+        top: -25px; 
+        left: 100%; 
+        width: 3em; 
+        margin-left: -3em;
+        padding-right: 5px;
+        text-align: right;
+        background-size: 100% 100%;  
+    }   
+}
+
+// Sets border-box, as well as width, height, padding and border width, including legacy fallbacks
+@mixin legacy-border-box($width: auto, $height: auto, $padding: 0 0 0 0, $border-width: 0 0 0 0) {
+    @extend %border-box;
+
+    @if $legacy-support-for-ie {
+        @if $width != auto {
+            width: $width;
+            *width: $width - nth($padding, 2) - nth($padding, 4) - nth($border-width, 2) - nth($border-width, 4);
+        }
+        @if $height != auto {
+            height: $height;
+            *height: $height - nth($padding, 1) - nth($padding, 3) - nth($border-width, 1) - nth($border-width, 3);
+        }
+        padding: $padding;
+        border-width: $border-width;
+    }
+}
+
+// border box extend
+%border-box {
+    @include box-sizing(border-box);
+}
+
+%center-grid {
+    float: none;
+    display: block;
+    margin: 0 auto;
+    position: relative;
+}
+
+%center-text { text-align: center; }
+
+%left { float: left; }
+
+%right { float: right; }
+
+%clear { clear: both; }
+
+%inline { display: inline; }
+
+%hidden { display: none; }
+
+%bold { font-weight: bold; }
+
+%no-margin { margin: 0; }
+
+%no-padding { padding: 0; }
+
+%no-border {
+    border-style: none;
+    border-width: 0;
+}
+
+%omega { margin-right: 0!important; }
