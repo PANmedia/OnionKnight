@@ -1,15 +1,9 @@
 /**
- * +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
- * print.scss
- * Simple print stylesheet, sets some sensible defaults
- * +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ * Simple print stylesheet, sets some sensible defaults.
  */
-
-
 @import "base/variables";
 
 @media print {
-
     body {
         background: #fff;
         font-family: Tahoma, Helvetica, Arial, sans-serif;
