@@ -1,14 +1,20 @@
 /**
- * Master template for legacy browsers (ie8 and below).
+ * Master template for legacy browsers (ie8 and below)
+ *
+ * @author Thomas Bredin-Grey <thomas@panmedia.co.nz>
+ * @author Hemi Ormsby <hemi@panmedia.co.nz>
+ * @url https://github.com/tbredin/OnionKnight
  */
+
+// import css frameworks
 @import 'compass';
 @import 'susy';
 
-// Breakpoint output settings for modern browsers
+// breakpoint output settings for modern browsers
 $breakpoint-media-output  : false;
 $breakpoint-ie-output     : true;
 
-// Vendor prefixes aren't needed for legacy
+// vendor prefixes aren't needed for legacy
 $experimental-support-for-mozilla : false;
 $experimental-support-for-webkit : false;
 $support-for-original-webkit-gradients : false;
@@ -17,8 +23,8 @@ $experimental-support-for-microsoft : false;
 $experimental-support-for-khtml : false;
 $experimental-support-for-svg: false;
 
-// Legacy support
+// legacy support
 $legacy-support-for-ie: true;
 
-// Import styles
+// import styles
 @import "screen";
