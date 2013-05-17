@@ -24,43 +24,33 @@ There are five types of categories:
 
 
 
-<strong>Base rules</strong> 
-are the defaults. They are almost exclusively single element selectors but it could include attribute selectors, pseudo-class selectors, child selectors or sibling selectors. Essentially, a base style says that wherever this element is on the page, it should look like this.
-
-including: Resets, Variables, Tag Styles / Basic Typography, Non-site-specific Modules
-
+<strong>Base rules</strong>   
+are the defaults. They are almost exclusively single element selectors but it could include attribute selectors, pseudo-class selectors, child selectors or sibling selectors. Essentially, a base style says that wherever this element is on the page, it should look like this.  
+including: Resets, Variables, Tag Styles / Basic Typography, Non-site-specific Modules  
 <em>eg: reset.scss, variables.scss, tags.scss, global-modules.scss</em>
 
 
-<strong>Layout rules</strong>
-divide the page into sections. Layouts hold one or more modules together.
-
-including: Grids, any common layout patterns
-
+<strong>Layout rules</strong>  
+divide the page into sections. Layouts hold one or more modules together.  
+including: Grids, any common layout patterns  
 <em>eg: grids.scss, layout-patterns.scss</em>
 
 
-<strong>Modules</strong> 
-are the reusable, modular parts of our design. They are the callouts, the sidebar sections, the product lists and so on. Modules sit inside Layout components. Modules can sometimes sit within other Modules, too. Each Module should be designed to exist as a standalone component.
-
-including: Blocks & Elements - any visual characteristics needed to describe these (NOT layout - extend a layout pattern from above)
-
+<strong>Modules</strong>   
+are the reusable, modular parts of our design. They are the callouts, the sidebar sections, the product lists and so on. Modules sit inside Layout components. Modules can sometimes sit within other Modules, too. Each Module should be designed to exist as a standalone component.  
+including: Blocks & Elements - any visual characteristics needed to describe these (NOT layout - extend a layout pattern from above)  
 <em>eg: modules.scss</em>
  
  
-<strong>State rules</strong> 
-are ways to describe how our modules or layouts will look when in a particular state. Is it hidden or expanded? Is it active or inactive? They are about describing how a module or layout looks on screens that are smaller or bigger. They are also about describing how a module might look in different views like the home page or the inside page. A state is something that augments and overrides all other styles.
-
-including: Modifiers/overrides
-
+<strong>State rules</strong>   
+are ways to describe how our modules or layouts will look when in a particular state. Is it hidden or expanded? Is it active or inactive? They are about describing how a module or layout looks on screens that are smaller or bigger. They are also about describing how a module might look in different views like the home page or the inside page. A state is something that augments and overrides all other styles.  
+including: Modifiers/overrides  
 <em>eg: button-states.scss, notification-states.scss</em>
 
 
-<strong>Theme rules</strong> 
-are similar to state rules in that they describe how modules or layouts *might* look. Most sites don’t require a layer of theming but it is good to be aware of it.
-
-including: Overrides
-
+<strong>Theme rules</strong>   
+are similar to state rules in that they describe how modules or layouts *might* look. Most sites don’t require a layer of theming but it is good to be aware of it.  
+including: Overrides  
 <em>eg: xmas-theme.scss, mothers-day-theme.scss</em>
 
 
@@ -81,18 +71,15 @@ Written as:
 .block__element--modifier
 
 
-<strong>Block</strong>
-
+<strong>Block</strong>  
 A block is an independent entity, a "building block" of an application. A block can be either simple or compound (containing other blocks).
 
 
-<strong>Element</strong>
-
+<strong>Element</strong>  
 An element is a part of a block that performs a certain function. Elements are context-dependent: they only make sense in the context of the block they belong to.
 
 
-<strong>Modifier</strong>
-
+<strong>Modifier</strong>  
 To avoid developing another block that is only minimally different from an existing one, we can use a modifier.  Modifier is a property of a block or an element that alters its look or behavior. A modifier has a name and a value. Several modifiers can be used at once.
 
 
@@ -110,6 +97,8 @@ OnionKnight filestructure
             variables.scss
 
             reset.scss
+            
+            fonts.scss
 
             tags/typography.scss
 
