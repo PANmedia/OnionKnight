@@ -3,6 +3,10 @@ OnionKnight
 
 SCSS Framework for BEM / SMACSS projects (and the bravest Lost Boy in all of Lordran)
 
+<strong>Dependancies:</strong> Compass, Susy
+http://compass-style.org
+http://susy.oddbird.net/
+
 
 SMACSS Architecture
 -------------------
