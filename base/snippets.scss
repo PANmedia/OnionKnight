@@ -1,12 +1,12 @@
 /**
- * ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
- * snippets.scss
  * Any non-site-specific tools and code snippets
- * ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ *
+ * @author Thomas Bredin-Grey <thomas@panmedia.co.nz>
+ * @author Hemi Ormsby <hemi@panmedia.co.nz>
+ * @url https://github.com/tbredin/OnionKnight
  */
 
-/**
- * Returns a unitless number
+// Returns a unitless number
 @function no-unit($number) {
     $result: 0;
     @if unit($number) == "px" {
@@ -19,9 +19,7 @@
     @return $result;
 }
 
-/**
- * Converts a px value to ems. Should only work in absolute em document context (root level)
- */
+// Converts a px value to ems. Should only work in absolute em document context (root level)
 @function px-to-ems($value) {
     @if unit($value) == "px" {
         $value : no-unit($value) / no-unit($base-font-size);
@@ -30,9 +28,7 @@
     @return $value;
 }
 
-/**
- * Converts an em value to px. Should only work in absolute em document context (root level)
- */
+// Converts an em value to px. Should only work in absolute em document context (root level)
 @function em-to-px($value) {
     @if unit($value) == "em" {
         $value : no-unit($value) * no-unit($base-font-size);
@@ -41,24 +37,18 @@
     @return $value;
 }
 
-/**
- * cross-browser rem units.
- */
+// cross-browser rem units.
 @mixin rem($property, $value) {
     #{$property}: #{$value}rem;
     #{$property}: $value * $base-font-size;
 }
 
-/**
- * embosses box
- */
+// embosses box
 @mixin box-emboss($opacity, $opacity2){
     box-shadow: white($opacity) 0 1px 0, inset black($opacity2) 0 1px 0;
 }
 
-/**
- * Gradient with background color fallback for legacy browsers
- */
+// Gradient with background color fallback for legacy browsers
 @mixin gradient-with-bgc($colors...) {
     @include background(linear-gradient($gradient-startpoint, $colors...));
     $length: length($colors);
@@ -70,9 +60,7 @@
     //background-color: mix($colors...);
 }
 
-/**
- * Gradient with svg fallback for ie9
- */
+// Gradient with svg fallback for ie9
 @mixin gradient-with-svg($colors...) {
     $experimental-support-for-svg: true;
     @include background(linear-gradient($gradient-startpoint, $colors...));
@@ -84,9 +72,7 @@
     background-color: nth($colors, $middle);
 }
 
-/**
- * resets lists
- */
+// resets lists
 %plain-list {
     list-style: none;
     padding-left: 0;
@@ -97,27 +83,21 @@
     }
 }
 
-/**
- * block item  - where text needs to be hidden for image replacement (usually)
- */
+// block item  - where text needs to be hidden for image replacement (usually)
 @mixin block-item($x, $y: $x) {
     @extend %block-properties;
     padding-top: $y;
     width: $x;
 }
 
-/**
- * block item helper
- */
+// block item helper
 %block-properties {
     overflow: hidden;
     height: 0;
     display: block;
 }
 
-/**
- * new clearfix hack
- */
+// new clearfix hack
 @mixin clearfix {
     &:before,
     &:after {
@@ -127,18 +107,14 @@
 
     &:after { clear: both; }
 
-    /**
-     * For IE 6/7 only
-     * Include this rule to trigger hasLayout and contain floats.
-     */
+    // For IE 6/7 only
+    // Include this rule to trigger hasLayout and contain floats.
     *zoom: 1;
 }
 
 
-/**
- * selection color
+// selection color
  * includes futureproofing for support of gradients (not surrently in spec)
- */
 @mixin selection-color($background, $color: false, $text-shadow: false) {
     ::selection
     {
@@ -166,9 +142,7 @@
     }
 }
 
-/**
- * For future support for blend modes. Can be tested in Chromium
- */
+// For future support for blend modes. Can be tested in Chromium
 @mixin blend-mode($mode) {
     -webkit-blend-mode: $mode;
     -moz-blend-mode: $mode;
@@ -176,38 +150,28 @@
     blend-mode: $mode;
 }
 
-/**
- * code font
- */
+// code font
 %codeFont { font-family: "inconsolata", "droid-sans-mono", "Lucida Console", monospace!important; }
 
 
-/**
- * common white frame core
- */
+// common white frame core
 %standard-padding {
     padding: 10/16 * $grid-padding $grid-padding $grid-padding;
 }
 
 
-/**
- * better than writing longhand rgba for transparent black
- */
+// better than writing longhand rgba for transparent black
 @function black($opacity){
     @return rgba(0, 0, 0, $opacity);
 }
 
 
-/**
- * better than writing longhand rgba for transparent white
- */
+// better than writing longhand rgba for transparent white
 @function white($opacity){
     @return rgba(255, 255, 255, $opacity);
 }
 
-/**
- * multi-line text-overflow
- */
+// multi-line text-overflow
 @mixin text-overflow($height, $color: #fff) {
     @extend %text-overflow;
     height: $height;
@@ -224,9 +188,7 @@
     }
 }
 
-/**
- * helper for above
- */
+// helper for above
 %text-overflow {
     overflow: hidden;
 
@@ -257,9 +219,7 @@
     }   
 }
 
-/**
- * Sets border-box, as well as width, height, padding and border width, including legacy fallbacks
- */
+// Sets border-box, as well as width, height, padding and border width, including legacy fallbacks
 @mixin legacy-border-box($width: auto, $height: auto, $padding: 0 0 0 0, $border-width: 0 0 0 0) {
     @extend %border-box;
 
@@ -278,17 +238,13 @@
 }
 
 
-/**
- * border box extend
- */
+// border box extend
 %border-box {
     @include box-sizing(border-box);
 }
 
 
-/**
- * centers a grid wrapper
- */
+// centers a grid wrapper
 %center-grid {
     float: none;
     display: block;
@@ -297,24 +253,18 @@
 }
 
 
-/**
- * removes border
- */
+// removes border
 %no-border {
     border-style: none;
     border-width: 0;
 }
 
 
-/**
- * susy grid forced omega
- */
+// susy grid forced omega
 %force-omega { margin-right: 0!important; }
 
 
-/**
- * forces has Layout for legacy IEs
- */
+// forces has Layout for legacy IEs
 %hasLayout {
     position: relative;
     zoom: 1;
