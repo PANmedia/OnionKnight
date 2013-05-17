@@ -1,19 +1,28 @@
-//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-// screen-modern.scss
-// Master template for modern browsers
-//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+/**
+ * ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ * screen-modern.scss
+ * Master template for modern browsers
+ * ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ */
 
-
-//import css frameworks
+/**
+ * import css frameworks
+ */
 @import 'compass';
 @import 'susy';
 
-//breakpoint output settings for modern browsers
+/**
+ * breakpoint output settings for modern browsers
+ */
 $breakpoint-media-output  : true;
 $breakpoint-ie-output     : false;
 
-//no legacy support
+/**
+ * no legacy support
+ */
 $legacy-support-for-ie: false;
 
-//import styles
+/**
+ * import styles
+ */
 @import "screen";
