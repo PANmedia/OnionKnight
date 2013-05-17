@@ -1,67 +1,50 @@
 /**
- * +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
- * variables.scss
  * Site Variables
- * +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ *
+ * @author Thomas Bredin-Grey <thomas@panmedia.co.nz>
+ * @author Hemi Ormsby <hemi@panmedia.co.nz>
+ * @url https://github.com/tbredin/OnionKnight
  */
 
-/**
- * colors
- */
+// colors
 $grey-purple: #3e3d45;
 $blue: #0196d1;
 $heading-color: #0196d1;
 $link-color: #0196d1;
 
-/**
- * responsive grid breakpoints
- */
+// responsive grid breakpoints
 $mobile:    $total-columns;
 $tablet:    9 no-media-queries;
 $desktop:     12 no-media-queries;
 
-/**
- * vertical rhythm
- */
+// vertical rhythm
 $base-font-size: 16px;
 $base-line-heigth: 24px;
 $round-to-nearest-half-line: true;
 @include establish-baseline;
 
-/**
- * page width & legacy grid
- */
+// page width & legacy grid
 $col-num: 12;
 $page-width: 960px;
 $gutter-width: 1em;
 $grid-padding: $gutter-width;
 
-/**
- * footer
- */
+// footer
 $sticky-footer: 302px;
 
-/**
- * font-sizes
- */
+// font-sizes
 $h1-size: 1.8em;
 $h2-size: 1.25em;
 $h3-size: 1.1em;
 $h4-size: 1em;
 $p-size: 0.85em;
 
-/**
- * misc
- */
+// misc
 $border-radius: 0.4em;
 
 
-/**
- * neccessary for custom gradient mixins to work - sets start position of grdients globally
- */
+// neccessary for custom gradient mixins to work - sets start position of grdients globally
 $gradient-startpoint: top;
 
-/**
- * opera traffic is very low - not supporting old vendor prefix
- */
+// opera traffic is very low - not supporting old vendor prefix
 $experimental-support-for-opera: false;
