@@ -62,11 +62,13 @@
             line-height: 1.6;
             text-decoration: none!important;
         }
+        // @todo add your domain
         a[href^="/"]:after {
-          content: " (http://www.heathcotes.co.nz" attr(href) ") ";
+          content: " (http://www.yourdomain.co.nz" attr(href) ") ";
         }
+        // @todo add your domain
         a[href^="#"]:after {
-          content: " (http://www.heathcotes.co.nz" attr(href) ") ";
+          content: " (http://www.yourdomain.co.nz" attr(href) ") ";
         }
     }
 
