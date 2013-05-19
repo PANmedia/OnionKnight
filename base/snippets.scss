@@ -114,7 +114,7 @@
 
 
 // selection color
- * includes futureproofing for support of gradients (not surrently in spec)
+// includes futureproofing for support of gradients (not surrently in spec)
 @mixin selection-color($background, $color: false, $text-shadow: false) {
     ::selection
     {
