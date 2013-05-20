@@ -6,12 +6,12 @@
  * @author Hemi Ormsby <hemi@panmedia.co.nz>
  * @url https://github.com/tbredin/OnionKnight
  */
-@import "compass";
-@import "susy";
+@import "compass",
+        "susy",
+        "compass/reset";
 
 @import "base/variables",
         "base/fonts",
-        "base/normalize",
         "base/snippets",
         "base/tags";
 
