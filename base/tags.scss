@@ -7,105 +7,108 @@
  */
 
 body, html {
-    width: 100%;
     margin: 0;
     padding: 0;
 }
 
-code {
-    font-family: "inconsolata", "Consolas", "droid-sans-mono", "Droid Sans Mono", "Monaco", "Lucida Console", monospace;
-}
-
-h1, h2, h3, h4, h5, h6, p, dl, dd, hr, ul, ol, table {
-    margin-bottom: $gutter-width;
-    line-height: 1.6;
-}
-
-h1, h2, h3, h4 {
-    text-shadow: #fff 0 1px 0;
-    margin-bottom: 0;
-    padding-top: $gutter-width / 2;
-
+h1, h2, h3, h4, h5, h6 {
     &:first-child {
         padding-top: 0;
     }
 }
 
+// @todo add your font filenames
+h1, h2, h3, h4 {
+    @extend %FontName;
+}
+
+// h1 & h2 have their bare font information abstracted for use in other modules
 %h1-style {
-    color: #ff7905;
-    font-size: 26px;
-    font-weight: 200;
-    text-transform: uppercase;
+    @include adjust-font-size-to($h1-size);
+    font-weight: bold;
+    text-transform: $heading-case;
 }
 
 h1 {
+    color: $heading-color;
     @extend %h1-style;
+    @include rhythm(0, 1, 0.5, 0, $h1-size);
+}
+
+// h1 & h2 have their bare font information abstracted for use in other modules
+%h2-style {
+    @include adjust-font-size-to($h2-size);
+    font-weight: bold;
+    text-transform: $heading-case;
 }
 
 h2 {
-    font-size: 19px;
-    text-transform: uppercase;
-    font-weight: bold;
-    color: #515e70;
+    color: $sub-heading-color;
+    @extend %h2-style;
+    @include rhythm(0, 1, 0.5, 0, $h2-size);
 }
 
 h3 {
-    font-size: 18px;
-    font-weight: normal;
-    color: #515e70;
+    @include adjust-font-size-to($h3-size);
+    color: $sub-heading-color;
+    @include rhythm(0, 1, 0.5, 0, $h3-size);
 }
 
 h4 {
-    font-size: 16px;
-    font-weight: normal;
-    color: #ff7905;
+    @include adjust-font-size-to($h4-size);
+    color: $sub-heading-color;
+    @include rhythm(0, 1, 0.5, 0, $h4-size);
+}
+
+h5 {
+    @include adjust-font-size-to($h5-size);
+    @include rhythm(0, 1, 0.5, 0, $h5-size);
+}
+
+h6 {
+    @include adjust-font-size-to($h6-size);
+    @include rhythm(0, 1, 0.5, 0, $h6-size);
 }
 
 dt {
-    font-size: 12px;
+    @include adjust-font-size-to($small-size);
     text-transform: uppercase;
     font-weight: normal;
     color: #222;
 }
 
 dd, p, li, td, th {
-    font-size: 14px;
+    @include adjust-font-size-to($p-size)
 }
 
 a:hover { text-decoration: none; }
 
 hr {
-    background-color: #cfcfcf;
-    height: 1px;
-    border-width: 1px 0 1px;
-    border-style: solid none solid;
-    border-color: #fff transparent #cfcfcf;
+    //draw top & bottom borders while retaining vertical rhythm
+    @include leading-border(1px, 0.5);
+    @include trailing-border(1px, 0.5);
+    border-top-color: white(0.5);
+    border-bottom-color: black(0.5);
+    border-style: solid none;
+    height: 0;
 }
 
 ul, ol {
     list-style: disc outside;
-    padding-left: 16px;
+    padding-left: $base-font-size;
 } 
 
 ol {
     list-style: decimal outside;
-    padding-left: 20px;
-}
-
-dt {
-    text-transform: uppercase;
-    font-size: 12px;
-    font-weight: normal;
+    padding-left: $base-font-size * 1.2;
 }
 
 td, th {
-    padding: 6px 8px;
-    text-align: left;
-    text-shadow: #fff 0 1px 0;
+    @extend %standard-padding;
 }
 
 th, caption {
-    font-size: 12px;
+    font-size: $small-size;
     font-weight: normal;
 }
 
@@ -115,4 +118,8 @@ label {
 
 section, article, aside {
     display: block;
+}
+
+code {
+    font-family: $code-font-stack;
 }

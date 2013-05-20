@@ -6,11 +6,13 @@
  * @url https://github.com/tbredin/OnionKnight
  */
 
+// @todo customise your site colors
 // colors
-$grey-purple: #3e3d45;
-$blue: #0196d1;
-$heading-color: #0196d1;
-$link-color: #0196d1;
+$site-purple: #3e3d45;
+$site-blue: #0196d1;
+$heading-color: $site-blue;
+$sub-heading-color: $site-blue;
+$link-color: $site-purple;
 
 // responsive grid breakpoints
 $mobile:    $total-columns;
@@ -29,19 +31,23 @@ $page-width: 960px;
 $gutter-width: 1em;
 $grid-padding: $gutter-width;
 
-// footer
-$sticky-footer: 302px;
+// sticky footer (entirely optional - for use with compass sticky footer mixin)
+$sticky-footer: 300px;
 
-// font-sizes
-$h1-size: 1.8em;
-$h2-size: 1.25em;
-$h3-size: 1.1em;
-$h4-size: 1em;
-$p-size: 0.85em;
+// typography
+$h1-size: 32px;
+$h2-size: 24px;
+$h3-size: 21px;
+$h4-size: 18px;
+$h5-size: 16px;
+$h6-size: 14px;
+$p-size: 14px;
+$small-size: 12px;
+$heading-case: uppercase;
+$code-font-stack: "inconsolata", "Consolas", "droid-sans-mono", "Droid Sans Mono", "Monaco", "Lucida Console", monospace;
 
 // misc
 $border-radius: 0.4em;
-
 
 // neccessary for custom gradient mixins to work - sets start position of grdients globally
 $gradient-startpoint: top;
