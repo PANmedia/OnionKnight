@@ -11,9 +11,14 @@ body, html {
     padding: 0;
 }
 
+// ensures initial or successive headings will not be spaced too heavily apart
+%heading-group {
+    padding-top: 0;
+}
+
 h1, h2, h3, h4, h5, h6 {
     &:first-child {
-        padding-top: 0;
+        @extend %heading-group;
     }
 }
 
@@ -33,6 +38,10 @@ h1 {
     color: $heading-color;
     @extend %h1-style;
     @include rhythm(0, 1, 0.5, 0, $h1-size);
+
+    + h2, + h3, + h4, + h5, + h6 {
+        @extend %heading-group;
+    }
 }
 
 // h1 & h2 have their bare font information abstracted for use in other modules
@@ -46,23 +55,39 @@ h2 {
     color: $sub-heading-color;
     @extend %h2-style;
     @include rhythm(0, 1, 0.5, 0, $h2-size);
+
+    + h3, + h4, + h5, + h6 {
+        @extend %heading-group;
+    }
 }
 
 h3 {
     @include adjust-font-size-to($h3-size);
     color: $sub-heading-color;
     @include rhythm(0, 1, 0.5, 0, $h3-size);
+
+    + h4, + h5, + h6 {
+        @extend %heading-group;
+    }
 }
 
 h4 {
     @include adjust-font-size-to($h4-size);
     color: $sub-heading-color;
     @include rhythm(0, 1, 0.5, 0, $h4-size);
+
+    + h5, + h6 {
+        @extend %heading-group;
+    }
 }
 
 h5 {
     @include adjust-font-size-to($h5-size);
     @include rhythm(0, 1, 0.5, 0, $h5-size);
+    
+    + h6 {
+        @extend %heading-group;
+    }
 }
 
 h6 {
