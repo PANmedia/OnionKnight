@@ -57,12 +57,7 @@
 @mixin gradient-with-bgc($colors...) {
     @include background(linear-gradient($gradient-startpoint, $colors...));
     $length: length($colors);
-    $middle: (ceil($length / 2));
-    @if $middle < 1 {
-        $middle: 1;
-    }
-    background-color: nth($colors, $middle);
-    //background-color: mix($colors...);
+    background-color: mix(nth($colors, 1), nth($colors, $length));
 }
 
 
@@ -71,11 +66,15 @@
     $experimental-support-for-svg: true;
     @include background(linear-gradient($gradient-startpoint, $colors...));
     $length: length($colors);
-    $middle: (ceil($length / 2));
-    @if $middle < 1 {
-        $middle: 1;
-    }
-    background-color: nth($colors, $middle);
+    background-color: mix(nth($colors, 1), nth($colors, $length));
+}
+
+
+// directional gradient
+@mixin gradient-directional($startpoint, $colors...) {
+    @include background(linear-gradient($startpoint, $colors...));
+    $length: length($colors);
+    background-color: mix(nth($colors, 1), nth($colors, $length));
 }
 
 
