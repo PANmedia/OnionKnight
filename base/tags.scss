@@ -106,6 +106,10 @@ dd, p, li, td, th {
     @include adjust-font-size-to($p-size)
 }
 
+p {
+    @include rhythm(0, 0, 0.5, 0, $p-size);
+}
+
 a:hover { text-decoration: none; }
 
 hr {
