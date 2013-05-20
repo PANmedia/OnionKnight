@@ -19,6 +19,7 @@
     @return $result;
 }
 
+
 // Converts a px value to ems. Should only work in absolute em document context (root level)
 @function px-to-ems($value) {
     @if unit($value) == "px" {
@@ -27,6 +28,7 @@
     }
     @return $value;
 }
+
 
 // Converts an em value to px. Should only work in absolute em document context (root level)
 @function em-to-px($value) {
@@ -37,16 +39,19 @@
     @return $value;
 }
 
+
 // cross-browser rem units.
 @mixin rem($property, $value) {
     #{$property}: #{$value}rem;
     #{$property}: $value * $base-font-size;
 }
 
+
 // embosses box
 @mixin box-emboss($opacity, $opacity2){
     box-shadow: white($opacity) 0 1px 0, inset black($opacity2) 0 1px 0;
 }
+
 
 // Gradient with background color fallback for legacy browsers
 @mixin gradient-with-bgc($colors...) {
@@ -60,6 +65,7 @@
     //background-color: mix($colors...);
 }
 
+
 // Gradient with svg fallback for ie9
 @mixin gradient-with-svg($colors...) {
     $experimental-support-for-svg: true;
@@ -72,6 +78,7 @@
     background-color: nth($colors, $middle);
 }
 
+
 // resets lists
 %plain-list {
     list-style: none;
@@ -83,6 +90,7 @@
     }
 }
 
+
 // block item  - where text needs to be hidden for image replacement (usually)
 @mixin block-item($x, $y: $x) {
     @extend %block-properties;
@@ -90,12 +98,14 @@
     width: $x;
 }
 
+
 // block item helper
 %block-properties {
     overflow: hidden;
     height: 0;
     display: block;
 }
+
 
 // new clearfix hack
 @mixin clearfix {
@@ -142,6 +152,7 @@
     }
 }
 
+
 // For future support for blend modes. Can be tested in Chromium
 @mixin blend-mode($mode) {
     -webkit-blend-mode: $mode;
@@ -150,13 +161,15 @@
     blend-mode: $mode;
 }
 
+
 // code font
 %codeFont { font-family: "inconsolata", "droid-sans-mono", "Lucida Console", monospace!important; }
 
 
-// common white frame core
+// common padding 
 %standard-padding {
     padding: 10/16 * $grid-padding $grid-padding $grid-padding;
+    // (by default: 10/16 * 16 (base font size) = 10px top padding)
 }
 
 
@@ -170,6 +183,7 @@
 @function white($opacity){
     @return rgba(255, 255, 255, $opacity);
 }
+
 
 // multi-line text-overflow
 @mixin text-overflow($height, $color: #fff) {
@@ -188,7 +202,8 @@
     }
 }
 
-// helper for above
+
+// helper for above (emulates text overflow on multilines)
 %text-overflow {
     overflow: hidden;
 
@@ -218,6 +233,7 @@
         background-size: 100% 100%;  
     }   
 }
+
 
 // Sets border-box, as well as width, height, padding and border width, including legacy fallbacks
 @mixin legacy-border-box($width: auto, $height: auto, $padding: 0 0 0 0, $border-width: 0 0 0 0) {
@@ -270,16 +286,21 @@
     zoom: 1;
 }
 
+
+// hides on mobile
 %no-mobile {
     display: none;
     @include at-breakpoint($tablet) { display: inline; }
 }
 
+// hides on desktop
 %mobile-only {
     display: inline-block!important;
     @include at-breakpoint($tablet) { display: none!important; }
 }
 
+
+// vendor prefixes values of rules
 @mixin vendor($property, $value) {
     @each $vendor in webkit, moz, ms, o {
         #{$property}: -#{$vendor}-#{$value};
@@ -287,6 +308,8 @@
     #{$property}: #{$value};
 }
 
+
+// vendor prefixes selectors of rules
 @mixin vendor-property($property, $value) {
     @each $vendor in webkit, moz, ms, o {
         -#{$vendor}-#{$property}: #{$value};
