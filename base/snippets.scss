@@ -315,3 +315,12 @@
     }
     #{$property}: #{$value};
 }
+
+
+%border-radius {
+    @include border-radius($border-radius);
+}
+
+%no-border-radius {
+    @include border-radius(0);
+}
