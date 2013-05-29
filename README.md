@@ -157,9 +157,6 @@ Example HTML
         <?= css('/css/ie9.css') ?>
     <![endif]-->
 
-    <!--[if lte IE 8]>
-        <?= js('/js/html5shiv.js'); ?>
-    <![endif]-->
 
     <!--[if IE 8]>
         <?= css('/css/ie8.css') ?>
