@@ -162,7 +162,10 @@
 
 
 // code font
-%codeFont { font-family: "inconsolata", "droid-sans-mono", "Lucida Console", monospace!important; }
+%code-font { font-family: $code-font; }
+
+// heading font
+%heading-font { font-family: $heading-font; }
 
 
 // common padding 
