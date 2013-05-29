@@ -141,4 +141,30 @@ OnionKnight filestructure
         shame.scss (included last)
 
 
+Example HTML
+-------------------------
 
+    <!--[if !IE]> -->
+        <?= css('/css/screen-modern.css') ?>
+    <!-- <![endif]-->
+
+    <!--[if lte IE 8]>
+        <?= css('/css/screen-legacy.css') ?>
+    <![endif]-->
+
+    <!--[if gte IE 9]>
+        <?= css('/css/screen-modern.css') ?>
+        <?= css('/css/ie9.css') ?>
+    <![endif]-->
+
+    <!--[if lte IE 8]>
+        <?= js('/js/html5shiv.js'); ?>
+    <![endif]-->
+
+    <!--[if IE 8]>
+        <?= css('/css/ie8.css') ?>
+    <![endif]-->
+
+    <!--[if IE 7]>
+        <?= css('/css/ie7.css') ?>
+    <![endif]-->
