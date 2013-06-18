@@ -115,13 +115,15 @@ p {
 a:hover { text-decoration: none; }
 
 hr {
-    //draw top & bottom borders while retaining vertical rhythm
-    @include leading-border(1px, 0.5);
-    @include trailing-border(1px, 0.5);
+    //draw top & bottom borders 
     border-top-color: white(0.5);
     border-bottom-color: black(0.5);
     border-style: solid none;
     height: 0;
+    
+    //retain vertical rhythm by enabling the following styles. Will break some libraries if not scoped properly!
+    //@include leading-border(1px, 0.5);
+    //@include trailing-border(1px, 0.5);
 }
 
 ul {
