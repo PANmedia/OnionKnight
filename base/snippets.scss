@@ -121,6 +121,11 @@
     *zoom: 1;
 }
 
+// new clearfix hack - extend
+%clearfix {
+    @include clearfix;
+}
+
 
 // selection color
 // includes futureproofing for support of gradients (not surrently in spec)
@@ -327,3 +332,44 @@
 %no-border-radius {
     @include border-radius(0);
 }
+
+// For Susy: use when overriding the susy "span-columns" mixin.
+// unlike span-columns, this will only reapply the width and padding so that
+// output styles aren't bloated with uneccessay floats & display properties
+@mixin span-override(
+    $columns,
+    $context       : $total-columns,
+    $padding       : false,
+    $from          : $from-direction
+) {
+    $to       : opposite-position($from);
+    $pos      : split-columns-value($columns,position);
+    $cols     : split-columns-value($columns,columns);
+    $pad-from : relative-width(0 * $gutter-width, $context);
+    $pad-to   : relative-width(0 * $gutter-width, $context);
+
+    @if $padding != false {
+        $pad-from : nth($padding, 1);
+
+        @if length($padding) > 1 {
+            $pad-to: nth($padding, 2);
+        } @else {
+            $pad-to: $pad-from;
+        }
+
+        $pad-from : relative-width($pad-from, $context);
+        $pad-to   : relative-width($pad-to, $context);
+
+        padding-#{$from}: $pad-from;
+        padding-#{$to}: $pad-to;
+    }
+
+    width: columns($cols, $context) - if($border-box-sizing, 0, $pad-to + $pad-from);
+
+    @if ($pos == 'omega') {
+        @include omega;
+    } @else {
+        margin-#{$to}: gutter($context);
+    }
+}
+
