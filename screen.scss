@@ -1,29 +1,31 @@
 /**
  * Template that imports all other files. Add your custom files
- * Compiled down to css via screen-modern/legacy 
+ * Compiled down to css via screen-modern/legacy
  *
  * @author Thomas Bredin-Grey <thomas@panmedia.co.nz>
  * @author Hemi Ormsby <hemi@panmedia.co.nz>
  * @url https://github.com/tbredin/OnionKnight
  */
-@import "compass",
-        "susy",
-        "compass/reset";
+@import 'compass';
+@import 'susy';
 
-@import "base/variables",
-        "base/fonts",
-        "base/snippets",
-        "base/tags";
+@import 'base/variables';
+@import 'base/fonts';
+@import 'base/snippets';
+@import 'base/tags';
 
-@import "layout/grids",
-        "layout/layout-patterns";
+@import 'layout/grids';
+@import 'layout/layout-patterns';
+@import 'layout/left-sidebar';
+@import 'layout/right-sidebar';
 
-@import "modules/common-modules";
+@import 'modules/common-modules';
+@import 'modules/nav-main';
 
 // @todo Add your state imports
-// @import "states/";
+// @import 'states/';
 
 // @todo Add your theme imports
-// @import "theme/";
+// @import 'theme/';
 
-@import "shame";
+@import 'shame';
