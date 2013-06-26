@@ -1,0 +1,13 @@
+/**
+ * Standard content sidebar layouts.
+ *
+ * @author David Neilsen <david@panmedia.co.nz>
+ */
+
+.right-sidebar__content {
+    @include span-columns(7, 10);
+}
+
+.right-sidebar__sidebar {
+    @include span-columns(3 omega, 10);
+}
