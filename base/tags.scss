@@ -33,7 +33,6 @@ h1, h2, h3, h4 {
 %h1-style {
     @include adjust-font-size-to($h1-size);
     font-weight: bold;
-    text-transform: $heading-case;
 }
 
 h1 {
@@ -50,7 +49,6 @@ h1 {
 %h2-style {
     @include adjust-font-size-to($h2-size);
     font-weight: bold;
-    text-transform: $heading-case;
 }
 
 h2 {
@@ -86,7 +84,7 @@ h4 {
 h5 {
     @include adjust-font-size-to($h5-size);
     @include rhythm(0, 1, 0.5, 0, $h5-size);
-    
+
     + h6 {
         @extend %heading-group;
     }
@@ -99,9 +97,6 @@ h6 {
 
 dt {
     @include adjust-font-size-to($small-size);
-    text-transform: uppercase;
-    font-weight: normal;
-    color: #222;
 }
 
 dd, p, li, td, th {
@@ -115,12 +110,12 @@ p {
 a:hover { text-decoration: none; }
 
 hr {
-    //draw top & bottom borders 
+    //draw top & bottom borders
     border-top-color: white(0.5);
     border-bottom-color: black(0.5);
     border-style: solid none;
     height: 0;
-    
+
     //retain vertical rhythm by enabling the following styles. Will break some libraries if not scoped properly!
     //@include leading-border(1px, 0.5);
     //@include trailing-border(1px, 0.5);
@@ -129,7 +124,7 @@ hr {
 ul {
     list-style: disc outside;
     padding-left: $base-font-size;
-} 
+}
 
 ol {
     list-style: decimal outside;
