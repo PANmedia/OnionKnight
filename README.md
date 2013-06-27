@@ -67,8 +67,11 @@ One of the most common examples of a methodology in programming is Object-Orient
 
 We used BEM principles to create a set of front-end development techniques and tools, that allow us to build websites quickly and maintain them over a long time.
 
-Written as:
-.block-name__element-name_modifier-key_modifier-value
+Written as:    
+          
+    .block-name__element-name_modifier-key_modifier-value    
+             
+
 
 
 <strong>Block</strong>  
