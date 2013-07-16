@@ -45,10 +45,10 @@ $base-line-height: 24px;
 $round-to-nearest-half-line: true;
 @include establish-baseline;
 
-// page width & legacy grid
+// grid settings
 $col-num: 12;
-$page-width: 960px;
-$gutter-width: 1em;
+$column-width: 4.2em;   // default 4.2em is max col width for layouts to look nice on ipad 
+$gutter-width: 1em;     // default 1em is max gutter width for layouts to look nice on ipad 
 $grid-padding: $gutter-width;
 
 // sticky footer (entirely optional - for use with compass sticky footer mixin)
@@ -73,7 +73,7 @@ $code-font: "inconsolata", "Consolas", "droid-sans-mono", "Droid Sans Mono", "Mo
 // misc
 $border-radius: 0.4em;
 
-// neccessary for custom gradient mixins to work - sets start position of grdients globally
+// neccessary for custom gradient mixins to work - sets start position of gradients globally
 $gradient-startpoint: top;
 
 // opera traffic is very low - not supporting old vendor prefix
