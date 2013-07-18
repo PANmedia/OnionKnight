@@ -6,9 +6,8 @@ OnionKnight.deviceWidth = function() {
 };
 
 //checks that a device supports touch
-OnionKnight.isTouchDevice = function() {
-    return ('ontouchstart' in window) // works on most browsers 
-        || ('onmsgesturechange' in window); // works on ie10
+OnionKnight.isTouchDevice = ('ontouchstart' in window) // works on most browsers 
+        || navigator.msMaxTouchPoints; // works on ie10
 };
 
 jQuery(function($) {
@@ -115,7 +114,7 @@ jQuery(function($) {
         };
     });
 
-    if (!OnionKnight.isTouchDevice()) {
+    if (!OnionKnight.isTouchDevice) {
         nav_top_li.on('mouseenter', toggleSubNav);
         nav_top_li.on('mouseleave', toggleSubNav);
     };
