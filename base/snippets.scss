@@ -260,53 +260,6 @@
     }
 }
 
-
-// border box extend
-%border-box {
-    @include box-sizing(border-box);
-}
-
-
-// centers a grid wrapper
-%center-grid {
-    float: none;
-    display: block;
-    margin: 0 auto;
-    position: relative;
-}
-
-
-// removes border
-%no-border {
-    border-style: none;
-    border-width: 0;
-}
-
-
-// susy grid forced omega
-%force-omega { margin-right: 0!important; }
-
-
-// forces has Layout for legacy IEs
-%hasLayout {
-    position: relative;
-    zoom: 1;
-}
-
-
-// hides on mobile
-%no-mobile {
-    display: none;
-    @include at-breakpoint($tablet) { display: inline; }
-}
-
-// hides on desktop
-%mobile-only {
-    display: inline-block!important;
-    @include at-breakpoint($tablet) { display: none!important; }
-}
-
-
 // vendor prefixes values of rules
 @mixin vendor($property, $value) {
     @each $vendor in webkit, moz, ms, o {
@@ -322,15 +275,6 @@
         -#{$vendor}-#{$property}: #{$value};
     }
     #{$property}: #{$value};
-}
-
-
-%border-radius {
-    @include border-radius($border-radius);
-}
-
-%no-border-radius {
-    @include border-radius(0);
 }
 
 // For Susy: use when overriding the susy "span-columns" mixin.
@@ -371,5 +315,90 @@
     } @else {
         margin-#{$to}: gutter($context);
     }
+}
+
+
+//box shadow emboss top & bottom
+@mixin box-emboss($opacity, $opacity2){
+    box-shadow:white($opacity) 0 1px 0, inset black($opacity2) 0 1px 0;
+}
+
+
+//initialises pan picturefill helper css
+//this is required for responsive images to work (and can be included below)
+@mixin picture-init($classname: picture) {
+    .#{$classname} {
+        font-family: "0" !important;
+        @include at-breakpoint($medium) {
+            font-family: "#{no-unit($medium-width)}" !important;
+        }
+        @include at-breakpoint($large) {
+            font-family: "#{no-unit($large-width)}" !important;
+        }
+    } 
+}
+
+//@include picture-init;
+
+%border-radius {
+    @include border-radius($border-radius);
+}
+
+%no-border-radius {
+    @include border-radius(0);
+}
+
+%transition-all-smooth {
+    @include transition(all 0.5s ease);
+}
+
+%no-box-shadow {
+    @include box-shadow(none);
+}
+
+%border-box {
+    @include box-sizing(border-box);
+}
+
+%appearance-none {
+    @include appearance(none);
+}
+
+// centers a grid wrapper
+%center-grid {
+    float: none;
+    display: block;
+    margin: 0 auto;
+    position: relative;
+}
+
+
+// removes border
+%no-border {
+    border-width: 0;
+}
+
+
+// susy grid forced omega
+%force-omega { margin-right: 0!important; }
+
+
+// forces has Layout for legacy IEs
+%hasLayout {
+    position: relative;
+    zoom: 1;
+}
+
+
+// hides on mobile
+%no-mobile {
+    display: none;
+    @include at-breakpoint($tablet) { display: inline; }
+}
+
+// hides on desktop
+%mobile-only {
+    display: inline-block!important;
+    @include at-breakpoint($tablet) { display: none!important; }
 }
 

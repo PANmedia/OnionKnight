@@ -67,8 +67,11 @@ One of the most common examples of a methodology in programming is Object-Orient
 
 We used BEM principles to create a set of front-end development techniques and tools, that allow us to build websites quickly and maintain them over a long time.
 
-Written as:
-.block__element--modifier
+Written as:    
+          
+    .block-name__element-name_modifier-key_modifier-value    
+             
+
 
 
 <strong>Block</strong>  
@@ -80,7 +83,7 @@ An element is a part of a block that performs a certain function. Elements are c
 
 
 <strong>Modifier</strong>  
-To avoid developing another block that is only minimally different from an existing one, we can use a modifier.  Modifier is a property of a block or an element that alters its look or behavior. A modifier has a name and a value. Several modifiers can be used at once.
+To avoid developing another block that is only minimally different from an existing one, we can use a modifier. A Modifier is a property of a block or an element that alters its look or behavior. A modifier has a name and a value - note these should be semantic names and not directly regurgitating css properties, because the visual display of an element may change later on in development.
 
 
 OnionKnight filestructure
