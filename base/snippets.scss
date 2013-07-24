@@ -193,9 +193,19 @@
 
 
 // multi-line text-overflow
+// NOTE: usage needs to be very specific and is as follows:
+// First, wrap your text element in a div and apply this mixin to it. 
+// Tweak the height (in your editor - this won't work in dev tools) 
+// until the ellipsis appears, and be careful that the ellipsis 
+// doesn't show for content that only *just* fits. 
 @mixin text-overflow($height, $color: #fff) {
     @extend %text-overflow;
     height: $height;
+
+    > *:last-child {
+        padding-bottom: 0;
+        margin-bottom: 0;
+    }
 
     &:before {
         height: $height;
