@@ -3,7 +3,7 @@ OnionKnight
 
 SCSS Framework for BEM / SMACSS projects (and the bravest Lost Boy in all of Lordran)
 
-<strong>Dependancies:</strong>   
+**Dependencies:**
 Compass http://compass-style.org  
 Susy http://susy.oddbird.net/
 
@@ -24,37 +24,34 @@ There are five types of categories:
 
 
 
-<strong>Base rules</strong>   
+**Base rules**   
 are the defaults. They are almost exclusively single element selectors but it could include attribute selectors, pseudo-class selectors, child selectors or sibling selectors. Essentially, a base style says that wherever this element is on the page, it should look like this.  
 including: Resets, Variables, Tag Styles / Basic Typography, Non-site-specific Modules  
-<em>eg: reset.scss, variables.scss, tags.scss, global-modules.scss</em>
+*eg: reset.scss, variables.scss, tags.scss, global-modules.scss*
 
 
-<strong>Layout rules</strong>  
+**Layout rules**
 divide the page into sections. Layouts hold one or more modules together.  
 including: Grids, any common layout patterns  
-<em>eg: grids.scss, layout-patterns.scss</em>
+*eg: grids.scss, layout-patterns.scss*
 
 
-<strong>Modules</strong>   
+**Modules**
 are the reusable, modular parts of our design. They are the callouts, the sidebar sections, the product lists and so on. Modules sit inside Layout components. Modules can sometimes sit within other Modules, too. Each Module should be designed to exist as a standalone component.  
 including: Blocks & Elements - any visual characteristics needed to describe these (NOT layout - extend a layout pattern from above)  
-<em>eg: modules.scss</em>
+*eg: modules.scss*
  
  
-<strong>State rules</strong>   
+**State rules**
 are ways to describe how our modules or layouts will look when in a particular state. Is it hidden or expanded? Is it active or inactive? They are about describing how a module or layout looks on screens that are smaller or bigger. They are also about describing how a module might look in different views like the home page or the inside page. A state is something that augments and overrides all other styles.  
 including: Modifiers/overrides  
-<em>eg: button-states.scss, notification-states.scss</em>
+*eg: button-states.scss, notification-states.scss*
 
 
-<strong>Theme rules</strong>   
+**Theme rules**
 are similar to state rules in that they describe how modules or layouts *might* look. Most sites don’t require a layer of theming but it is good to be aware of it.  
 including: Overrides  
-<em>eg: xmas-theme.scss, mothers-day-theme.scss</em>
-
-
-
+*eg: xmas-theme.scss, mothers-day-theme.scss*
 
 
 BEM Naming Conventions
@@ -68,21 +65,19 @@ One of the most common examples of a methodology in programming is Object-Orient
 We used BEM principles to create a set of front-end development techniques and tools, that allow us to build websites quickly and maintain them over a long time.
 
 Written as:    
-          
+
+```CSS
     .block-name__element-name_modifier-key_modifier-value    
-             
+```
 
-
-
-<strong>Block</strong>  
+**Block**
 A block is an independent entity, a "building block" of an application. A block can be either simple or compound (containing other blocks).
 
-
-<strong>Element</strong>  
+**Element**
 An element is a part of a block that performs a certain function. Elements are context-dependent: they only make sense in the context of the block they belong to.
 
 
-<strong>Modifier</strong>  
+**Modifier**
 To avoid developing another block that is only minimally different from an existing one, we can use a modifier. A Modifier is a property of a block or an element that alters its look or behavior. A modifier has a name and a value - note these should be semantic names and not directly regurgitating css properties, because the visual display of an element may change later on in development.
 
 
@@ -147,6 +142,7 @@ OnionKnight filestructure
 Example HTML
 -------------------------
 
+```HTML
     <!--[if !IE]> -->
         <?= css('/css/screen-modern.css') ?>
     <!-- <![endif]-->
@@ -168,3 +164,4 @@ Example HTML
     <!--[if IE 7]>
         <?= css('/css/ie7.css') ?>
     <![endif]-->
+```
