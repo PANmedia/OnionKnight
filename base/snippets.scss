@@ -198,14 +198,14 @@
 // Tweak the height (in your editor - this won't work in dev tools) 
 // until the ellipsis appears, and be careful that the ellipsis 
 // doesn't show for content that only *just* fits. 
-@mixin text-overflow($height, $color: #fff) {
-    @extend %text-overflow;
-    height: $height;
-
-    > *:last-child {
-        padding-bottom: 0;
-        margin-bottom: 0;
+@mixin text-overflow($height, $color: #fff, $in-media: false) {
+    @if ($in-media == true) {
+        @include text-overflow-common;
+    } @else {
+        @extend %text-overflow;
     }
+    
+    height: $height;
 
     &:before {
         height: $height;
@@ -220,8 +220,8 @@
 }
 
 
-// helper for above (emulates text overflow on multilines)
-%text-overflow {
+// helpers for above (emulates text overflow on multilines)
+@mixin text-overflow-common {
     overflow: hidden;
 
     &:before {
@@ -234,6 +234,12 @@
         width: 100%;
         margin-left: -5px;
     }
+
+    > *:last-child {
+        padding-bottom: 0;
+        margin-bottom: 0;
+    }
+    
     &:after {
         content: "\02026";  
 
@@ -248,7 +254,11 @@
         padding-right: 5px;
         text-align: right;
         background-size: 100% 100%;  
-    }   
+    }
+}
+
+%text-overflow {
+    @include text-overflow-common;
 }
 
 
@@ -393,7 +403,7 @@
 %force-omega { margin-right: 0!important; }
 
 
-// forces has Layout for legacy IEs
+// forces hasLayout for legacy IEs
 %hasLayout {
     position: relative;
     zoom: 1;
@@ -403,12 +413,12 @@
 // hides on mobile
 %no-mobile {
     display: none;
-    @include at-breakpoint($tablet) { display: inline; }
+    @include at-breakpoint($medium) { display: inline; }
 }
 
 // hides on desktop
 %mobile-only {
-    display: inline-block!important;
-    @include at-breakpoint($tablet) { display: none!important; }
+    display: inline-block;
+    @include at-breakpoint($medium) { display: none; }
 }
 
