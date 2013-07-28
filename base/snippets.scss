@@ -42,8 +42,8 @@
 
 // cross-browser rem units.
 @mixin rem($property, $value) {
-    #{$property}: #{$value}rem;
     #{$property}: $value * $base-font-size;
+    #{$property}: #{$value}rem;
 }
 
 
