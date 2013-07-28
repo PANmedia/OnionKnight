@@ -198,11 +198,11 @@
 // Tweak the height (in your editor - this won't work in dev tools) 
 // until the ellipsis appears, and be careful that the ellipsis 
 // doesn't show for content that only *just* fits. 
-@mixin text-overflow($height, $color: #fff, $in-media: false) {
+@mixin block-text-overflow($height, $color: #fff, $in-media: false) {
     @if ($in-media == true) {
         @include text-overflow-common;
     } @else {
-        @extend %text-overflow;
+        @extend %block-text-overflow;
     }
     
     height: $height;
@@ -221,7 +221,8 @@
 
 
 // helpers for above (emulates text overflow on multilines)
-@mixin text-overflow-common {
+// shouldn't need to use these directly
+@mixin block-text-overflow-common {
     overflow: hidden;
 
     &:before {
@@ -257,8 +258,16 @@
     }
 }
 
+%block-text-overflow {
+    @include block-text-overflow-common;
+}
+
+
+// single-line text overflow
 %text-overflow {
-    @include text-overflow-common;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 
