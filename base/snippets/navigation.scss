@@ -8,10 +8,10 @@
  * @description: A set of mixins that automate navigation styles based on Mammoth navigation builder
  *
  * Dependancies:
+ *   Compass & Susy
  *   @extend %plain-list;
  *   @extend %heading-font;
- *   @extend %truncate-text;
- *   @include animate-this();
+ *   @extend %text-overflow;
  *
  *  3X z-index variables for navigation
  */
@@ -41,14 +41,14 @@
     .nav__link {            //Select all navigation anchors (a) and give them similar styling
         display: block;
         padding: $nav_padding-x $nav_padding-y;  //fill out area around link
-        @extend %truncate-text; //truncate the links
+        @extend %text-overflow; //truncate the links
     }
     //DROPDOWN STYLES
     .nav__menu--depth-2 {   //level-2 unordered list (ul) element
         position: absolute; //position so subnav does not interfere with the document flow and sits over top.
         left:-9999px;       //Hide off-screen when not needed (this is more accessible than display:none;)
         opacity: 0;         //Hide the subnavigation for hover state animation
-        @include animate-this(opacity, 0.5s); //Animate the dropdown
+        @include transition(opacity 0.5s linear); //Animate the dropdown
         z-index: $nav__z-index_top;       //set z-index higher than banner area
 
         > .nav__item > .nav__link { //Select dropdown (a) anchor elements.
@@ -158,7 +158,7 @@
     @include at-breakpoint($medium) {
         .nav__menu--depth-1 > .nav__item--parent:hover:after {
             margin-top:-7px;
-            @include animate-this(margin-top, 0.1s);
+            @include transition(margin-top 0.1s linear);
         }
     }
 }

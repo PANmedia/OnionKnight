@@ -451,17 +451,13 @@
     margin-right: auto;
 }
 
+
 // cross browser rem font sizes
-@mixin font-size($size: 12 ){
+@mixin rem-font-size($size: 12 ){
     font-size: $size + px; //fallback for old browsers
     font-size: ($size / no-unit($base-font-size)) + rem;
 }
 
-//animation mixin for property and duration (used in navigation.scss)
-@mixin animate-this($animation-property, $animation-duration) {
-    @include transition-property($animation-property);
-    @include transition-duration($animation-duration);
-}
 
 //text shadow extends
 %dark-text-shadow { @include text-shadow(rgba(0, 0, 0, 0.3) -1px -1px 0); }
