@@ -122,13 +122,13 @@
         font-size: $font-size;    //select font-size
 
         //BORDER RADIUS
-        @if $border-radius !== false {
+        @if $border-radius != false {
             @include border-radius($border-radius); //add border radius
         }
     }
 
     //DIVIDER
-    @if $divider !== false {
+    @if $divider != false {
         @include at-breakpoint($medium) {
             .nav__menu--depth-1 > .nav__item > .nav__link { //Select level-1 direct-child (a) anchor elements.
                 border-right: 1px solid $divider; //add border to visually divide the links
