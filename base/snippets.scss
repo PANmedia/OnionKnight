@@ -459,6 +459,7 @@
     font-size: ($size / no-unit($base-font-size)) + rem;
 }
 
+//animation mixin for property and duration (used in navigation.scss)
 @mixin animate-this($animation-property, $animation-duration) {
     @include transition-property($animation-property);
     @include transition-duration($animation-duration);
