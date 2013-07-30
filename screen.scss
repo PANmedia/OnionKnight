@@ -12,8 +12,7 @@
 
 @import "base/variables",
         "base/fonts",
-        "base/snippets",
-        "base/navigation",
+        "base/snippets/*",
         "base/tags";
 
 @import "layout/grids",
