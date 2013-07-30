@@ -263,14 +263,6 @@
 }
 
 
-// single-line text overflow
-%text-overflow {
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-}
-
-
 // Sets border-box, as well as width, height, padding and border width, including legacy fallbacks
 @mixin legacy-border-box($width: auto, $height: auto, $padding: 0 0 0 0, $border-width: 0 0 0 0) {
     @extend %border-box;
