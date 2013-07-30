@@ -23,7 +23,7 @@
 //------------------------------------//
 //  LAYOUT
 //------------------------------------//
- @mixin nav_layout($nav_padding-x, $nav_padding-y, $sub-nav_padding-x: $nav_padding-x, $sub-nav_padding-y: $nav_padding-y) {
+ @mixin nav_layout($nav_padding-x, $nav_padding-y: $nav_padding-x, $sub-nav_padding-x: $nav_padding-x, $sub-nav_padding-y: $nav_padding-y) {
     .nav__menu {            // all navigation unordered list (ul) elements.
         @extend %plain-list; //remove the generic list styles (this is the ul tag).
     }
@@ -161,7 +161,7 @@
 //NAVIGATION HYPERCOMBO MIXIN
 @mixin navigation() {
     //Basic Horizontal Navigation Styling (including padding and container width)
-    @include nav_layout();
+    @include nav_layout(0.5em);
     //  key: @include nav-layout(nav_padding-x, nav_padding-y, subnav_padding-x, subnav_padding-y);
 
     @include nav_colors();
