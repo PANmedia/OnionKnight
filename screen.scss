@@ -1,6 +1,6 @@
 /**
  * Template that imports all other files. Add your custom files
- * Compiled down to css via screen-modern/legacy 
+ * Compiled down to css via screen-modern/legacy
  *
  * @author Thomas Bredin-Grey <thomas@panmedia.co.nz>
  * @author Hemi Ormsby <hemi@panmedia.co.nz>
@@ -13,6 +13,7 @@
 @import "base/variables",
         "base/fonts",
         "base/snippets",
+        "base/navigation",
         "base/tags";
 
 @import "layout/grids",

@@ -1,0 +1,182 @@
+/**
+ * Custom Navigation
+ *
+ * @author Thomas Bredin-Grey <thomas@panmedia.co.nz>
+ * @author Hemi Ormsby <hemi@panmedia.co.nz>
+ * @url https://github.com/tbredin/OnionKnight
+ */
+
+//====================================//
+//  CUSTOM NAVIGATION MIXIN
+//====================================//
+//Requirements:
+//  @extend %plain-list;
+//  @extend %heading-font;
+//  @extend %truncate-text;
+//  @include animate-this();
+//
+//3X z-index variables for navigation
+    $nav__z-index_top: 250; //subnavigation layer
+    $nav__z-index_middle: 210;  //subnav indicator
+    $nav__z-index_bottom: 200;  //level-1 nav items
+//
+//------------------------------------//
+//  LAYOUT
+//------------------------------------//
+ @mixin nav_layout($nav_padding-x, $nav_padding-y, $sub-nav_padding-x: $nav_padding-x, $sub-nav_padding-y: $nav_padding-y) {
+    .nav__menu {            // all navigation unordered list (ul) elements.
+        @extend %plain-list; //remove the generic list styles (this is the ul tag).
+    }
+    .nav__menu--depth-1 > .nav__item { //Select level-1 unordered list direct-child (li) elements.
+        position: relative; //Required to set dropdowns to position absolute (while still relative to their parent).
+        z-index: $nav__z-index_bottom;       //set z-index higher than banner area
+    }
+    .nav__link {            //Select all navigation anchors (a) and give them similar styling
+        display: block;
+        padding: $nav_padding-x $nav_padding-y;  //fill out area around link
+        @extend %truncate-text; //truncate the links
+    }
+    //DROPDOWN STYLES
+    .nav__menu--depth-2 {   //level-2 unordered list (ul) element
+        position: absolute; //position so subnav does not interfere with the document flow and sits over top.
+        left:-9999px;       //Hide off-screen when not needed (this is more accessible than display:none;)
+        opacity: 0;         //Hide the subnavigation for hover state animation
+        @include animate-this(opacity, 0.5s); //Animate the dropdown
+        z-index: $nav__z-index_top;       //set z-index higher than banner area
+    }
+    .nav__menu--depth-2 > .nav__item > .nav__link { //Select dropdown (a) anchor elements.
+        white-space:nowrap; //Stop text wrapping and creating multi-line dropdown items
+        padding: $sub-nav_padding-x $sub-nav_padding-y;  //overrite subnavigation link (a) padding to be slightly greater.
+    }
+    //DROPDOWN (on-hover)
+    .nav__menu--depth-1 > .nav__item:hover .nav__menu--depth-2 { //display the dropdown (level-2) on hover
+        position: relative; //Pushes down the other nav links when dropdown is open
+        left: 0;            //Bring back on-screen when needed
+        opacity: 1;         //Show the subnavigation once hovered
+    }
+    //BREAKPOINTS
+    @include at-breakpoint($medium) {
+        .nav__menu--depth-1 > .nav__item { //Select level-1 unordered list direct-child (li) elements.
+            float: left;     //stacks the links in a horizontal line.
+        }
+        .nav__menu--depth-2 {   //level-2 unordered list (ul) element
+            padding-top: 10px;  //set some space between the subnav and main navigation
+        }
+        .nav__menu--depth-1 > .nav__item:hover .nav__menu--depth-2 { //display the dropdown (level-2) on hover
+            position: absolute;
+        }
+    }
+ }
+//------------------------------------//
+//  NAV COLORS
+//------------------------------------//
+@mixin nav_colors($bg-color:transparent, $text-color:$link-color, $bg-hover-color:transparent, $text-hover-color:$link-color, $active-bg-color:transparent, $active-text-color:$link-color) {
+    .nav__link {            //Select all navigation anchors (a) and give them similar styling
+        background-color: $bg-color; //add background color for links
+        color: $text-color;  //select text color
+    }
+    .nav__link--active {
+        background-color: $active-bg-color;
+        color: $active-text-color;  //Set active page color on links
+    }
+    .nav__item--parent:after {    //color for the default dropdown indicator arrow
+        color: $text-color;  //select text color
+        background-color: transparent; //invisible background-color on this
+    }
+    //DROPDOWN STYLES
+    .nav__menu--depth-1 > .nav__item:hover .nav__link {
+        background-color: $bg-hover-color;
+        color: $text-hover-color;  //persistant hover color on parent link of dropdown (and its children)
+    }
+    .nav__menu--depth-1 > .nav__item--parent:hover:after {
+        color: $text-hover-color;
+    }
+ }
+ //SUBNAV MIXIN
+ @mixin sub-nav_colors($bg-color: transparent, $text-color: $link-color, $bg-hover-color: transparent, $text-hover-color: $link-color) {
+    .nav__menu--depth-1 > .nav__item:hover .nav__menu--depth-2 > .nav__item > .nav__link {
+        background-color: $bg-color;
+        color: $text-color;
+    }
+    .nav__menu--depth-1 > .nav__item:hover .nav__menu--depth-2 > .nav__item > .nav__link:hover {
+        background-color: $bg-hover-color;
+        color: $text-hover-color;  //specify explicit hover states for subnavigation children
+    }
+ }
+ //------------------------------------//
+//  NAV STYLES
+//------------------------------------//
+@mixin nav_styles($font-size: $p-size, $text-transform: none, $border-radius: false, $divider: false ) {
+    //TEXT STYLES
+    .nav__link {            //Select all navigation anchors (a) and give them similar styling
+        @extend %heading-font; //use heading text (specified in variables.scss)
+        text-decoration: none; //remove the underline text decoration
+        text-transform: $text-transform; //convert all letters to uppercase
+        font-size: $font-size;    //select font-size
+    }
+    //BORDER RADIUS
+    @if $border-radius == false {
+        //do nothing
+    } @else {
+        .nav__link {            //Select all navigation anchors (a) and give them similar styling
+            @include border-radius($border-radius); //add border radius
+        }
+    }
+    //DIVIDER
+    @if $divider == false {
+        //do nothing
+    } @else {
+        @include at-breakpoint($medium) {
+            .nav__menu--depth-1 > .nav__item > .nav__link { //Select level-1 direct-child (a) anchor elements.
+                border-right: 1px solid $divider; //add border to visually divide the links
+            }
+            .nav__menu--depth-1 > .nav__item--last .nav__link { //select the last link of level-1 navigation
+                border: none;    //remove the border on the last navigation element
+            }
+        }
+    }
+}
+//DROPDOWN INDICATOR
+@mixin dropdown-indicator($image: false, $height: 10px, $width: 10px) {
+    .nav__item--parent:after {
+        @if $image == false { //if there is no specified image, use the arrow
+        content: "\25BE";   //content code for arrow
+        } @else {           //if there is an image, it can be specified in here
+            content: "";    //reset the content:after
+            background-image: url($image);
+        }
+        position: absolute; //ensures arrow does not move content
+        width: $width;
+        height: $height;
+        left: 50%;          //center its container
+        margin: $height*-1 0 0 ($width/2)*-1; //calculate and center, based off width.
+        z-index: $nav__z-index_middle;       //sit this underneath level-2 subnavigation
+    }
+    @include at-breakpoint($medium) {
+        .nav__menu--depth-1 > .nav__item--parent:hover:after {
+            margin-top:-7px;
+            @include animate-this(margin-top, 0.1s);
+        }
+    }
+}
+//NAVIGATION HYPERCOMBO MIXIN
+@mixin navigation() {
+    //Basic Horizontal Navigation Styling (including padding and container width)
+    @include nav_layout(5px, 15px, 10px, 15px);
+    //  key: @include nav-layout(nav_padding-x, nav_padding-y, subnav_padding-x, subnav_padding-y);
+
+    @include nav_colors(transparent, $text-grey, transparent, $light-orange, transparent, $site-blue);
+    //  key/default: @include nav_colors($bg-color, $text-color, $bg-hover-color, $text-hover-color, $active-bg-color, $active-text-color)
+    @include sub-nav_colors(#F5F5F5, $text-grey, #FFFFFF, $light-orange);
+    // key/default: @include sub-nav_colors($bg-color:transparent, $text-color:$link-color, $bg-hover-color:transparent, $text-hover-color:$link-color)
+
+    //For adding things such as capitalization, borders, rounded-corners
+    @include nav_styles(13px, uppercase, false, $site-grey);
+    //  key/defaults: @include nav-styles($font-size: $p-size, $text-transform: none, $border-radius: false, $divider: false )
+
+    //Adds Subnavigation Indicator to menu items with a subnavigation
+    @include dropdown-indicator();
+    //  key: @include dropdown-indicator("image_url", height, width);
+    //  default: 10px x 10px arrow. @include dropdown-indicator(false, 10px, 10px);
+    //  custom: @include dropdown-indicator("../images/arrow.jpg", 20px, 10px);
+}

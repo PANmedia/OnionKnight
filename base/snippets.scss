@@ -173,7 +173,7 @@
 %heading-font { font-family: $heading-font; }
 
 
-// common padding 
+// common padding
 %standard-padding {
     padding: 10/16 * $grid-padding $grid-padding $grid-padding;
     // (by default: 10/16 * 16 (base font size) = 10px top padding)
@@ -194,17 +194,17 @@
 
 // multi-line text-overflow
 // NOTE: usage needs to be very specific and is as follows:
-// First, wrap your text element in a div and apply this mixin to it. 
-// Tweak the height (in your editor - this won't work in dev tools) 
-// until the ellipsis appears, and be careful that the ellipsis 
-// doesn't show for content that only *just* fits. 
+// First, wrap your text element in a div and apply this mixin to it.
+// Tweak the height (in your editor - this won't work in dev tools)
+// until the ellipsis appears, and be careful that the ellipsis
+// doesn't show for content that only *just* fits.
 @mixin multiline-text-overflow($height, $color: #fff, $in-media: false) {
     @if ($in-media == true) {
         @include text-overflow-common;
     } @else {
         @extend %multiline-text-overflow;
     }
-    
+
     height: $height;
 
     &:before {
@@ -228,7 +228,7 @@
     &:before {
         content:"";
         float: left;
-        width: 5px; 
+        width: 5px;
     }
      > *:first-child {
         float: right;
@@ -240,21 +240,21 @@
         padding-bottom: 0;
         margin-bottom: 0;
     }
-    
+
     &:after {
-        content: "\02026";  
+        content: "\02026";
 
         @include box-sizing(content-box);
 
         float: right;
         position: relative;
-        top: -25px; 
-        left: 100%; 
-        width: 3em; 
+        top: -25px;
+        left: 100%;
+        width: 3em;
         margin-left: -3em;
         padding-right: 5px;
         text-align: right;
-        background-size: 100% 100%;  
+        background-size: 100% 100%;
     }
 }
 
@@ -364,7 +364,7 @@
         @include at-breakpoint($large) {
             font-family: "#{no-unit($large-width)}" !important;
         }
-    } 
+    }
 }
 
 //@include picture-init;
@@ -453,8 +453,17 @@
     margin-right: auto;
 }
 
-// cross browser rem font sizes 
+// cross browser rem font sizes
 @mixin font-size($size: 12 ){
     font-size: $size + px; //fallback for old browsers
     font-size: ($size / no-unit($base-font-size)) + rem;
 }
+
+@mixin animate-this($animation-property, $animation-duration) {
+    @include transition-property($animation-property);
+    @include transition-duration($animation-duration);
+}
+
+//text shadow extends
+%dark-text-shadow { @include text-shadow(rgba(0, 0, 0, 0.3) -1px -1px 0); }
+%light-text-shadow { @include text-shadow(rgba(255, 255, 255, 0.0) -1px -1px 0); }
