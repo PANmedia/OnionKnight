@@ -200,7 +200,7 @@
 // doesn't show for content that only *just* fits.
 @mixin multiline-text-overflow($height, $color: #fff, $in-media: false) {
     @if ($in-media == true) {
-        @include text-overflow-common;
+        @include multiline-text-overflow-common;
     } @else {
         @extend %multiline-text-overflow;
     }
