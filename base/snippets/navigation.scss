@@ -161,16 +161,16 @@
 //NAVIGATION HYPERCOMBO MIXIN
 @mixin navigation() {
     //Basic Horizontal Navigation Styling (including padding and container width)
-    @include nav_layout(5px, 15px, 10px, 15px);
+    @include nav_layout();
     //  key: @include nav-layout(nav_padding-x, nav_padding-y, subnav_padding-x, subnav_padding-y);
 
-    @include nav_colors(transparent, $text-grey, transparent, $light-orange, transparent, $site-blue);
+    @include nav_colors();
     //  key/default: @include nav_colors($bg-color, $text-color, $bg-hover-color, $text-hover-color, $active-bg-color, $active-text-color)
-    @include sub-nav_colors(#F5F5F5, $text-grey, #FFFFFF, $light-orange);
+    @include sub-nav_colors();
     // key/default: @include sub-nav_colors($bg-color:transparent, $text-color:$link-color, $bg-hover-color:transparent, $text-hover-color:$link-color)
 
     //For adding things such as capitalization, borders, rounded-corners
-    @include nav_styles(13px, uppercase, false, $site-grey);
+    @include nav_styles();
     //  key/defaults: @include nav-styles($font-size: $p-size, $text-transform: none, $border-radius: false, $divider: false )
 
     //Adds Subnavigation Indicator to menu items with a subnavigation
