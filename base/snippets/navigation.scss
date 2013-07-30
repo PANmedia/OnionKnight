@@ -4,26 +4,26 @@
  * @author Thomas Bredin-Grey <thomas@panmedia.co.nz>
  * @author Hemi Ormsby <hemi@panmedia.co.nz>
  * @url https://github.com/tbredin/OnionKnight
+ *
+ * @description: A set of mixins that automate navigation styles based on Mammoth navigation builder
+ *
+ * Dependancies:
+ *   @extend %plain-list;
+ *   @extend %heading-font;
+ *   @extend %truncate-text;
+ *   @include animate-this();
+ *
+ *  3X z-index variables for navigation
  */
-
-//====================================//
-//  CUSTOM NAVIGATION MIXIN
-//====================================//
-//Requirements:
-//  @extend %plain-list;
-//  @extend %heading-font;
-//  @extend %truncate-text;
-//  @include animate-this();
-//
-//3X z-index variables for navigation
     $nav__z-index_top: 250; //subnavigation layer
     $nav__z-index_middle: 210;  //subnav indicator
     $nav__z-index_bottom: 200;  //level-1 nav items
-//
-//------------------------------------//
-//  LAYOUT
-//------------------------------------//
- @mixin nav_layout($nav_padding-x, $nav_padding-y: $nav_padding-x, $sub-nav_padding-x: $nav_padding-x, $sub-nav_padding-y: $nav_padding-y) {
+/**
+ * ------------------------------------//
+ *   LAYOUT
+ * ------------------------------------//
+ */
+@mixin nav_layout($nav_padding-x, $nav_padding-y: $nav_padding-x, $sub-nav_padding-x: $nav_padding-x, $sub-nav_padding-y: $nav_padding-y) {
     .nav__menu {            // all navigation unordered list (ul) elements.
         @extend %plain-list; //remove the generic list styles (this is the ul tag).
     }
@@ -70,9 +70,11 @@
         }
     }
  }
-//------------------------------------//
-//  NAV COLORS
-//------------------------------------//
+/**
+ * ------------------------------------//
+ *   NAV COLORS
+ * ------------------------------------//
+ */
 @mixin nav_colors($bg-color:transparent, $text-color:$link-color, $bg-hover-color:transparent, $text-hover-color:$link-color, $active-bg-color:transparent, $active-text-color:$link-color) {
     .nav__link {            //Select all navigation anchors (a) and give them similar styling
         background-color: $bg-color; //add background color for links
@@ -106,9 +108,11 @@
         color: $text-hover-color;  //specify explicit hover states for subnavigation children
     }
  }
- //------------------------------------//
-//  NAV STYLES
-//------------------------------------//
+/**
+ * ------------------------------------//
+ *   NAV STYLES
+ * ------------------------------------//
+ */
 @mixin nav_styles($font-size: $p-size, $text-transform: none, $border-radius: false, $divider: false ) {
     //TEXT STYLES
     .nav__link {            //Select all navigation anchors (a) and give them similar styling
