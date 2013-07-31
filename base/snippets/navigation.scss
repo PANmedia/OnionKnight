@@ -26,6 +26,7 @@
 @mixin nav_layout($nav_padding-x, $nav_padding-y: $nav_padding-x, $sub-nav_padding-x: $nav_padding-x, $sub-nav_padding-y: $nav_padding-y) {
     .nav__menu {            // all navigation unordered list (ul) elements.
         @extend %plain-list; //remove the generic list styles (this is the ul tag).
+        font-size: 1em; //reset font size
     }
     .nav__menu--depth-1 > .nav__item { //Select level-1 unordered list direct-child (li) elements.
         position: relative; //Required to set dropdowns to position absolute (while still relative to their parent).
