@@ -154,11 +154,11 @@
         left: 50%;          //center its container
         margin: $height*-1 0 0 ($width/2)*-1; //calculate and center, based off width.
         z-index: $nav__z-index_middle;       //sit this underneath level-2 subnavigation
+        @include transition(margin-top 0.1s linear);
     }
     @include at-breakpoint($medium) {
         .nav__menu--depth-1 > .nav__item--parent:hover:after {
             margin-top:-7px;
-            @include transition(margin-top 0.1s linear);
         }
     }
 }
