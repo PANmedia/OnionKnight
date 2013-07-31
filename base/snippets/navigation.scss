@@ -152,12 +152,13 @@
             content: "";    //reset the content:after
             background-image: url($image);
         }
+        pointer-events: none;
         position: absolute; //ensures arrow does not move content
         width: $width;
         height: $height;
         left: 50%;          //center its container
         margin: $height*-1 0 0 ($width/2)*-1; //calculate and center, based off width.
-        z-index: $nav__z-index_middle;       //sit this underneath level-2 subnavigation
+        z-index: $nav__z-index_middle;       //sit this above level-2 subnavigation
         @include transition(margin-top 0.1s linear);
     }
     @include at-breakpoint($medium) {
@@ -187,3 +188,17 @@
     //  default: 10px x 10px arrow. @include dropdown-indicator(false, 10px, 10px);
     //  custom: @include dropdown-indicator("../images/arrow.jpg", 20px, 10px);
 }
+
+
+// @TODO OnionKnight options for the following:
+// - changing divider color on hover/active?
+// - seperate divider color for subnavs
+// - arrow options for 3rd level menus
+// - Padded/bordered sub menu (1st level)?
+// - 2nd level dropdown colors *might* be too specific (they could autofill all futher 3+ level sub menus)
+// - most units need to be in ems
+// - dropdown indicators don't work very well when position is based on margins - should be top value so it works well on mobile too
+// - dropdown animations only should be applied once we reach tablet dropdown
+// - position relative on all nav__item's
+// - dropdown links don't remioan hovered when hovering 3rd level+ menu
+
