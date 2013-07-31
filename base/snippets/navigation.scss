@@ -36,6 +36,7 @@
             position: relative; //Pushes down the other nav links when dropdown is open
             left: 0;            //Bring back on-screen when needed
             opacity: 1;         //Show the subnavigation once hovered
+            @include transition(opacity 0.5s linear); //Animate the dropdown
         }
     }
     .nav__link {            //Select all navigation anchors (a) and give them similar styling
@@ -48,7 +49,7 @@
         position: absolute; //position so subnav does not interfere with the document flow and sits over top.
         left:-9999px;       //Hide off-screen when not needed (this is more accessible than display:none;)
         opacity: 0;         //Hide the subnavigation for hover state animation
-        @include transition(opacity 0.5s linear); //Animate the dropdown
+        @include transition(opacity 0.5s linear 0.5s); //Animate the dropdown
         z-index: $nav__z-index_top;       //set z-index higher than banner area
 
         > .nav__item > .nav__link { //Select dropdown (a) anchor elements.
