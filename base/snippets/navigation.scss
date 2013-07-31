@@ -158,7 +158,7 @@
         height: $height;
         left: 50%;          //center its container
         margin: $height*-1 0 0 ($width/2)*-1; //calculate and center, based off width.
-        z-index: $nav__z-index_middle;       //sit this above level-2 subnavigation
+        z-index: $nav__z-index_top;       //sit this above level-2 subnavigation
         @include transition(margin-top 0.1s linear);
     }
     @include at-breakpoint($medium) {
