@@ -462,3 +462,10 @@
 //text shadow extends
 %dark-text-shadow { @include text-shadow(rgba(0, 0, 0, 0.3) -1px -1px 0); }
 %light-text-shadow { @include text-shadow(rgba(255, 255, 255, 0.0) -1px -1px 0); }
+
+
+// webkit fixes for the rendering mode on animated text
+@mixin fix-webkit-font-smoothing {
+    -webkit-transform: translateZ(0px);             // forces hardware accelleration, respects -webkit-font-smoothing
+    -webkit-font-smoothing: subpixel-antialiased;   // the preferred anti-aliasing method
+}
