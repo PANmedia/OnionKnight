@@ -466,6 +466,6 @@
 
 // webkit fixes for the rendering mode on animated text
 @mixin fix-webkit-font-smoothing {
-    -webkit-transform: translateZ(0px);             // forces hardware accelleration, respects -webkit-font-smoothing
+    -webkit-transform: translateZ(0px);             // forces hardware accelleration, thus respecting -webkit-font-smoothing
     -webkit-font-smoothing: subpixel-antialiased;   // the preferred anti-aliasing method
 }
