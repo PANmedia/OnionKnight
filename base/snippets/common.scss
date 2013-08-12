@@ -205,17 +205,23 @@
         @extend %multiline-text-overflow;
     }
 
-    height: $height;
-
-    &:before {
-        height: $height;
-    }
+    @include multiline-text-overflow-height($height);
 
     $rgba: rgba($color, 1);
     $rgb0: transparentize($rgba, 1);
 
     &:after {
         @include background(linear-gradient(left top, $rgb0, $rgba, $rgba));
+    }
+}
+
+
+//resets the height of the overflowed element - for less bloated output with media queries
+@mixin multiline-text-overflow-height($height) {
+    height: $height;
+
+    &:before {
+        height: $height;
     }
 }
 
