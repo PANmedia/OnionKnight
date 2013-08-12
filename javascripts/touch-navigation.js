@@ -6,13 +6,13 @@ OnionKnight.deviceWidth = function() {
 };
 
 //checks that a device supports touch
-OnionKnight.isTouchDevice = ('ontouchstart' in window) // works on most browsers 
+OnionKnight.isTouchDevice = ('ontouchstart' in window) // works on most browsers
         || navigator.msMaxTouchPoints; // works on ie10
 };
 
 jQuery(function($) {
     var width_tablet = 44;
-    
+
     //nav top level links
     var nav_top_li = $('.nav__menu--depth-1 > .nav__item--parent');
 
@@ -27,7 +27,7 @@ jQuery(function($) {
         };
         $('.nav__item--parent').removeClass('nav__item--open');
     };
-    
+
     var openMobileNav = function(e) {
         nav_toggle.addClass("nav__toggle--open");
         nav.slideDown(300);
@@ -72,7 +72,7 @@ jQuery(function($) {
     //close
     nav_toggle.on("mouseleave", checkMobileNav);
     nav.on("mouseleave", checkMobileNav);
-    
+
     //mobile subnav toggle
     var toggleSubNav = function() {
         var target = $(this);
@@ -106,7 +106,7 @@ jQuery(function($) {
             nav_top_li.removeClass('nav__item--open');
             //keep current dropdown open ... could we write this better by combining this with the above line?
             $(e.target).closest('.nav__item--parent').addClass('nav__item--open');
-            
+
             //close search unless it is being touched
             if (!$(e.target).closest('.search-open').length) {
                 $('.search-open').removeClass('search-open');
