@@ -29,6 +29,7 @@
     }
     .nav__item {
         font-size: 1em; //reset font size
+        position: relative;
     }
     .nav__menu--depth-1 > .nav__item { //Select level-1 unordered list direct-child (li) elements.
         position: relative; //Required to set dropdowns to position absolute (while still relative to their parent).
@@ -55,11 +56,21 @@
         @include transition(opacity 0.25s linear, left 0s linear 0.25s); //Animate the dropdown
         z-index: $nav__z-index_top;       //set z-index higher than banner area
 
+        // webkit fixes for the rendering mode on animated text
+        -webkit-transform: translateZ(0px);             // forces hardware accelleration, respects -webkit-font-smoothing
+        -webkit-font-smoothing: subpixel-antialiased;   // the preferred anti-aliasing method
+
         > .nav__item > .nav__link { //Select dropdown (a) anchor elements.
             white-space:nowrap; //Stop text wrapping and creating multi-line dropdown items
             padding: $sub-nav_padding-x $sub-nav_padding-y;  //overrite subnavigation link (a) padding to be slightly greater.
         }
     }
+
+    //dropdown position
+    .nav__item--parent:after {
+        top: 2.25 * $nav_padding-y;
+    }
+
     //BREAKPOINTS
     @include at-breakpoint($medium) {
         .nav__menu--depth-1 > .nav__item { //Select level-1 unordered list direct-child (li) elements.
@@ -69,9 +80,6 @@
                 position: absolute;
             }
         }
-        .nav__menu--depth-2 {   //level-2 unordered list (ul) element
-            padding-top: 10px;  //set some space between the subnav and main navigation
-        }
     }
  }
 /**
@@ -79,45 +87,74 @@
  *   NAV COLORS
  * ------------------------------------//
  */
-@mixin nav_colors($bg-color:transparent, $text-color:$link-color, $bg-hover-color:transparent, $text-hover-color:$link-color, $active-bg-color:transparent, $active-text-color:$link-color) {
+
+//sets nav link colors
+@mixin nav_link-color($bg-color:transparent, $text-color:$link-color) {
     .nav__link {            //Select all navigation anchors (a) and give them similar styling
         background-color: $bg-color; //add background color for links
         color: $text-color;  //select text color
-    }
-    .nav__link--active {
-        background-color: $active-bg-color;
-        color: $active-text-color;  //Set active page color on links
     }
     .nav__item--parent:after {    //color for the default dropdown indicator arrow
         color: $text-color;  //select text color
         background-color: transparent; //invisible background-color on this
     }
-    //DROPDOWN STYLES
-    .nav__menu--depth-1 > .nav__item:hover .nav__link {
-        background-color: $bg-hover-color;
-        color: $text-hover-color;  //persistant hover color on parent link of dropdown (and its children)
-    }
-    .nav__menu--depth-1 > .nav__item--parent:hover:after {
-        color: $text-hover-color;
-    }
- }
- //SUBNAV MIXIN
- @mixin sub-nav_colors($bg-color: transparent, $text-color: $link-color, $bg-hover-color: transparent, $text-hover-color: $link-color) {
-    .nav__menu--depth-2 > .nav__item > .nav__link {
+}
+
+//sets sub-nav link colors
+@mixin sub-nav_link-color($bg-color:transparent, $text-color:$link-color) {
+    .nav__menu--depth-2 > .nav__item .nav__link {
         background-color: $bg-color;
         color: $text-color;
     }
-    .nav__menu--depth-2 > .nav__item > .nav__link:hover {
-        background-color: $bg-hover-color;
-        color: $text-hover-color;  //specify explicit hover states for subnavigation children
+}
+
+//sets nav active link colors
+@mixin nav_active-color($bg-color:transparent, $text-color:$link-color) {
+    .nav__link--active {
+        background-color: $bg-color;
+        color: $text-color;  //Set active page color on links
     }
+}
+
+//sets nav hover link colors
+@mixin nav_hover-color($bg-color:transparent, $text-color:$link-color) {
+    //DROPDOWN STYLES
+    .nav__menu--depth-1 > .nav__item:hover > .nav__link {
+        background-color: $bg-color;
+        color: $text-color;  //persistant hover color on parent link of dropdown (and its children)
+    }
+    .nav__menu--depth-1 > .nav__item--parent:hover:after {
+        color: $text-color;
+    }
+}
+
+//sets sub-nav hover link colors
+@mixin sub-nav_hover-color($bg-color:transparent, $text-color:$link-color) {
+    .nav__menu--depth-2 > .nav__item .nav__link:hover {
+        background-color: $bg-color;
+        color: $text-color;  //specify explicit hover states for subnavigation children
+    }
+}
+
+//MAIN NAV COLOR MIXIN
+@mixin nav_colors($bg-color:transparent, $text-color:$link-color, $hover-bg-color:transparent, $hover-text-color:$link-color, $active-bg-color:transparent, $active-text-color:$link-color) {
+    @include nav_link-color($bg-color, $text-color);
+    @include nav_hover-color($hover-bg-color, $hover-text-color);
+    @include nav_active-color($active-bg-color, $active-text-color);
  }
+
+ //MAIN SUBNAV COLOR MIXIN
+ @mixin sub-nav_colors($bg-color: transparent, $text-color: $link-color, $hover-bg-color: transparent, $hover-text-color: $link-color) {
+    @include sub-nav_link-color($bg-color, $text-color);
+    @include sub-nav_hover-color($hover-bg-color, $hover-text-color);
+ }
+
 /**
  * ------------------------------------//
  *   NAV STYLES
  * ------------------------------------//
  */
-@mixin nav_styles($font-size: $p-size, $text-transform: none, $border-radius: false, $divider: false ) {
+@mixin nav_styles($font-size: $p-size, $text-transform: none, $border-radius: false, $divider-style: false, $divider-color: transparent) {
     //TEXT STYLES
     .nav__link {            //Select all navigation anchors (a) and give them similar styling
         @extend %heading-font; //use heading text (specified in variables.scss)
@@ -132,42 +169,169 @@
     }
 
     //DIVIDER
-    @if $divider != false {
+    //valid $divider-style values: none (default) | left | right | inside | outside
+    @if $divider-style != false and $divider-style != none {
         @include at-breakpoint($medium) {
-            .nav__menu--depth-1 > .nav__item > .nav__link { //Select level-1 direct-child (a) anchor elements.
-                border-right: 1px solid $divider; //add border to visually divide the links
+            @if $divider-style == inside or $divider-style == right or $divider-style == outside {
+                .nav__menu--depth-1 > .nav__item > .nav__link { //Select level-1 direct-child (a) anchor elements.
+                    border-right: 1px solid $divider-color; //add border to visually divide the links
+                }
+            } @else if $divider-style == left {
+                .nav__menu--depth-1 > .nav__item > .nav__link { //Select level-1 direct-child (a) anchor elements.
+                    border-left: 1px solid $divider-color; //add border to visually divide the links
+                }
+
+                .nav--feds .nav__menu--depth-1 > .nav__item:hover .nav__menu--depth-2 {
+                    left: 1px;
+                }
             }
-            .nav__menu--depth-1 > .nav__item--last .nav__link { //select the last link of level-1 navigation
-                border: none;    //remove the border on the last navigation element
+
+            @if $divider-style == inside {
+                .nav__menu--depth-1 > .nav__item--last .nav__link { //select the last link of level-1 navigation
+                    border-right: 0 none;    //remove the border on the last navigation element
+                }
+            }
+
+            @if $divider-style == outside {
+                .nav__menu--depth-1 > .nav__item--first .nav__link { //select the last link of level-1 navigation
+                    border-left: 1px solid $divider-color;    //add the border on the first navigation element
+                }
             }
         }
     }
 }
+
+//styles dropdown menus
+@mixin sub-nav_styles($font-size: $p-size, $text-transform: none, $border-radius: false, $divider-color: false, $divider-style: top, $border-color: false, $padding-color: false, $padding-width: 1em) {
+
+    .nav__menu--depth-2 {
+        //BORDER RADIUS
+        @if $border-radius != false {
+            @include at-breakpoint($medium) {
+                @include border-radius($border-radius); //add border radius
+
+                > .nav__item:first-child .nav__link {
+                    @include border-radius($border-radius); //add border radius
+                    @include border-bottom-radius(0); //add border radius
+                }
+                > .nav__item:last-child .nav__link {
+                    @include border-radius($border-radius); //add border radius
+                    @include border-top-radius(0); //add border radius
+                }
+            }
+        }
+
+        //DROPDOWN BORDER
+        @if $border-color != false {
+            @include at-breakpoint($medium) {
+                border: 1px solid $border-color;
+                margin-left: -1px;
+            }
+        }
+
+        //DROPDOWN PADDING
+        @if $padding-color != false {
+            @include at-breakpoint($medium) {
+                padding: $padding-width;
+                background-color: $padding-color;
+            }
+        }
+
+        > .nav__item {
+            .nav__link {
+                @if $font-size != false {
+                    font-size: $font-size;
+                }
+
+                @if $text-transform != false {
+                    text-transform: $text-transform;
+                }
+
+                //DIVIDER BASIC STYLES
+                @if $divider-color != false and $divider-style == top {
+                    border-top: 1px solid $divider-color;
+                } @else if $divider-color != false and $divider-style == inside {
+                    border-top: 1px solid $divider-color;
+                } @else if $divider-color != false and $divider-style == bottom {
+                    border-bottom: 1px solid $divider-color;
+                } @else if $divider-color != false and $divider-style == outside {
+                    border: 1px solid $divider-color;
+                    border-bottom: 0 none;
+                }
+            }
+
+            //DIVIDER CAP STYLES
+            //"inside", top" & "bottom" only divides links if border or padding is set. "outside" always draws borders
+            @if $divider-color != false and $divider-style == top {
+                @if $border-color != false or $padding-color != false {
+                    @include at-breakpoint($medium) {
+                        &:first-child .nav__link {
+                            border-top: 0 none;
+                        }
+                    }
+                } @else {
+                    &:first-child .nav__link {
+                        border-top: 0 none;
+                    }
+                }
+            } @else if $divider-color != false and $divider-style == bottom {
+                @if $border-color != false or $padding-color != false {
+                    @include at-breakpoint($medium) {
+                        &:last-child .nav__link {
+                            border-bottom: 0 none;
+                        }
+                    }
+                } @else {
+                    &:last-child .nav__link {
+                        border-bottom: 0 none;
+                    }
+                }
+            } @else if $divider-color != false and $divider-style == outside {
+                &:last-child .nav__link {
+                    border-bottom: 1px solid $divider-color;
+                }
+            } @else if $divider-color != false and $divider-style == inside {
+                &:first-child .nav__link {
+                    border-top: 0 none;
+                }
+            }
+        }
+    }
+}
+
+
 //DROPDOWN INDICATOR
-@mixin dropdown-indicator($image: false, $height: 10px, $width: 10px) {
+@mixin dropdown-indicator($width: 10px, $height: 10px, $image: false, $animate: true) {
     .nav__item--parent:after {
-        @if $image == false { //if there is no specified image, use the arrow
-        content: "\25BE";   //content code for arrow
-        } @else {           //if there is an image, it can be specified in here
-            content: "";    //reset the content:after
-            background-image: url($image);
+        @if $image == false {   //if there is no specified image, use the arrow
+            content: "\25BE";   //content code for arrow
+        } @else {               //if there is an image, it can be specified in here
+            content: "";        //reset the content:after
+            background: unquote($image);
         }
         pointer-events: none;
         position: absolute; //ensures arrow does not move content
         width: $width;
         height: $height;
         left: 50%;          //center its container
-        margin: $height*-1 0 0 ($width/2)*-1; //calculate and center, based off width.
+        margin-left: -0.5 * $width; //calculate and center, based off width.
         z-index: $nav__z-index_top;       //sit this above level-2 subnavigation
-        @include transition(margin-top 0.1s linear);
+        margin-top: 0;
+
+        @if $animate == true {
+            @include transition(margin-top 0.1s linear);
+        }
     }
-    @include at-breakpoint($medium) {
-        .nav__menu--depth-1 > .nav__item--parent:hover:after {
-            margin-top:-7px;
+    @if $animate == true {
+        @include at-breakpoint($medium) {
+            .nav__menu--depth-1 > .nav__item--parent:hover:after {
+                margin-top: $height * 0.5;
+            }
         }
     }
 }
-//NAVIGATION HYPERCOMBO MIXIN
+
+//NAVIGATION HYPERCOMBO MIXIN - sets up navigation with default values
 @mixin navigation() {
     //Basic Horizontal Navigation Styling (including padding and container width)
     @include nav_layout(0.5em);
@@ -192,13 +356,8 @@
 
 // @TODO OnionKnight options for the following:
 // - changing divider color on hover/active?
-// - seperate divider color for subnavs
 // - arrow options for 3rd level menus
-// - Padded/bordered sub menu (1st level)?
-// - 2nd level dropdown colors *might* be too specific (they could autofill all futher 3+ level sub menus)
+// - improve dropdown positioning (currently is very arbitrary: "top: 2.25 * padding-y" - not that great)
 // - most units need to be in ems
-// - dropdown indicators don't work very well when position is based on margins - should be top value so it works well on mobile too
-// - dropdown animations only should be applied once we reach tablet dropdown
-// - position relative on all nav__item's
-// - dropdown links don't remioan hovered when hovering 3rd level+ menu
-
+// - dropdown links don't remain hovered when hovering 3rd level+ menu
+// - better animation control for dropdowns, arrows, and mobile menus
