@@ -39,8 +39,6 @@
         &:hover .nav__menu--depth-2 { //display the dropdown (level-2) on hover
             position: relative; //Pushes down the other nav links when dropdown is open
             left: 0;            //Bring back on-screen when needed
-            opacity: 1;         //Show the subnavigation once hovered
-            @include transition(opacity 0.25s linear, left 0s linear); //Animate the dropdown
         }
     }
     .nav__link {            //Select all navigation anchors (a) and give them similar styling
@@ -52,8 +50,6 @@
     .nav__menu--depth-2 {   //level-2 unordered list (ul) element
         position: absolute; //position so subnav does not interfere with the document flow and sits over top.
         left:-9999px;       //Hide off-screen when not needed (this is more accessible than display:none;)
-        opacity: 0;         //Hide the subnavigation for hover state animation
-        @include transition(opacity 0.25s linear, left 0s linear 0.25s); //Animate the dropdown
         z-index: $nav__z-index_top;       //set z-index higher than banner area
 
         // webkit fixes for the rendering mode on animated text
@@ -81,7 +77,8 @@
             }
         }
     }
- }
+}
+
 /**
  * ------------------------------------//
  *   NAV COLORS
@@ -300,6 +297,67 @@
 }
 
 
+@mixin sub-nav_transition($property, $from, $to, $duration: 0.5s, $ease: ease, $at-mobile: false,
+                          $property-2: false, $from-2: false, $to-2: false, $duration-2: 0.5s, $ease-2: ease) {
+    @if $property-2 == false {
+        @if $at-mobile == true {
+            .nav__menu--depth-1 > .nav__item {
+                &:hover .nav__menu--depth-2 {
+                    #{$property}: $to;
+                    @include transition($property $duration $ease, left 0s linear);
+                }
+            }
+            .nav__menu--depth-2 {
+                #{$property}: $from;
+                @include transition($property $duration $ease, left 0s linear $duration);
+            }
+        } @else {
+            @include at-breakpoint($medium) {
+                .nav__menu--depth-1 > .nav__item {
+                    &:hover .nav__menu--depth-2 {
+                        #{$property}: $to;
+                        @include transition($property $duration $ease, left 0s linear);
+                    }
+                }
+                .nav__menu--depth-2 {
+                    #{$property}: $from;
+                    @include transition($property $duration $ease, left 0s linear $duration);
+                }
+            }
+        }
+    } @else {
+        @if $at-mobile == true {
+            .nav__menu--depth-1 > .nav__item {
+                &:hover .nav__menu--depth-2 {
+                    #{$property}: $to;
+                    #{$property-2}: $to-2;
+                    @include transition($property $duration $ease, $property-2 $duration-2 $ease-2, left 0s linear);
+                }
+            }
+            .nav__menu--depth-2 {
+                #{$property}: $from;
+                #{$property-2}: $from-2;
+                @include transition($property $duration $ease, $property-2 $duration-2 $ease-2, left 0s linear $duration);
+            }
+        } @else {
+            @include at-breakpoint($medium) {
+                .nav__menu--depth-1 > .nav__item {
+                    &:hover .nav__menu--depth-2 {
+                        #{$property}: $to;
+                        #{$property-2}: $to-2;
+                        @include transition($property $duration $ease, $property-2 $duration-2 $ease-2, left 0s linear);
+                    }
+                }
+                .nav__menu--depth-2 {
+                    #{$property}: $from;
+                    #{$property-2}: $from-2;
+                    @include transition($property $duration $ease, $property-2 $duration-2 $ease-2, left 0s linear $duration);
+                }
+            }
+        }
+    }
+}
+
 //DROPDOWN INDICATOR
 @mixin dropdown-indicator($width: 10px, $height: 10px, $image: false, $animate: true) {
     .nav__item--parent:after {
@@ -357,7 +415,8 @@
 // @TODO OnionKnight options for the following:
 // - changing divider color on hover/active?
 // - arrow options for 3rd level menus
+// - Padded/bordered sub menu (1st level)?
 // - improve dropdown positioning (currently is very arbitrary: "top: 2.25 * padding-y" - not that great)
 // - most units need to be in ems
 // - dropdown links don't remain hovered when hovering 3rd level+ menu
-// - better animation control for dropdowns, arrows, and mobile menus
+// - better animation control for arrows and mobile menus
