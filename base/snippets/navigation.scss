@@ -6,23 +6,63 @@
  * @url https://github.com/tbredin/OnionKnight
  *
  * @description: A set of mixins that automate navigation styles based on Mammoth navigation builder
- *
- * Dependancies:
- *   Compass & Susy
- *   @extend %plain-list;
- *   @extend %heading-font;
- *   @extend %text-overflow;
- *
- *  3X z-index variables for navigation
- */
-    $nav__z-index_top: 250; //subnavigation layer
-    $nav__z-index_middle: 210;  //subnav indicator
-    $nav__z-index_bottom: 200;  //level-1 nav items
-/**
- * ------------------------------------//
- *   LAYOUT
- * ------------------------------------//
- */
+*/
+
+//===================================================//
+//  DEPENDANCIES:
+//===================================================//
+//  Compass & Susy
+//  @extend %plain-list;
+//  @extend %heading-font;
+//  @extend %text-overflow;
+
+//===================================================//
+//  @TODO OnionKnight options for the following:
+//===================================================//
+// - changing divider color on hover/active?
+// - arrow options for 3rd level menus
+// - Padded/bordered sub menu (1st level)?
+// - improve dropdown positioning (currently is very arbitrary: "top: 2.25 * padding-y" - not that great)
+// - most units need to be in ems
+// - dropdown links don't remain hovered when hovering 3rd level+ menu
+// - better animation control for arrows and mobile menus
+// - dropdown indicator & subnavigation positioning/spacing from main nav
+
+//===================================================//
+//  MIXIN REFERENCE:
+//===================================================//
+//  See below for full list of mixins and parameters
+//  Further definitions can be found within each mixin below
+
+//@include nav_layout();
+        //parameters: ($nav_padding-x, $nav_padding-y, $sub-nav_padding-x, $sub-nav_padding-y)
+
+//@include nav_colors();
+        //parameters: ($bg-color, $text-color, $hover-bg-color, $hover-text-color, $active-bg-color, $active-text-color)
+
+//@include sub-nav_colors();
+        //parameters: ($bg-color, $text-color, $hover-bg-color, $hover-text-color)
+
+//@include nav_styles();
+        //parameters: ($font-size, $text-transform, $border-radius, $divider-style, $divider-color)
+
+//@include sub-nav_styles();
+        //parameters: ($font-size, $text-transform, $border-radius, $divider-color, $divider-style, $border-color, $padding-color, $padding-width)
+
+//@include sub-nav_transition();
+        //parameters: ($property, $from, $to, $duration, $ease, animte mobile?, $property-2: false, $from-2, $to-2, $duration-2, $ease-2)
+
+//@include dropdown-indicator();
+        //parameters: ($width, $height, $image, $animate)
+
+//---------------------------------------------------//
+//  NAV LAYOUT
+//---------------------------------------------------//
+//3X z-index variables for navigation
+$nav__z-index_top: 250; //subnavigation layer
+$nav__z-index_middle: 210;  //subnav indicator
+$nav__z-index_bottom: 200;  //level-1 nav items
+
 @mixin nav_layout($nav_padding-x, $nav_padding-y: $nav_padding-x, $sub-nav_padding-x: $nav_padding-x, $sub-nav_padding-y: $nav_padding-y) {
     .nav__menu {            // all navigation unordered list (ul) elements.
         @extend %plain-list; //remove the generic list styles (this is the ul tag).
@@ -43,7 +83,7 @@
     }
     .nav__link {            //Select all navigation anchors (a) and give them similar styling
         display: block;
-        padding: $nav_padding-x $nav_padding-y;  //fill out area around link
+        padding: $nav_padding-y $nav_padding-x;  //fill out area around link
         @extend %text-overflow; //truncate the links
     }
     //DROPDOWN STYLES
@@ -58,13 +98,13 @@
 
         > .nav__item > .nav__link { //Select dropdown (a) anchor elements.
             white-space:nowrap; //Stop text wrapping and creating multi-line dropdown items
-            padding: $sub-nav_padding-x $sub-nav_padding-y;  //overrite subnavigation link (a) padding to be slightly greater.
+            padding: $sub-nav_padding-y $sub-nav_padding-x;  //overrite subnavigation link (a) padding to be slightly greater.
         }
     }
 
     //dropdown position
     .nav__item--parent:after {
-        top: 2.25 * $nav_padding-y;
+        top: 3.5 * $nav_padding-y; //this possibly needs some work
     }
 
     //BREAKPOINTS
@@ -79,12 +119,9 @@
     }
 }
 
-/**
- * ------------------------------------//
- *   NAV COLORS
- * ------------------------------------//
- */
-
+//---------------------------------------------------//
+//  NAV COLORS
+//---------------------------------------------------//
 //sets nav link colors
 @mixin nav_link-color($bg-color:transparent, $text-color:$link-color) {
     .nav__link {            //Select all navigation anchors (a) and give them similar styling
@@ -146,11 +183,9 @@
     @include sub-nav_hover-color($hover-bg-color, $hover-text-color);
  }
 
-/**
- * ------------------------------------//
- *   NAV STYLES
- * ------------------------------------//
- */
+//---------------------------------------------------//
+//  NAV STYLES
+//---------------------------------------------------//
 @mixin nav_styles($font-size: $p-size, $text-transform: none, $border-radius: false, $divider-style: false, $divider-color: transparent) {
     //TEXT STYLES
     .nav__link {            //Select all navigation anchors (a) and give them similar styling
@@ -198,7 +233,9 @@
     }
 }
 
-//styles dropdown menus
+//---------------------------------------------------//
+//  DROPDOWN STYLES
+//---------------------------------------------------//
 @mixin sub-nav_styles($font-size: $p-size, $text-transform: none, $border-radius: false, $divider-color: false, $divider-style: top, $border-color: false, $padding-color: false, $padding-width: 1em) {
 
     .nav__menu--depth-2 {
@@ -296,7 +333,9 @@
     }
 }
 
-
+//---------------------------------------------------//
+//  DROPDOWN ANIMATIONS
+//---------------------------------------------------//
 @mixin sub-nav_transition($property, $from, $to, $duration: 0.5s, $ease: ease, $at-mobile: false,
                           $property-2: false, $from-2: false, $to-2: false, $duration-2: 0.5s, $ease-2: ease) {
     @if $property-2 == false {
@@ -358,7 +397,9 @@
     }
 }
 
-//DROPDOWN INDICATOR
+//---------------------------------------------------//
+//  DROPDOWN INDICATOR
+//---------------------------------------------------//
 @mixin dropdown-indicator($width: 10px, $height: 10px, $image: false, $animate: true) {
     .nav__item--parent:after {
         @if $image == false {   //if there is no specified image, use the arrow
@@ -388,35 +429,3 @@
         }
     }
 }
-
-//NAVIGATION HYPERCOMBO MIXIN - sets up navigation with default values
-@mixin navigation() {
-    //Basic Horizontal Navigation Styling (including padding and container width)
-    @include nav_layout(0.5em);
-    //  key: @include nav-layout(nav_padding-x, nav_padding-y, subnav_padding-x, subnav_padding-y);
-
-    @include nav_colors();
-    //  key/default: @include nav_colors($bg-color, $text-color, $bg-hover-color, $text-hover-color, $active-bg-color, $active-text-color)
-    @include sub-nav_colors();
-    // key/default: @include sub-nav_colors($bg-color:transparent, $text-color:$link-color, $bg-hover-color:transparent, $text-hover-color:$link-color)
-
-    //For adding things such as capitalization, borders, rounded-corners
-    @include nav_styles();
-    //  key/defaults: @include nav-styles($font-size: $p-size, $text-transform: none, $border-radius: false, $divider: false )
-
-    //Adds Subnavigation Indicator to menu items with a subnavigation
-    @include dropdown-indicator();
-    //  key: @include dropdown-indicator("image_url", height, width);
-    //  default: 10px x 10px arrow. @include dropdown-indicator(false, 10px, 10px);
-    //  custom: @include dropdown-indicator("../images/arrow.jpg", 20px, 10px);
-}
-
-
-// @TODO OnionKnight options for the following:
-// - changing divider color on hover/active?
-// - arrow options for 3rd level menus
-// - Padded/bordered sub menu (1st level)?
-// - improve dropdown positioning (currently is very arbitrary: "top: 2.25 * padding-y" - not that great)
-// - most units need to be in ems
-// - dropdown links don't remain hovered when hovering 3rd level+ menu
-// - better animation control for arrows and mobile menus
