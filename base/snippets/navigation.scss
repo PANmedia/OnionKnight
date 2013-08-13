@@ -53,7 +53,7 @@
         //parameters: ($property, $from, $to, $duration, $ease, animte mobile?, $property-2: false, $from-2, $to-2, $duration-2, $ease-2)
 
 //@include dropdown-indicator();
-        //parameters: ($width, $height, $image, $animate)
+        //parameters: ($width, $height, $image, $animate, $color, $hover-color)
 
 //---------------------------------------------------//
 //  NAV LAYOUT
@@ -127,10 +127,6 @@ $nav__z-index_bottom: 200;  //level-1 nav items
     .nav__link {            //Select all navigation anchors (a) and give them similar styling
         background-color: $bg-color; //add background color for links
         color: $text-color;  //select text color
-    }
-    .nav__item--parent:after {    //color for the default dropdown indicator arrow
-        color: $text-color;  //select text color
-        background-color: transparent; //invisible background-color on this
     }
 }
 
@@ -400,7 +396,7 @@ $nav__z-index_bottom: 200;  //level-1 nav items
 //---------------------------------------------------//
 //  DROPDOWN INDICATOR
 //---------------------------------------------------//
-@mixin dropdown-indicator($width: 10px, $height: 10px, $image: false, $animate: true) {
+@mixin dropdown-indicator($width: 10px, $height: 10px, $image: false, $animate: true, $color: $link-color, $hover-color: $link-color) {
     .nav__item--parent:after {
         @if $image == false {   //if there is no specified image, use the arrow
             content: "\25BE";   //content code for arrow
@@ -412,6 +408,8 @@ $nav__z-index_bottom: 200;  //level-1 nav items
         position: absolute; //ensures arrow does not move content
         width: $width;
         height: $height;
+        color: $color;  //select text color
+        background-color: transparent; //invisible background-color on this
         left: 50%;          //center its container
         margin-left: -0.5 * $width; //calculate and center, based off width.
         z-index: $nav__z-index_top;       //sit this above level-2 subnavigation
@@ -425,7 +423,11 @@ $nav__z-index_bottom: 200;  //level-1 nav items
         @include at-breakpoint($medium) {
             .nav__menu--depth-1 > .nav__item--parent:hover:after {
                 margin-top: $height * 0.5;
+                // color: $hover-color; //moved below
             }
         }
+    }
+    .nav__menu--depth-1 > .nav__item--parent:hover:after {
+        color: $hover-color; //moved here so hover still applies color, regardless of animation
     }
 }
