@@ -19,14 +19,16 @@
 //===================================================//
 //  @TODO OnionKnight options for the following:
 //===================================================//
+
+// - delays on sub-nav transitions to emulate hoverintent
+// - nav-color_transition could be genericised and changed to nav-link_transition. Use similar parameters as sub-nav_transition
 // - changing divider color on hover/active?
 // - arrow options for 3rd level menus
-// - Padded/bordered sub menu (1st level)?
 // - improve dropdown positioning (currently is very arbitrary: "top: 2.25 * padding-y" - not that great)
 // - most units need to be in ems
-// - dropdown links don't remain hovered when hovering 3rd level+ menu
 // - better animation control for arrows and mobile menus
 // - dropdown indicator & subnavigation positioning/spacing from main nav
+
 
 //===================================================//
 //  MIXIN REFERENCE:
@@ -50,7 +52,7 @@
         //parameters: ($font-size, $text-transform, $border-radius, $divider-color, $divider-style, $border-color, $padding-color, $padding-width)
 
 //@include sub-nav_transition();
-        //parameters: ($property, $from, $to, $duration, $ease, animte mobile?, $property-2: false, $from-2, $to-2, $duration-2, $ease-2)
+        //parameters: ($property, $from, $to, $duration, $ease, animate mobile?, $property-2: false, $from-2, $to-2, $duration-2, $ease-2)
 
 //@include dropdown-indicator();
         //parameters: ($width, $height, $image, $animate, $color, $hover-color)
