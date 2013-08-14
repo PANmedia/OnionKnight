@@ -475,3 +475,26 @@
     -webkit-transform: translateZ(0px);             // forces hardware accelleration, thus respecting -webkit-font-smoothing
     -webkit-font-smoothing: subpixel-antialiased;   // the preferred anti-aliasing method
 }
+
+
+// XMod Site builder Grids
+@mixin xsb-grid($sml, $med, $lrg) {
+    .xsb-grid__#{$sml}-#{$med}-#{$lrg} {
+        @include span-columns($sml);
+        @include at-breakpoint($med) {
+            @include span-columns($med, $medium-cols);
+        }
+        @include at-breakpoint($lrg) {
+            @include span-columns($lrg, $large-cols);
+        }
+    }
+    .xsb-grid__#{$sml}-#{$med}-#{$lrg}_omega {
+        @include span-columns($sml);
+        @include at-breakpoint($med) {
+            @include span-columns($med, $medium-cols);
+        }
+        @include at-breakpoint($lrg) {
+            @include span-columns($lrg, $large-cols);
+        }
+    }
+}

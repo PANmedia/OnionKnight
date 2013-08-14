@@ -5,3 +5,8 @@
  * @author Hemi Ormsby <hemi@panmedia.co.nz>
  * @url https://github.com/tbredin/OnionKnight
  */
+
+@include xsb-grid(6, 6, 8);
+@include xsb-grid(6, 3, 4);
+@include xsb-grid(6, 4, 6);
+@include xsb-grid(6, 8, 10);
