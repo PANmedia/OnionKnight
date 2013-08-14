@@ -55,6 +55,9 @@
 //@include dropdown-indicator();
         //parameters: ($width, $height, $image, $animate, $color, $hover-color)
 
+//@include nav-color_transition();
+        //parameters: ($duration, $delay-in, $delay-out)
+
 //---------------------------------------------------//
 //  NAV LAYOUT
 //---------------------------------------------------//
@@ -429,5 +432,27 @@ $nav__z-index_bottom: 200;  //level-1 nav items
     }
     .nav__menu--depth-1 > .nav__item--parent:hover:after {
         color: $hover-color; //moved here so hover still applies color, regardless of animation
+    }
+}
+
+//---------------------------------------------------//
+//  NAV COLOR ANIMATIONS
+//---------------------------------------------------//
+@mixin nav-color_transition($duration: 0.2s, $delay-in: 0, $delay-out: $delay-in) {
+    .nav__link {
+        @include transition(color $duration linear, background-color $duration linear);
+        @include transition-delay($delay-in, $delay-in);
+    }
+    //resets sub-nav animation delay
+    .nav__menu--depth-2 > .nav__item .nav__link {
+        @include transition-delay($delay-out, $delay-out);
+    }
+    //resets nav hover link delay
+    .nav__menu--depth-1 > .nav__item:hover > .nav__link {
+        @include transition-delay($delay-out, $delay-out);
+    }
+    //resets sub-nav hover link delay
+    .nav__menu--depth-2 > .nav__item .nav__link:hover {
+        @include transition-delay($delay-out, $delay-out);
     }
 }
