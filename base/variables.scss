@@ -33,8 +33,8 @@ $small-width: calc-breakpoint($small-cols);
 $medium-width: calc-breakpoint($medium-cols);
 $large-width: calc-breakpoint($large-cols);
 
-//susy standard responsive layouts 
-//use as shorthand for your breakpoints 
+//susy standard responsive layouts
+//use as shorthand for your breakpoints
 $small:     $small-cols no-mediaqueries;
 $medium:    $medium-cols no-mediaqueries;
 $large:     $large-cols no-mediaqueries;
@@ -47,14 +47,14 @@ $round-to-nearest-half-line: true;
 
 // grid settings
 $col-num: 12;
-$column-width: 4.2em;   // default 4.2em is max col width for layouts to look nice on ipad 
-$gutter-width: 1em;     // default 1em is max gutter width for layouts to look nice on ipad 
+$column-width: 4.2em;   // default 4.2em is max col width for layouts to look nice on ipad
+$gutter-width: 1em;     // default 1em is max gutter width for layouts to look nice on ipad
 $grid-padding: $gutter-width;
 
 // sticky footer (entirely optional - for use with compass sticky footer mixin)
 $sticky-footer: 300px;
 
-// font-sizes
+// typographic scale
 $h1-size: 32px;
 $h2-size: 24px;
 $h3-size: 21px;
