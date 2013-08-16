@@ -76,14 +76,25 @@ $nav__z-index_bottom: 200;  //level-1 nav items
         font-size: 1em; //reset font size
         position: relative;
     }
-    .nav__menu--depth-1 > .nav__item { //Select level-1 unordered list direct-child (li) elements.
-        position: relative; //Required to set dropdowns to position absolute (while still relative to their parent).
-        z-index: $nav__z-index_bottom;       //set z-index higher than banner area
+    .nav__menu--depth-1 {
+        display: none;
 
-        //DROPDOWN (on-hover)
-        &:hover .nav__menu--depth-2 { //display the dropdown (level-2) on hover
-            position: relative; //Pushes down the other nav links when dropdown is open
-            left: 0;            //Bring back on-screen when needed
+        @include at-breakpoint($medium) {
+            display: block !important;
+            background-color: transparent;
+        }
+
+        > .nav__item { //Select level-1 unordered list direct-child (li) elements.
+            position: relative; //Required to set dropdowns to position absolute (while still relative to their parent).
+            z-index: $nav__z-index_bottom;       //set z-index higher than banner area
+
+            //DROPDOWN (on-hover)
+            &:hover .nav__menu--depth-2 { //display the dropdown (level-2) on hover
+                @include at-breakpoint($medium) {
+                    position: relative; //Pushes down the other nav links when dropdown is open
+                    left: 0;            //Bring back on-screen when needed
+                }
+            }
         }
     }
     .nav__link {            //Select all navigation anchors (a) and give them similar styling
@@ -93,8 +104,14 @@ $nav__z-index_bottom: 200;  //level-1 nav items
     }
     //DROPDOWN STYLES
     .nav__menu--depth-2 {   //level-2 unordered list (ul) element
-        position: absolute; //position so subnav does not interfere with the document flow and sits over top.
-        left:-9999px;       //Hide off-screen when not needed (this is more accessible than display:none;)
+        display: none;
+
+        @include at-breakpoint($medium) {
+            position: absolute; //position so subnav does not interfere with the document flow and sits over top.
+            left:-9999px;       //Hide off-screen when not needed (this is more accessible than display:none;)
+            display: block !important;
+        }
+
         z-index: $nav__z-index_top;       //set z-index higher than banner area
 
         // webkit fixes for the rendering mode on animated text
