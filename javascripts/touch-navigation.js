@@ -5,12 +5,11 @@ jQuery(function($) {
     OnionKnight.deviceWidth = function() {
         return $(window).width() / parseInt($("body").css("font-size"));
     };
-    
+
     //checks that a device supports touch
     OnionKnight.isTouchDevice = ('ontouchstart' in window) // works on most browsers
             || navigator.msMaxTouchPoints; // works on ie10
-    };
-    
+
     var width_tablet = 44;
 
     //nav top level links
