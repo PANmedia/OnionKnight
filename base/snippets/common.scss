@@ -480,23 +480,60 @@
 
 
 // XMod Site builder Grids
-@mixin xsb-grid($sml, $med, $lrg) {
-    .xsb-grid__#{$sml}-#{$med}-#{$lrg} {
-        @include span-columns($sml);
-        @include at-breakpoint($med) {
-            @include span-columns($med, $medium-cols);
+@mixin xsb-grid($sml, $med, $lrg, $context-sml: false, $context-med: false, $context-lrg: false) {
+    //check if context has been passed
+    @if $context-sml == false and $context-med == false and $context-lrg == false {
+        //gen classes
+        .xsb-grid__#{$sml}-#{$med}-#{$lrg} {
+            @include span-columns($sml);
+
+            @include at-breakpoint($medium) {
+                @include span-columns($med, $medium-cols);
+            }
+            @include at-breakpoint($large) {
+                @include span-columns($lrg, $large-cols);
+            }
         }
-        @include at-breakpoint($lrg) {
-            @include span-columns($lrg, $large-cols);
+        .xsb-grid__#{$sml}-#{$med}-#{$lrg}_omega {
+            @include span-columns($sml omega);
+            @include at-breakpoint($medium) {
+                @include span-columns($med omega, $medium-cols);
+            }
+            @include at-breakpoint($large) {
+                @include span-columns($lrg omega, $large-cols);
+            }
         }
-    }
-    .xsb-grid__#{$sml}-#{$med}-#{$lrg}_omega {
-        @include span-columns($sml);
-        @include at-breakpoint($med) {
-            @include span-columns($med, $medium-cols);
+    } @else {
+        //set defaults to any unset contexts
+        @if $context-sml == false {
+            $context-sml: $small-cols;
         }
-        @include at-breakpoint($lrg) {
-            @include span-columns($lrg, $large-cols);
+        @if $context-med == false {
+            $context-med: $medium-cols;
+        }
+        @if $context-lrg == false {
+            $context-lrg: $large-cols;
+        }
+
+        //gen classes
+        .xsb-grid__#{$sml}-#{$med}-#{$lrg}--#{$context-sml}-#{$context-med}-#{$context-lrg} {
+            @include span-columns($sml, $context-sml);
+
+            @include at-breakpoint($medium) {
+                @include span-columns($med, $context-med);
+            }
+            @include at-breakpoint($large) {
+                @include span-columns($lrg, $context-lrg);
+            }
+        }
+        .xsb-grid__#{$sml}-#{$med}-#{$lrg}--#{$context-sml}-#{$context-med}-#{$context-lrg}_omega {
+            @include span-columns($sml omega, $context-sml);
+            @include at-breakpoint($medium) {
+                @include span-columns($med omega, $context-med);
+            }
+            @include at-breakpoint($large) {
+                @include span-columns($lrg omega, $context-lrg);
+            }
         }
     }
 }
