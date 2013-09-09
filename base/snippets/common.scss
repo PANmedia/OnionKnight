@@ -359,6 +359,15 @@
 }
 
 
+//placeholder text styles
+@mixin placeholder {
+    &.placeholder { @content; }
+    &:-moz-placeholder { @content; }
+    &::-moz-placeholder { @content; }
+    &::-webkit-input-placeholder { @content; }
+}
+
+
 //initialises pan picturefill helper css
 //this is required for responsive images to work (and can be included below)
 @mixin picture-init($classname: picture) {
