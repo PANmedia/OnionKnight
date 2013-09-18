@@ -360,24 +360,32 @@ $nav__z-index_bottom: 200;  //level-1 nav items
         @if $at-mobile == true {
             .nav__menu--depth-1 > .nav__item {
                 &:hover .nav__menu--depth-2 {
-                    #{$property}: $to;
+                    @if $to != false {
+                        #{$property}: $to;
+                    }
                     @include transition($property $duration $ease, left 0s linear);
                 }
             }
             .nav__menu--depth-2 {
-                #{$property}: $from;
+                @if $from != false {
+                    #{$property}: $from;
+                }
                 @include transition($property $duration $ease, left 0s linear $duration);
             }
         } @else {
             @include at-breakpoint($medium) {
                 .nav__menu--depth-1 > .nav__item {
                     &:hover .nav__menu--depth-2 {
-                        #{$property}: $to;
+                        @if $to != false {
+                            #{$property}: $to;
+                        }
                         @include transition($property $duration $ease, left 0s linear);
                     }
                 }
                 .nav__menu--depth-2 {
-                    #{$property}: $from;
+                    @if $from != false {
+                        #{$property}: $from;
+                    }
                     @include transition($property $duration $ease, left 0s linear $duration);
                 }
             }
@@ -386,28 +394,44 @@ $nav__z-index_bottom: 200;  //level-1 nav items
         @if $at-mobile == true {
             .nav__menu--depth-1 > .nav__item {
                 &:hover .nav__menu--depth-2 {
-                    #{$property}: $to;
-                    #{$property-2}: $to-2;
+                    @if $to != false {
+                        #{$property}: $to;
+                    }
+                    @if $to-2 != false {
+                        #{$property-2}: $to-2;
+                    }
                     @include transition($property $duration $ease, $property-2 $duration-2 $ease-2, left 0s linear);
                 }
             }
             .nav__menu--depth-2 {
-                #{$property}: $from;
-                #{$property-2}: $from-2;
+                @if $from != false {
+                    #{$property}: $from;
+                }
+                @if $from-2 != false {
+                    #{$property-2}: $from-2;
+                }
                 @include transition($property $duration $ease, $property-2 $duration-2 $ease-2, left 0s linear $duration);
             }
         } @else {
             @include at-breakpoint($medium) {
                 .nav__menu--depth-1 > .nav__item {
                     &:hover .nav__menu--depth-2 {
-                        #{$property}: $to;
-                        #{$property-2}: $to-2;
+                        @if $to != false {
+                            #{$property}: $to;
+                        }
+                        @if $to2 != false {
+                            #{$property-2}: $to-2;
+                        }
                         @include transition($property $duration $ease, $property-2 $duration-2 $ease-2, left 0s linear);
                     }
                 }
                 .nav__menu--depth-2 {
-                    #{$property}: $from;
-                    #{$property-2}: $from-2;
+                    @if $from != false {
+                        #{$property}: $from;
+                    }
+                    @if $from-2 != false {
+                        #{$property-2}: $from-2;
+                    }
                     @include transition($property $duration $ease, $property-2 $duration-2 $ease-2, left 0s linear $duration);
                 }
             }
