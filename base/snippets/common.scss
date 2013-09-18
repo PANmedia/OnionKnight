@@ -79,6 +79,15 @@
     background-color: mix(nth($colors, 1), nth($colors, $length));
 }
 
+// radial gradient with background color fallback for legacy browsers
+@mixin radial-gradient-with-bgc($startpoint, $colors...) {
+    @include background(radial-gradient($colors, $startpoint));
+    $length: length($colors);
+    $first: nth(nth($colors, 1), 1);
+    $second: nth(nth($colors, $length), 1);
+    background-color: mix($first, $second);
+}
+
 
 // resets lists
 %plain-list {
@@ -276,6 +285,34 @@
     @include ellipsis;
 }
 
+// faded text-overflow effect
+// can accept different heights for different breakpoints
+@mixin set-fade-overflow($height, $bg) {
+    height: auto;
+    max-height: $height;
+    @extend %set-fade-overflow-common;
+
+    &:before {
+        @include background(linear-gradient(top, transparentize($bg, 1), $bg));
+    }
+}
+
+%set-fade-overflow-common {
+    position: relative;
+    overflow: hidden;
+
+    &:before {
+        content: "";
+        position: absolute;
+        pointer-events: none;
+        cursor: text;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        z-index: 10;
+        height: 85%;
+    }
+}
 
 // Sets border-box, as well as width, height, padding and border width, including legacy fallbacks
 @mixin legacy-border-box($width: auto, $height: auto, $padding: 0 0 0 0, $border-width: 0 0 0 0) {
@@ -358,8 +395,7 @@
     box-shadow:white($opacity) 0 1px 0, inset black($opacity2) 0 1px 0;
 }
 
-
-//placeholder text styles
+//placeholder text
 @mixin placeholder {
     &.placeholder { @content; }
     &:-moz-placeholder { @content; }
@@ -497,7 +533,7 @@
             @include span-columns($sml);
 
             @include at-breakpoint($medium) {
-                @include span-columns($med, $medium-cols);
+               @include span-columns($med, $medium-cols);
             }
             @include at-breakpoint($large) {
                 @include span-columns($lrg, $large-cols);
@@ -544,5 +580,17 @@
                 @include span-columns($lrg omega, $context-lrg);
             }
         }
+    }
+}
+
+//for testing susy grids at all default OnionKnight breakpoints
+@mixin test-grids {
+    @include susy-grid-background;
+
+    @include at-breakpoint($medium) {
+        @include susy-grid-background;
+    }
+    @include at-breakpoint($large) {
+        @include susy-grid-background;
     }
 }
