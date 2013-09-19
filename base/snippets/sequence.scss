@@ -19,6 +19,7 @@
             padding: 0;
             margin: 0;
         }
+
         width: 100%;                            //sequence width
         max-width: $sequence-max-width-s;       //maximum mobile width
         margin: $space-top auto $space-bottom auto; //set space above and below sequence
@@ -31,9 +32,8 @@
             max-width: 100%;
             margin: $space-top auto $space-bottom auto; //set space above and below sequence
         }
-    }
-    //varying banner heights
-    .xmod-banner {
+
+        //varying banner heights
         //check that the small height is given
         @if $sequence-height-s != false {
             height: $sequence-height-s;             //default height
@@ -87,33 +87,35 @@
     }
 
     //continue styles
-    .xmod-banner > .sequence-canvas li > .xmod-banner-slide { /* REQUIRED */
+    .xmod-banner-slide { /* REQUIRED */
         position: absolute;
     }
     //make canvas the same size as its wrapper
-    .xmod-banner > .sequence-canvas {       /* REQUIRED */
+    .sequence-canvas {       /* REQUIRED */
         height: 100%;
         width: 100%;
-    }
-    //frame declarations
-    .xmod-banner > .sequence-canvas > li {  /* REQUIRED */
-        position: absolute;
-        width: 100%;
-        height: 100%;
-        z-index: 1;
-    }
+        position: relative;
+        overflow: hidden;
 
-    //size up banner contents
-    .sequence-canvas > li div {
-        width: 100%;
-        height: 100%;
-    }
-    .sequence-canvas > li div a {
-        display: block;
-    }
-    //images inside scale to fit container
-    .sequence-canvas > li div a img {
-        @extend %scaling-img;
+        > li {  /* REQUIRED */
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+
+            div {
+                width: 100%;
+                height: 100%;
+
+                a {
+                    display: block;
+
+                    img {
+                        @extend %scaling-img;
+                    }
+                }
+            }
+        }
     }
 }
 
