@@ -1,0 +1,256 @@
+//====================================//
+//  SEQUENCE BANNER MIXIN
+//====================================//
+
+//SEQUENCE LAYOUT
+@mixin sequence($sequence-height-s: false,
+                $sequence-height-m: false,
+                $sequence-height-l: false,
+                $sequence-max-width-s: 350px,
+                $sequence-color: transparent,
+                $space-bottom: 10px,
+                $space-top: $space-bottom,
+                $scale-mobile: false) {
+    //style the sequence container
+    .xmod-banner {
+        //start by resetting the list
+        ul.sequence-canvas, ul.sequence-canvas > li {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        width: 100%;                            //sequence width
+        max-width: $sequence-max-width-s;       //maximum mobile width
+        margin: $space-top auto $space-bottom auto; //set space above and below sequence
+        background-color: $sequence-color;      //set background color (or leave transparent)
+        overflow: hidden;                       //cut off overflow
+        position: relative;                     /* REQUIRED */
+        z-index: 100;                           //z-index
+
+        @include at-breakpoint($medium) {
+            max-width: 100%;
+            margin: $space-top auto $space-bottom auto; //set space above and below sequence
+        }
+    }
+    //varying banner heights
+    .xmod-banner {
+        //check that the small height is given
+        @if $sequence-height-s != false {
+            height: $sequence-height-s;             //default height
+            max-height: $sequence-height-s;         //maximum height, same as above
+
+            @if $scale-mobile != false {
+                @include at-breakpoint($small-cols 510 / 16 * 1em) {
+                    @include transition(height 0.2s ease, max-height 0.2s ease);  //animate height at each breakpoint change
+                    max-height: 510/520 * $sequence-height-s;
+                }
+                @include at-breakpoint($small-cols 500 / 16 * 1em) { max-height: 500/520 * $sequence-height-s; }
+                @include at-breakpoint($small-cols 490 / 16 * 1em) { max-height: 490/520 * $sequence-height-s; }
+                @include at-breakpoint($small-cols 480 / 16 * 1em) { max-height: 480/520 * $sequence-height-s; }
+                @include at-breakpoint($small-cols 470 / 16 * 1em) { max-height: 470/520 * $sequence-height-s; }
+                @include at-breakpoint($small-cols 460 / 16 * 1em) { max-height: 460/520 * $sequence-height-s; }
+                @include at-breakpoint($small-cols 450 / 16 * 1em) { max-height: 450/520 * $sequence-height-s; }
+                @include at-breakpoint($small-cols 440 / 16 * 1em) { max-height: 440/520 * $sequence-height-s; }
+                @include at-breakpoint($small-cols 430 / 16 * 1em) { max-height: 430/520 * $sequence-height-s; }
+                @include at-breakpoint($small-cols 420 / 16 * 1em) { max-height: 420/520 * $sequence-height-s; }
+                @include at-breakpoint($small-cols 410 / 16 * 1em) { max-height: 410/520 * $sequence-height-s; }
+                @include at-breakpoint($small-cols 400 / 16 * 1em) { max-height: 400/520 * $sequence-height-s; }
+                @include at-breakpoint($small-cols 390 / 16 * 1em) { max-height: 390/520 * $sequence-height-s; }
+                @include at-breakpoint($small-cols 380 / 16 * 1em) { max-height: 380/520 * $sequence-height-s; }
+                @include at-breakpoint($small-cols 370 / 16 * 1em) { max-height: 370/520 * $sequence-height-s; }
+                @include at-breakpoint($small-cols 360 / 16 * 1em) { max-height: 360/520 * $sequence-height-s; }
+                @include at-breakpoint($small-cols 350 / 16 * 1em) { max-height: 350/520 * $sequence-height-s; }
+                @include at-breakpoint($small-cols 340 / 16 * 1em) { max-height: 340/520 * $sequence-height-s; }
+                @include at-breakpoint($small-cols 330 / 16 * 1em) { max-height: 330/520 * $sequence-height-s; }
+                @include at-breakpoint($small-cols 320 / 16 * 1em) { max-height: 320/520 * $sequence-height-s; }
+            }
+        }
+        //check that the medium height is given, and isn't the same as the small height
+        @if $sequence-height-m != false and $sequence-height-m != $sequence-height-s {
+            @include at-breakpoint($medium) {
+                height: $sequence-height-m;         //medium size specs
+                max-height: $sequence-height-m;
+            }
+        }
+        //check that the large height is given, and isn't the same as the medium height
+        @if $sequence-height-l != false and $sequence-height-l != $sequence-height-m {
+            //in cases where the medium height isn't given check that the large height isn't the same as the small height
+            @if $sequence-height-m == false and $sequence-height-l == $sequence-height-s {
+                //do nothing
+            } @else {
+                @include at-breakpoint($large) {
+                    height: $sequence-height-l;         //large size specs
+                    max-height: $sequence-height-l;
+                }
+            }
+        }
+    }
+
+    //continue styles
+    .xmod-banner > .sequence-canvas li > .xmod-banner-slide { /* REQUIRED */
+        position: absolute;
+    }
+    //make canvas the same size as its wrapper
+    .xmod-banner > .sequence-canvas {       /* REQUIRED */
+        height: 100%;
+        width: 100%;
+    }
+    //frame declarations
+    .xmod-banner > .sequence-canvas > li {  /* REQUIRED */
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        z-index: 1;
+    }
+
+    //size up banner contents
+    .sequence-canvas > li div {
+        width: 100%;
+        height: 100%;
+    }
+    .sequence-canvas > li div a {
+        display: block;
+    }
+    //images inside scale to fit container
+    .sequence-canvas > li div a img {
+        @extend %scaling-img;
+    }
+}
+
+//SEQUENCE ANIMATION
+@mixin sequence-animation ($property, $in-state, $visible-state, $out-state, $duration: 0.5s, $ease: ease) {
+    .sequence-canvas li .xmod-banner-slide {
+        #{$property}: $in-state;
+        opacity: 0;
+        @include transition($property $duration $ease, opacity $duration $ease);
+    }
+    .sequence-canvas .animate-in .xmod-banner-slide {
+        #{$property}: $visible-state;
+        opacity: 1;
+        @include transition($property $duration $ease, opacity $duration $ease);
+    }
+    .sequence-canvas .animate-out .xmod-banner-slide {
+        #{$property}: $out-state;
+        opacity: 0;
+        @include transition($property $duration $ease, opacity $duration $ease);
+    }
+}
+
+//SEQUENCE PAGINATION LAYOUT
+@mixin sequence-pagination-layout($size: 1em, $padding: 0, $align-x: right, $align-y: bottom, $distance-x: 1em, $distance-y: 1em) {
+
+    @if $align-x == middle or $align-x == center {
+        .xmod-banner {
+            text-align: center;
+        }
+    }
+
+    .sequence-pagination {
+        position: absolute;
+        z-index: 10;
+        display: inline-block;
+        margin-bottom: 0;
+        padding: $padding;
+
+        @if $align-x != false {
+            #{$align-x}: $distance-x;
+        }
+
+        @if $align-y != false {
+            #{$align-y}: $distance-y;
+        }
+
+        li {
+            @include block-item($size);
+            display: inline-block;
+            margin: 0 0.5em -0.2em 0;
+
+            &:last-child {
+                margin-right: 0;
+            }
+        }
+    }
+
+    //bigger nav for touch devices
+    .touch {
+        .xsb-content__main .xmod-banner .sequence-pagination li {
+            width: 1.5 * $size;
+            padding-top: 1.5 * $size;
+        }
+    }
+}
+
+//SEQUENCE PAGINATION STYLES
+// sets up sequence navigation styles
+// background | states [x4] | frame radius | radius | shadow | mode (supported values: solid/false | hollow | solid-current | hollow-current | solid-hover | hollow-hover)
+@mixin sequence-pagination-style(
+    $bg: transparent,
+    $default: #fff,
+    $default-hover: red,
+    $current: #222,
+    $current-hover: #000,
+    $frame-radius: false,
+    $radius: false,
+    $shadow: false,
+    $mode: false) {
+
+    .sequence-pagination {
+        background: $bg;
+
+        @if $frame-radius != false and $frame-radius != 0 {
+            @include border-radius($frame-radius);
+        }
+
+        li {
+            cursor: pointer;
+
+            @if $radius != false or $radius != 0 {
+                @include border-radius($radius);
+            }
+
+            @if $shadow != false or $shadow != none {
+                @include box-shadow($shadow);
+            }
+
+            border-width: 1px;
+            border-style: solid;
+            border-color: $default;
+
+            @if $mode == hollow or $mode == solid-current or $mode == solid-hover {
+                background: transparent;
+            } @else {
+                background: $default;
+            }
+
+            &:hover {
+                border-color: $default-hover;
+
+                @if $mode == hollow or $mode == solid-current or $mode == hollow-hover {
+                    background: transparent;
+                } @else {
+                    background: $default-hover;
+                }
+            }
+
+            &.current {
+                border-color: $current;
+
+                @if $mode == hollow or $mode == hollow-current or $mode == solid-hover {
+                    background: transparent;
+                } @else {
+                    background: $current;
+                }
+
+                &:hover {
+                    border-color: $current-hover;
+
+                    @if $mode == hollow or $mode == hollow-current or $mode == hollow-hover {
+                        background: transparent;
+                    } @else {
+                        background: $current-hover;
+                    }
+                }
+            }
+        }
+    }
+}
