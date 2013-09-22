@@ -7,8 +7,9 @@
  */
 
 // import css frameworks
-@import 'compass';
-@import 'susy';
+@import "compass",
+        "susy",
+        "compass/reset";
 
 // breakpoint output settings for modern browsers
 $breakpoint-media-output  : false;

@@ -7,9 +7,9 @@
  */
 
 // import css frameworks
-@import 'compass';
-@import 'susy';
-
+@import "compass",
+        "susy",
+        "compass/reset";
 
 // breakpoint output settings for modern browsers
 $breakpoint-media-output  : true;
@@ -17,6 +17,10 @@ $breakpoint-ie-output     : false;
 
 // no legacy support
 $legacy-support-for-ie: false;
+
+//browser stats are too low to warrant support for the following:
+$experimental-support-for-opera : false;
+$experimental-support-for-khtml : false;
 
 // import styles
 @import "screen";

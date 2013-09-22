@@ -29,6 +29,7 @@
     @return $value;
 }
 
+
 // Converts a px value to ems. Should only work in absolute em document context (root level), unless $context is specified
 @function px-to-ems($value, $context: $base-font-size) {
     @if unit($context) == "em" {
@@ -57,35 +58,68 @@
 
 // Gradient with background color fallback for legacy browsers
 @mixin gradient-with-bgc($colors...) {
-    @include background(linear-gradient($gradient-startpoint, $colors...));
     $length: length($colors);
-    background-color: mix(nth($colors, 1), nth($colors, $length));
+    //output bgc before gradient so that transparent gradients will work in modern browsers, or ie9 will display background color when svg support is turned off
+    @if $legacy-support-for-ie == false {
+        background-color: mix(nth($colors, 1), nth($colors, $length));
+        @include background(linear-gradient($gradient-startpoint, $colors...));
+    }
+
+    //output bgc after gradient for legacy browsers
+    @if $legacy-support-for-ie == true {
+        background-color: mix(nth($colors, 1), nth($colors, $length));
+    }
 }
 
 
 // Gradient with svg fallback for ie9
 @mixin gradient-with-svg($colors...) {
-    $experimental-support-for-svg: true;
-    @include background(linear-gradient($gradient-startpoint, $colors...));
     $length: length($colors);
-    background-color: mix(nth($colors, 1), nth($colors, $length));
+    //output bgc before gradient so that transparent gradients will work in modern browsers, or ie9 will display background color when svg support is turned off
+    @if $legacy-support-for-ie == false {
+        background-color: mix(nth($colors, 1), nth($colors, $length));
+        $experimental-support-for-svg: true;
+        @include background(linear-gradient($gradient-startpoint, $colors...));
+    }
+
+    //output bgc after gradient for legacy browsers
+    @if $legacy-support-for-ie == true {
+        background-color: mix(nth($colors, 1), nth($colors, $length));
+    }
 }
 
 
 // directional gradient
 @mixin gradient-directional($startpoint, $colors...) {
-    @include background(linear-gradient($startpoint, $colors...));
     $length: length($colors);
-    background-color: mix(nth($colors, 1), nth($colors, $length));
+    //output bgc before gradient so that transparent gradients will work in modern browsers, or ie9 will display background color when svg support is turned off
+    @if $legacy-support-for-ie == false {
+        background-color: mix(nth($colors, 1), nth($colors, $length));
+        @include background(linear-gradient($startpoint, $colors...));
+    }
+
+    //output bgc after gradient for legacy browsers
+    @if $legacy-support-for-ie == true {
+        background-color: mix(nth($colors, 1), nth($colors, $length));
+    }
 }
 
 // radial gradient with background color fallback for legacy browsers
 @mixin radial-gradient-with-bgc($startpoint, $colors...) {
-    @include background(radial-gradient($colors, $startpoint));
     $length: length($colors);
     $first: nth(nth($colors, 1), 1);
     $second: nth(nth($colors, $length), 1);
-    background-color: mix($first, $second);
+    //output bgc before gradient so that transparent gradients will work in modern browsers, or ie9 will display background color when svg support is turned off
+    @if $legacy-support-for-ie == false {
+        background-color: mix($first, $second);
+    }
+
+    @include background(radial-gradient($colors, $startpoint));
+
+    //output bgc after gradient for legacy browsers
+    @if $legacy-support-for-ie == true {
+        background-color: mix($first, $second);
+    }
 }
 
 
@@ -141,28 +175,30 @@
 // selection color
 // includes futureproofing for support of gradients (not surrently in spec)
 @mixin selection-color($background, $color: false, $text-shadow: false) {
-    ::selection
-    {
-        @include gradient-with-bgc(lighten($background, 4%), $background, darken($background, 4%));
-        @if $color != false {
-            color: $color;
-        }
-        @if $text-shadow == false {
-            text-shadow: none;
-        } @else {
-            text-shadow: $text-shadow;
+    @if $legacy-support-for-ie == false {
+        ::selection {
+            @include gradient-with-bgc(lighten($background, 4%), $background, darken($background, 4%));
+            @if $color != false {
+                color: $color;
+            }
+            @if $text-shadow == false {
+                text-shadow: none;
+            } @else {
+                text-shadow: $text-shadow;
+            }
         }
     }
-    ::-moz-selection
-    {
-        @include gradient-with-bgc(lighten($background, 4%), $background, darken($background, 4%));
-        @if $color != false {
-            color: $color;
-        }
-        @if $text-shadow == false {
-            text-shadow: none;
-        } @else {
-            text-shadow: $text-shadow;
+    @if $experimental-support-for-mozilla == true {
+        ::-moz-selection {
+            @include gradient-with-bgc(lighten($background, 4%), $background, darken($background, 4%));
+            @if $color != false {
+                color: $color;
+            }
+            @if $text-shadow == false {
+                text-shadow: none;
+            } @else {
+                text-shadow: $text-shadow;
+            }
         }
     }
 }
@@ -170,10 +206,12 @@
 
 // For future support for blend modes. Can be tested in Chromium
 @mixin blend-mode($mode) {
-    -webkit-blend-mode: $mode;
-    -moz-blend-mode: $mode;
-    -ms-blend-mode: $mode;
-    blend-mode: $mode;
+    @if $legacy-support-for-ie == false {
+        -webkit-blend-mode: $mode;
+        -moz-blend-mode: $mode;
+        -ms-blend-mode: $mode;
+        blend-mode: $mode;
+    }
 }
 
 
@@ -332,6 +370,7 @@
     }
 }
 
+
 // vendor prefixes values of rules
 @mixin vendor($property, $value) {
     @each $vendor in webkit, moz, ms, o {
@@ -348,6 +387,7 @@
     }
     #{$property}: #{$value};
 }
+
 
 // For Susy: use when overriding the susy "span-columns" mixin.
 // unlike span-columns, this will only reapply the width and padding so that
@@ -395,12 +435,19 @@
     box-shadow:white($opacity) 0 1px 0, inset black($opacity2) 0 1px 0;
 }
 
+
 //placeholder text
 @mixin placeholder {
     &.placeholder { @content; }
-    &:-moz-placeholder { @content; }
-    &::-moz-placeholder { @content; }
-    &::-webkit-input-placeholder { @content; }
+
+    //only output for modern browsers
+    @if $experimental-support-for-mozilla == true {
+        &:-moz-placeholder { @content; }
+        &::-moz-placeholder { @content; }
+    }
+    @if $experimental-support-for-webkit == true {
+        &::-webkit-input-placeholder { @content; }
+    }
 }
 
 
@@ -443,6 +490,7 @@
 %appearance-none {
     @include appearance(none);
 }
+
 
 // centers a grid wrapper
 %center-grid {
@@ -519,8 +567,10 @@
 
 // webkit fixes for the rendering mode on animated text
 @mixin fix-webkit-font-smoothing {
-    -webkit-transform: translateZ(0px);             // forces hardware accelleration, thus respecting -webkit-font-smoothing
-    -webkit-font-smoothing: subpixel-antialiased;   // the preferred anti-aliasing method
+    @if $experimental-support-for-webkit == true {
+        -webkit-transform: translateZ(0px);             // forces hardware accelleration, thus respecting -webkit-font-smoothing
+        -webkit-font-smoothing: subpixel-antialiased;   // the preferred anti-aliasing method
+    }
 }
 
 
@@ -582,6 +632,14 @@
         }
     }
 }
+
+
+%scaling-img {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
 
 //for testing susy grids at all default OnionKnight breakpoints
 @mixin test-grids {
