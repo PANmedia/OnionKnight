@@ -1,7 +1,11 @@
 // XMod Article Plugin - Layout
 // sets up very, very basic layout and text overflow for article modules
 // it is recommended to extend .xmod-article-tile with a .xsb-grid-... class to complement this mixin
-@mixin article-tiles($heading-height, $image-height, $description-height, $footer-height, $article-bg: #fff, $article-footer-bg: #ccc, $date: false, $tag-label: false) {
+@mixin article-tiles($heading-height: 2.4em, $image-height: 7em, $description-height: 6.2em, $footer-height: 2.2em, $article-bg: #fff, $article-footer-bg: #ccc, $description-overflow: ellipsis, $date: false, $tag-label: false) {
+    .xmod-articles {
+        @include transition(opacity 0.4s ease);
+    }
+
     .xmod-article-tile,
     .xmod-article-tile__image,
     .xmod-article-tile__description {
@@ -18,6 +22,28 @@
         overflow: hidden;
         width: 100%;
         height: $image-height;
+        @include transition(height 0.2s ease);  //animate height at each breakpoint change
+
+        @include at-breakpoint($small-cols 510 / 16 * 1em) { max-height: 510/520 * $image-height; }
+        @include at-breakpoint($small-cols 500 / 16 * 1em) { max-height: 500/520 * $image-height; }
+        @include at-breakpoint($small-cols 490 / 16 * 1em) { max-height: 490/520 * $image-height; }
+        @include at-breakpoint($small-cols 480 / 16 * 1em) { max-height: 480/520 * $image-height; }
+        @include at-breakpoint($small-cols 470 / 16 * 1em) { max-height: 470/520 * $image-height; }
+        @include at-breakpoint($small-cols 460 / 16 * 1em) { max-height: 460/520 * $image-height; }
+        @include at-breakpoint($small-cols 450 / 16 * 1em) { max-height: 450/520 * $image-height; }
+        @include at-breakpoint($small-cols 440 / 16 * 1em) { max-height: 440/520 * $image-height; }
+        @include at-breakpoint($small-cols 430 / 16 * 1em) { max-height: 430/520 * $image-height; }
+        @include at-breakpoint($small-cols 420 / 16 * 1em) { max-height: 420/520 * $image-height; }
+        @include at-breakpoint($small-cols 410 / 16 * 1em) { max-height: 410/520 * $image-height; }
+        @include at-breakpoint($small-cols 400 / 16 * 1em) { max-height: 400/520 * $image-height; }
+        @include at-breakpoint($small-cols 390 / 16 * 1em) { max-height: 390/520 * $image-height; }
+        @include at-breakpoint($small-cols 380 / 16 * 1em) { max-height: 380/520 * $image-height; }
+        @include at-breakpoint($small-cols 370 / 16 * 1em) { max-height: 370/520 * $image-height; }
+        @include at-breakpoint($small-cols 360 / 16 * 1em) { max-height: 360/520 * $image-height; }
+        @include at-breakpoint($small-cols 350 / 16 * 1em) { max-height: 350/520 * $image-height; }
+        @include at-breakpoint($small-cols 340 / 16 * 1em) { max-height: 340/520 * $image-height; }
+        @include at-breakpoint($small-cols 330 / 16 * 1em) { max-height: 330/520 * $image-height; }
+        @include at-breakpoint($small-cols 320 / 16 * 1em) { max-height: 320/520 * $image-height; }
 
         a {
             display: block;
@@ -30,7 +56,11 @@
     }
 
     .xmod-article-tile__description {
-        @include multiline-text-overflow($description-height, $article-bg);
+        @if $description-overflow == ellipsis {
+            @include multiline-text-overflow($description-height, $article-bg);
+        } @else if $description-overflow == fade {
+            @include set-fade-overflow($description-height, $article-bg);
+        }
     }
 
     .xmod-article-tile__heading {
@@ -55,7 +85,7 @@
     }
 
     .xmod-article-tile__tags {
-        line-height: 1;
+        line-height: 1.5;
         font-size: px-to-ems($small-size + 1);
         @include multiline-text-overflow($footer-height, $article-footer-bg);
 
@@ -172,7 +202,7 @@
         font-size: 1.2em;
     }
 
-    p {
+    .xmod-article-search-result__description {
         @include at-breakpoint($large) {
             @include span-columns(10, 12);
         }
