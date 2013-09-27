@@ -89,8 +89,7 @@ $nav__z-index_bottom: 200;  //level-1 nav items
             z-index: $nav__z-index_bottom;       //set z-index higher than banner area
 
             //DROPDOWN (on-hover)
-            &:hover .nav__menu--depth-2,
-            &:focus .nav__menu--depth-2 { //display the dropdown (level-2) on hover
+            &:hover .nav__menu--depth-2 { //display the dropdown (level-2) on hover
                 @include at-breakpoint($medium) {
                     position: relative; //Pushes down the other nav links when dropdown is open
                     left: 0;            //Bring back on-screen when needed
@@ -135,8 +134,7 @@ $nav__z-index_bottom: 200;  //level-1 nav items
         .nav__menu--depth-1 > .nav__item { //Select level-1 unordered list direct-child (li) elements.
             float: left;     //stacks the links in a horizontal line.
 
-            &:hover .nav__menu--depth-2,
-            &:focus .nav__menu--depth-2 { //display the dropdown (level-2) on hover
+            &:hover .nav__menu--depth-2 { //display the dropdown (level-2) on hover
                 position: absolute;
             }
         }
@@ -173,21 +171,18 @@ $nav__z-index_bottom: 200;  //level-1 nav items
 //sets nav hover link colors
 @mixin nav_hover-color($bg-color:transparent, $text-color:$link-color) {
     //DROPDOWN STYLES
-    .nav__menu--depth-1 > .nav__item:hover > .nav__link,
-    .nav__menu--depth-1 > .nav__item:focus > .nav__link {
+    .nav__menu--depth-1 > .nav__item:hover > .nav__link {
         background-color: $bg-color;
         color: $text-color;  //persistant hover color on parent link of dropdown (and its children)
     }
-    .nav__menu--depth-1 > .nav__item--parent:hover:after,
-    .nav__menu--depth-1 > .nav__item--parent:focus:after {
+    .nav__menu--depth-1 > .nav__item--parent:hover:after {
         color: $text-color;
     }
 }
 
 //sets sub-nav hover link colors
 @mixin sub-nav_hover-color($bg-color:transparent, $text-color:$link-color) {
-    .nav__menu--depth-2 > .nav__item .nav__link:hover,
-    .nav__menu--depth-2 > .nav__item .nav__link:focus {
+    .nav__menu--depth-2 > .nav__item .nav__link:hover {
         background-color: $bg-color;
         color: $text-color;  //specify explicit hover states for subnavigation children
     }
@@ -234,6 +229,10 @@ $nav__z-index_bottom: 200;  //level-1 nav items
             } @else if $divider-style == left {
                 .nav__menu--depth-1 > .nav__item > .nav__link { //Select level-1 direct-child (a) anchor elements.
                     border-left: 1px solid $divider-color; //add border to visually divide the links
+                }
+
+                .nav--feds .nav__menu--depth-1 > .nav__item:hover .nav__menu--depth-2 {
+                    left: 1px;
                 }
             }
 
@@ -360,8 +359,7 @@ $nav__z-index_bottom: 200;  //level-1 nav items
     @if $property-2 == false {
         @if $at-mobile == true {
             .nav__menu--depth-1 > .nav__item {
-                &:hover .nav__menu--depth-2,
-                &:focus .nav__menu--depth-2 {
+                &:hover .nav__menu--depth-2 {
                     @if $to != false {
                         #{$property}: $to;
                     }
@@ -377,8 +375,7 @@ $nav__z-index_bottom: 200;  //level-1 nav items
         } @else {
             @include at-breakpoint($medium) {
                 .nav__menu--depth-1 > .nav__item {
-                    &:hover .nav__menu--depth-2,
-                    &:focus .nav__menu--depth-2 {
+                    &:hover .nav__menu--depth-2 {
                         @if $to != false {
                             #{$property}: $to;
                         }
@@ -396,8 +393,7 @@ $nav__z-index_bottom: 200;  //level-1 nav items
     } @else {
         @if $at-mobile == true {
             .nav__menu--depth-1 > .nav__item {
-                &:hover .nav__menu--depth-2,
-                &:focus .nav__menu--depth-2 {
+                &:hover .nav__menu--depth-2 {
                     @if $to != false {
                         #{$property}: $to;
                     }
@@ -471,15 +467,13 @@ $nav__z-index_bottom: 200;  //level-1 nav items
     }
     @if $animate == true {
         @include at-breakpoint($medium) {
-            .nav__menu--depth-1 > .nav__item--parent:hover:after,
-            .nav__menu--depth-1 > .nav__item--parent:focus:after {
+            .nav__menu--depth-1 > .nav__item--parent:hover:after {
                 margin-top: $height * 0.5;
                 // color: $hover-color; //moved below
             }
         }
     }
-    .nav__menu--depth-1 > .nav__item--parent:hover:after,
-    .nav__menu--depth-1 > .nav__item--parent:focus:after {
+    .nav__menu--depth-1 > .nav__item--parent:hover:after {
         color: $hover-color; //moved here so hover still applies color, regardless of animation
     }
 }
