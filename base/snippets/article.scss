@@ -88,11 +88,11 @@
         @include at-breakpoint($medium) {
             float: right;
             width: 50%;
-            padding-top: 0.5em;
+            padding-top: 0.2em;
 
             label {
                 float: left;
-                padding-top: 0.25em;
+                padding-top: 0.3em;
             }
         }
 
@@ -153,6 +153,7 @@
 
     .xmod-article-search-header {
         padding-bottom: 0.5em;
+        padding-top: 0.1em;
     }
 
     .xmod-article-search-result__section,

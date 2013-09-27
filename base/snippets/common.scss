@@ -652,3 +652,35 @@
         @include susy-grid-background;
     }
 }
+
+
+//breadcrumbs
+@mixin breadcrumbs($color) {
+    .xmod-bread-crumb {
+        padding-top: 1em;
+        font-family: $heading-font;
+        font-size: px-to-ems(14px);
+        color: $color;
+
+        a {
+            color: $color;
+            font-family: $heading-font;
+            text-decoration: none;
+            opacity: 0.75;
+            @include transition(opacity 0.2s linear);
+
+            &:hover {
+                opacity: 0.85;
+                text-decoration: underline;
+            }
+
+            &:last-child {
+                opacity: 1;
+
+                &:hover {
+                    opacity: 1;
+                }
+            }
+        }
+    }
+}
