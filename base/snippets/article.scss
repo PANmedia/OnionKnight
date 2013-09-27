@@ -81,3 +81,99 @@
         }
     }
 }
+
+//article search results
+@mixin article-search($info-color, $padding, $frame-class: false, $button-class: false, $input-class: false) {
+    .xmod-article-search-form {
+        @include at-breakpoint($medium) {
+            float: right;
+            width: 50%;
+            padding-top: 0.5em;
+
+            label {
+                float: left;
+                padding-top: 0.25em;
+            }
+        }
+
+        @include at-breakpoint($large) {
+            width: 42%;
+        }
+
+        .form-button {
+            @include border-left-radius(0!important);
+
+            @if $button-class {
+                @extend #{$button-class};
+            }
+        }
+
+        .form-text {
+            @include border-right-radius(0!important);
+
+            @if $input-class {
+                @extend #{$input-class};
+            }
+        }
+
+        .form-text-button-table {
+            @include at-breakpoint($medium) {
+                width: 80%;
+                float: right;
+            }
+
+            @include at-breakpoint($large) {
+                width: 85%;
+            }
+        }
+    }
+
+    .xmod-article-search-result {
+        margin-bottom: 1em;
+        padding: $padding;
+        @extend %clearfix;
+
+        @if $frame-class {
+            @extend #{$frame-class};
+        }
+    }
+
+    .xmod-article-search-result__heading {
+        padding-bottom: 0;
+
+        a {
+            color: inherit;
+            text-decoration: none;
+
+            &:hover {
+                text-decoration: underline;
+            }
+        }
+    }
+
+    .xmod-article-search-header {
+        padding-bottom: 0.5em;
+    }
+
+    .xmod-article-search-result__section,
+    .xmod-article-search-result__date {
+        color: $info-color;
+        font-family: $heading-font;
+        margin-bottom: 0.5em;
+    }
+
+    .xmod-article-search-result__section:before {
+        content: " |  ";
+        display: inline;
+        color: lighten($info-color, 40%);
+        margin: 0 0.5em;
+        font-weight: 100;
+        font-size: 1.2em;
+    }
+
+    p {
+        @include at-breakpoint($large) {
+            @include span-columns(10, 12);
+        }
+    }
+}
