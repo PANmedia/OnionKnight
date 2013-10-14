@@ -17,10 +17,11 @@ $breakpoint-ie-output     : false;
 
 // no legacy support
 $legacy-support-for-ie: false;
+$support-for-original-webkit-gradients: false;
+$experimental-support-for-khtml : false;
 
 //browser stats are too low to warrant support for the following:
 $experimental-support-for-opera : false;
-$experimental-support-for-khtml : false;
 
 // import styles
 @import "screen";
