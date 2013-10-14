@@ -89,6 +89,7 @@ jQuery(function($) {
         // });
     };
 
+
     //remove dropdowns
     var unsetDropdowns = function() {
         if (OnionKnight.deviceWidth() > width_tablet) {
@@ -97,28 +98,15 @@ jQuery(function($) {
         }
     }
 
+
     //generic nav toggle
     var toggleSubNav = function() {
         var target = $(this);
 
         if (OnionKnight.deviceWidth() <= width_tablet) {
-            //close all other open subnavs to maintain dropdown height (and thus, usability)
-            nav_parent.not(target).find('.nav__menu--depth-2').slideUp(500);
-            //show subnav
-            target.find('.nav__menu--depth-2').css({ "margin-left": "", "height": "" }).slideDown(500);
-            target.addClass('nav__item--open');
-            nav_parent.not(target).removeClass('nav__item--open');
+            mobSubNav(target);
         } else {
-            setDropdownMargins();
-
-            //check if dropdowns are open
-            if ($(target).closest('.nav__item--open').length) {
-                nav_open = true;
-            } else {
-                nav_open = false;
-            }
-            unsetDropdowns();
-            nav_top_li.removeClass('nav__item--open');
+            resetDropdowns(target);
 
             //remove other open classes and add open class to target if not already open
             if (!nav_open) {
@@ -128,7 +116,61 @@ jQuery(function($) {
         };
     };
 
-    //mobile sub nav toggle - on touch devices
+
+    //mouse nav open
+    var closeSubNav = function() {
+        var target = $(this);
+
+        if (OnionKnight.deviceWidth() <= width_tablet) {
+            mobSubNav(target);
+        } else {
+            resetDropdowns(target);
+        };
+    };
+
+
+    //mouse nav close
+    var openSubNav = function() {
+        var target = $(this);
+
+        if (OnionKnight.deviceWidth() <= width_tablet) {
+            mobSubNav(target);
+        } else {
+            resetDropdowns(target);
+
+            setDropdowns.call(this);
+            target.addClass('nav__item--open');
+        };
+    };
+
+
+    //toggles sub nav on mobile
+    var mobSubNav = function(target) {
+        //close all other open subnavs to maintain dropdown height (and thus, usability)
+        nav_parent.not(target).find('.nav__menu--depth-2').slideUp(500);
+        //show subnav
+        target.find('.nav__menu--depth-2').css({ "margin-left": "", "height": "" }).slideDown(500);
+        target.addClass('nav__item--open');
+        nav_parent.not(target).removeClass('nav__item--open');
+    }
+
+
+    //closes dropdowns & prepares them to be opened/closed
+    var resetDropdowns = function(target) {
+        setDropdownMargins();
+
+        //check if dropdowns are open
+        if ($(target).closest('.nav__item--open').length) {
+            nav_open = true;
+        } else {
+            nav_open = false;
+        }
+        unsetDropdowns();
+        nav_top_li.removeClass('nav__item--open');
+    }
+
+
+    //sub nav toggle on touch devices
     var touchSubNav = function(e) {
         //if menu isn't open then prevent navigation
         if (!$(this).closest('.nav__menu--depth-2').length) {
@@ -155,8 +197,8 @@ jQuery(function($) {
     } else {
 
         //Dropdowns - mouse toggles
-        nav_top_li.on('mouseenter', toggleSubNav);
-        nav_top_li.on('mouseleave', toggleSubNav);
+        nav_top_li.on('mouseenter', openSubNav);
+        nav_top_li.on('mouseleave', closeSubNav);
 
         //mobile nav - mouse open
         nav_toggle.on("mouseenter", openMobileNav);
