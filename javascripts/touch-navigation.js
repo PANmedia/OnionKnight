@@ -121,9 +121,7 @@ jQuery(function($) {
     var closeSubNav = function() {
         var target = $(this);
 
-        if (OnionKnight.deviceWidth() <= width_tablet) {
-            mobSubNav(target);
-        } else {
+        if (OnionKnight.deviceWidth() > width_tablet) {
             resetDropdowns(target);
         };
     };
@@ -133,9 +131,7 @@ jQuery(function($) {
     var openSubNav = function() {
         var target = $(this);
 
-        if (OnionKnight.deviceWidth() <= width_tablet) {
-            mobSubNav(target);
-        } else {
+        if (OnionKnight.deviceWidth() > width_tablet) {
             resetDropdowns(target);
 
             setDropdowns.call(this);
@@ -199,6 +195,9 @@ jQuery(function($) {
         //Dropdowns - mouse toggles
         nav_top_li.on('mouseenter', openSubNav);
         nav_top_li.on('mouseleave', closeSubNav);
+
+        //Dropdowns - mobile mouse toggle
+        nav_top_li.on('click', touchSubNav);
 
         //mobile nav - mouse open
         nav_toggle.on("mouseenter", openMobileNav);
