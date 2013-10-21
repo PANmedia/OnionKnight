@@ -19,7 +19,6 @@
             padding: 0;
             margin: 0;
         }
-
         width: 100%;                            //sequence width
         max-width: $sequence-max-width-s;       //maximum mobile width
         margin: $space-top auto $space-bottom auto; //set space above and below sequence
@@ -122,19 +121,45 @@
 //SEQUENCE ANIMATION
 @mixin sequence-animation ($property, $in-state, $visible-state, $out-state, $duration: 0.5s, $ease: ease) {
     .sequence-canvas li .xmod-banner-slide {
-        #{$property}: $in-state;
+        @if $property == translateX or $property == translateY or $property == scale {
+            @include transition(transform $duration $ease, opacity $duration $ease);
+
+            @if $property == translateX {
+                @include transform(translateX($in-state));
+            } @else if $property == translateY {
+                @include transform(translateY($in-state));
+            } @else if $property == scale {
+                @include transform(scale($in-state));
+            }
+        } @else {
+            #{$property}: $in-state;
+            @include transition($property $duration $ease, opacity $duration $ease);
+        }
         opacity: 0;
-        @include transition($property $duration $ease, opacity $duration $ease);
     }
     .sequence-canvas .animate-in .xmod-banner-slide {
-        #{$property}: $visible-state;
+        @if $property == translateX {
+            @include transform(translateX($visible-state));
+        } @else if $property == translateY {
+            @include transform(translateY($visible-state));
+        } @else if $property == scale {
+            @include transform(scale($visible-state));
+        } @else {
+            #{$property}: $visible-state;
+        }
         opacity: 1;
-        @include transition($property $duration $ease, opacity $duration $ease);
     }
     .sequence-canvas .animate-out .xmod-banner-slide {
-        #{$property}: $out-state;
+        @if $property == translateX {
+            @include transform(translateX($out-state));
+        } @else if $property == translateY {
+            @include transform(translateY($out-state));
+        } @else if $property == scale {
+            @include transform(scale($out-state));
+        } @else {
+            #{$property}: $out-state;
+        }
         opacity: 0;
-        @include transition($property $duration $ease, opacity $duration $ease);
     }
 }
 
