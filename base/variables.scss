@@ -8,11 +8,10 @@
 
 // @todo customise your site colors
 // colors
-$site-purple: #3e3d45;
-$site-blue: #0196d1;
-$heading-color: $site-blue;
-$sub-heading-color: $site-blue;
-$link-color: $site-purple;
+$site-theme: tomato;
+$heading-color: $site-theme;
+$sub-heading-color: $site-theme;
+$link-color: $site-theme;
 
 //responsive grid breakpoints
 //column numbers
