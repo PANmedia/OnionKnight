@@ -456,10 +456,10 @@
 @mixin picture-init($classname: picture) {
     .#{$classname} {
         font-family: "0" !important;
-        @include at-breakpoint($medium) {
+        @include at-breakpoint($above-medium) {
             font-family: "#{no-unit($medium-width)}" !important;
         }
-        @include at-breakpoint($large) {
+        @include at-breakpoint($above-large) {
             font-family: "#{no-unit($large-width)}" !important;
         }
     }
@@ -521,13 +521,13 @@
 // hides on mobile
 %no-mobile {
     display: none;
-    @include at-breakpoint($medium) { display: inline; }
+    @include at-breakpoint($above-medium) { display: inline; }
 }
 
 // hides on desktop
 %mobile-only {
     display: inline-block;
-    @include at-breakpoint($medium) { display: none; }
+    @include at-breakpoint($above-medium) { display: none; }
 }
 
 
@@ -582,19 +582,19 @@
         .xsb-grid__#{$sml}-#{$med}-#{$lrg} {
             @include span-columns($sml);
 
-            @include at-breakpoint($medium) {
+            @include at-breakpoint($above-medium) {
                @include span-columns($med, $medium-cols);
             }
-            @include at-breakpoint($large) {
+            @include at-breakpoint($above-large) {
                 @include span-columns($lrg, $large-cols);
             }
         }
         .xsb-grid__#{$sml}-#{$med}-#{$lrg}_omega {
             @include span-columns($sml omega);
-            @include at-breakpoint($medium) {
+            @include at-breakpoint($above-medium) {
                 @include span-columns($med omega, $medium-cols);
             }
-            @include at-breakpoint($large) {
+            @include at-breakpoint($above-large) {
                 @include span-columns($lrg omega, $large-cols);
             }
         }
@@ -614,19 +614,19 @@
         .xsb-grid__#{$sml}-#{$med}-#{$lrg}--#{$context-sml}-#{$context-med}-#{$context-lrg} {
             @include span-columns($sml, $context-sml);
 
-            @include at-breakpoint($medium) {
+            @include at-breakpoint($above-medium) {
                 @include span-columns($med, $context-med);
             }
-            @include at-breakpoint($large) {
+            @include at-breakpoint($above-large) {
                 @include span-columns($lrg, $context-lrg);
             }
         }
         .xsb-grid__#{$sml}-#{$med}-#{$lrg}--#{$context-sml}-#{$context-med}-#{$context-lrg}_omega {
             @include span-columns($sml omega, $context-sml);
-            @include at-breakpoint($medium) {
+            @include at-breakpoint($above-medium) {
                 @include span-columns($med omega, $context-med);
             }
-            @include at-breakpoint($large) {
+            @include at-breakpoint($above-large) {
                 @include span-columns($lrg omega, $context-lrg);
             }
         }
@@ -645,10 +645,10 @@
 @mixin test-grids {
     @include susy-grid-background;
 
-    @include at-breakpoint($medium) {
+    @include at-breakpoint($above-medium) {
         @include susy-grid-background;
     }
-    @include at-breakpoint($large) {
+    @include at-breakpoint($above-large) {
         @include susy-grid-background;
     }
 }

@@ -115,7 +115,7 @@
 //article search results
 @mixin article-search($info-color, $padding, $frame-class: false, $button-class: false, $input-class: false) {
     .xmod-article-search-form {
-        @include at-breakpoint($medium) {
+        @include at-breakpoint($above-medium) {
             float: right;
             width: 50%;
             padding-top: 0.2em;
@@ -126,7 +126,7 @@
             }
         }
 
-        @include at-breakpoint($large) {
+        @include at-breakpoint($above-large) {
             width: 42%;
         }
 
@@ -147,12 +147,12 @@
         }
 
         .form-text-button-table {
-            @include at-breakpoint($medium) {
+            @include at-breakpoint($above-medium) {
                 width: 80%;
                 float: right;
             }
 
-            @include at-breakpoint($large) {
+            @include at-breakpoint($above-large) {
                 width: 85%;
             }
         }
@@ -203,7 +203,7 @@
     }
 
     .xmod-article-search-result__description {
-        @include at-breakpoint($large) {
+        @include at-breakpoint($above-large) {
             @include span-columns(10, 12);
         }
     }

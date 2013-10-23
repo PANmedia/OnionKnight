@@ -27,7 +27,7 @@
         position: relative;                     /* REQUIRED */
         z-index: 100;                           //z-index
 
-        @include at-breakpoint($medium) {
+        @include at-breakpoint($above-medium) {
             max-width: 100%;
             margin: $space-top auto $space-bottom auto; //set space above and below sequence
         }
@@ -66,7 +66,7 @@
         }
         //check that the medium height is given, and isn't the same as the small height
         @if $sequence-height-m != false and $sequence-height-m != $sequence-height-s {
-            @include at-breakpoint($medium) {
+            @include at-breakpoint($above-medium) {
                 height: $sequence-height-m;         //medium size specs
                 max-height: $sequence-height-m;
             }
@@ -77,7 +77,7 @@
             @if $sequence-height-m == false and $sequence-height-l == $sequence-height-s {
                 //do nothing
             } @else {
-                @include at-breakpoint($large) {
+                @include at-breakpoint($above-large) {
                     height: $sequence-height-l;         //large size specs
                     max-height: $sequence-height-l;
                 }

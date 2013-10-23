@@ -14,6 +14,13 @@ $sub-heading-color: $site-theme;
 $link-color: $site-theme;
 
 //responsive grid breakpoints
+
+// grid settings
+$col-num: 12;
+$column-width: 4.1em;   // default 4.2em is max col width for layouts to look nice on ipad
+$gutter-width: 1em;     // default 1em is max gutter width for layouts to look nice on ipad
+$grid-padding: $gutter-width;
+
 //column numbers
 //for constructing longhand susy layouts inside at-breakpoint mixins
 $small-cols: $total-columns;
@@ -26,7 +33,7 @@ $large-cols: 12;
     @return ($cols - 1) * $gutter-width + $cols * $column-width + 2 * $grid-padding;
 }
 
-//exact widths (as calculated by susy)
+//exact widths (as calculated by susy) - NOTE: these are buggy right now
 //for constructing longhand susy layouts inside at-breakpoint mixins
 $small-width: calc-breakpoint($small-cols);
 $medium-width: calc-breakpoint($medium-cols);
@@ -34,21 +41,20 @@ $large-width: calc-breakpoint($large-cols);
 
 //susy standard responsive layouts
 //use as shorthand for your breakpoints
-$small:     $small-cols no-mediaqueries;
-$medium:    $medium-cols no-mediaqueries;
-$large:     $large-cols no-mediaqueries;
+//min-width breakpoints
+$above-small:     $small-cols no-mediaqueries;
+$above-medium:    $medium-cols no-mediaqueries;
+$above-large:     $large-cols no-mediaqueries;
+//max-width breakpoints
+$below-small:     $small-cols 520 / 16 * 1em; //32.5 - calc-bp: 31.6 - diff 0.9
+$below-medium:    $medium-cols 766 / 16 * 1em; //47.875 - calc-bp: 46.9 - diff 0.975
+$below-large:     $large-cols 996 / 16 * 1em; //62.25 - calc-bp: 62.2 - diff 0.05
 
 // vertical rhythm
 $base-font-size: 16px;
 $base-line-height: 24px;
 $round-to-nearest-half-line: true;
 @include establish-baseline;
-
-// grid settings
-$col-num: 12;
-$column-width: 4.2em;   // default 4.2em is max col width for layouts to look nice on ipad
-$gutter-width: 1em;     // default 1em is max gutter width for layouts to look nice on ipad
-$grid-padding: $gutter-width;
 
 // sticky footer (entirely optional - for use with compass sticky footer mixin)
 $sticky-footer: 300px;
