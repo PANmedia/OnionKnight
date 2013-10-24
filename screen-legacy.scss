@@ -6,11 +6,6 @@
  * @url https://github.com/tbredin/OnionKnight
  */
 
-// import css frameworks
-@import "compass",
-        "susy",
-        "compass/reset";
-
 // breakpoint output settings for modern browsers
 $breakpoint-media-output  : false;
 $breakpoint-ie-output     : true;
@@ -26,6 +21,11 @@ $experimental-support-for-svg: false;
 
 // legacy support
 $legacy-support-for-ie: true;
+
+// import css frameworks
+@import "compass",
+        "susy",
+        "compass/reset";
 
 // import styles
 @import "screen";

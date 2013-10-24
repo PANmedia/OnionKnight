@@ -6,12 +6,7 @@
  * @url https://github.com/tbredin/OnionKnight
  */
 
-// import css frameworks
-@import "compass",
-        "susy",
-        "compass/reset";
-
-// breakpoint output settings for modern browsers
+ // breakpoint output settings for modern browsers
 $breakpoint-media-output  : true;
 $breakpoint-ie-output     : false;
 
@@ -22,6 +17,11 @@ $experimental-support-for-khtml : false;
 
 //browser stats are too low to warrant support for the following:
 $experimental-support-for-opera : false;
+
+// import css frameworks
+@import "compass",
+        "susy",
+        "compass/reset";
 
 // import styles
 @import "screen";
