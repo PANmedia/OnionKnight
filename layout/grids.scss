@@ -6,7 +6,7 @@
  * @url https://github.com/tbredin/OnionKnight
  */
 
-@include xsb-grid(6, 6, 8);
-@include xsb-grid(6, 3, 4);
-@include xsb-grid(6, 4, 6);
-@include xsb-grid(6, 8, 10);
+@include xsb-grid(6, 6, 8, 10); //two thirds
+@include xsb-grid(6, 3, 4, 5); //one third
+@include xsb-grid(6, 4, 6, 7, 6, 8, 12, 14); // half
+@include xsb-grid(6, 8, 10, 12); //most

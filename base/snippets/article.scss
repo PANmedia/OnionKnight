@@ -24,26 +24,23 @@
         height: $image-height;
         @include transition(height 0.2s ease);  //animate height at each breakpoint change
 
-        @include at-breakpoint($small-cols 510 / 16 * 1em) { max-height: 510/520 * $image-height; }
-        @include at-breakpoint($small-cols 500 / 16 * 1em) { max-height: 500/520 * $image-height; }
-        @include at-breakpoint($small-cols 490 / 16 * 1em) { max-height: 490/520 * $image-height; }
-        @include at-breakpoint($small-cols 480 / 16 * 1em) { max-height: 480/520 * $image-height; }
-        @include at-breakpoint($small-cols 470 / 16 * 1em) { max-height: 470/520 * $image-height; }
-        @include at-breakpoint($small-cols 460 / 16 * 1em) { max-height: 460/520 * $image-height; }
-        @include at-breakpoint($small-cols 450 / 16 * 1em) { max-height: 450/520 * $image-height; }
-        @include at-breakpoint($small-cols 440 / 16 * 1em) { max-height: 440/520 * $image-height; }
-        @include at-breakpoint($small-cols 430 / 16 * 1em) { max-height: 430/520 * $image-height; }
-        @include at-breakpoint($small-cols 420 / 16 * 1em) { max-height: 420/520 * $image-height; }
-        @include at-breakpoint($small-cols 410 / 16 * 1em) { max-height: 410/520 * $image-height; }
-        @include at-breakpoint($small-cols 400 / 16 * 1em) { max-height: 400/520 * $image-height; }
-        @include at-breakpoint($small-cols 390 / 16 * 1em) { max-height: 390/520 * $image-height; }
-        @include at-breakpoint($small-cols 380 / 16 * 1em) { max-height: 380/520 * $image-height; }
-        @include at-breakpoint($small-cols 370 / 16 * 1em) { max-height: 370/520 * $image-height; }
-        @include at-breakpoint($small-cols 360 / 16 * 1em) { max-height: 360/520 * $image-height; }
-        @include at-breakpoint($small-cols 350 / 16 * 1em) { max-height: 350/520 * $image-height; }
-        @include at-breakpoint($small-cols 340 / 16 * 1em) { max-height: 340/520 * $image-height; }
-        @include at-breakpoint($small-cols 330 / 16 * 1em) { max-height: 330/520 * $image-height; }
-        @include at-breakpoint($small-cols 320 / 16 * 1em) { max-height: 320/520 * $image-height; }
+        @include at-breakpoint($small-cols 480 / 16 * 1em) { max-height: 480/490 * $image-height; }
+        @include at-breakpoint($small-cols 470 / 16 * 1em) { max-height: 470/490 * $image-height; }
+        @include at-breakpoint($small-cols 460 / 16 * 1em) { max-height: 460/490 * $image-height; }
+        @include at-breakpoint($small-cols 450 / 16 * 1em) { max-height: 450/490 * $image-height; }
+        @include at-breakpoint($small-cols 440 / 16 * 1em) { max-height: 440/490 * $image-height; }
+        @include at-breakpoint($small-cols 430 / 16 * 1em) { max-height: 430/490 * $image-height; }
+        @include at-breakpoint($small-cols 420 / 16 * 1em) { max-height: 420/490 * $image-height; }
+        @include at-breakpoint($small-cols 410 / 16 * 1em) { max-height: 410/490 * $image-height; }
+        @include at-breakpoint($small-cols 400 / 16 * 1em) { max-height: 400/490 * $image-height; }
+        @include at-breakpoint($small-cols 390 / 16 * 1em) { max-height: 390/490 * $image-height; }
+        @include at-breakpoint($small-cols 380 / 16 * 1em) { max-height: 380/490 * $image-height; }
+        @include at-breakpoint($small-cols 370 / 16 * 1em) { max-height: 370/490 * $image-height; }
+        @include at-breakpoint($small-cols 360 / 16 * 1em) { max-height: 360/490 * $image-height; }
+        @include at-breakpoint($small-cols 350 / 16 * 1em) { max-height: 350/490 * $image-height; }
+        @include at-breakpoint($small-cols 340 / 16 * 1em) { max-height: 340/490 * $image-height; }
+        @include at-breakpoint($small-cols 330 / 16 * 1em) { max-height: 330/490 * $image-height; }
+        @include at-breakpoint($small-cols 320 / 16 * 1em) { max-height: 320/490 * $image-height; }
 
         a {
             display: block;

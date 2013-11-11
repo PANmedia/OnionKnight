@@ -9,8 +9,8 @@ jQuery(function($) {
     //checks that a device supports touch
     OnionKnight.isTouchDevice = ("ontouchstart" in window) || navigator.msMaxTouchPoints;
 
-    //tablet width
-    var width_tablet = 46.9375;
+    //"wide" device width (aka OnionKnight 'large' breakpoint)
+    var wide_device = 58.3125; //933px
 
     //dom variables
     var nav_top_li = $('.nav--main .nav__menu--depth-1 > .nav__item--parent');
@@ -29,16 +29,17 @@ jQuery(function($) {
     //====================================
 
     var closeMobileSubNav = function(e) {
-        if (OnionKnight.deviceWidth() <= width_tablet) {
+        if (OnionKnight.deviceWidth() <= wide_device) {
             nav_parent.find('.nav__menu--depth-2').hide();
         };
         nav_parent.removeClass('nav__item--open');
     };
 
     var openMobileNav = function(e) {
-        nav_toggle.addClass("nav__toggle--open");
-        nav.slideDown(300);
-        mobile_nav_open = true;
+        nav_toggle.toggleClass("nav__toggle--open");
+        nav.slideToggle(300);
+        closeMobileSubNav();
+        mobile_nav_open = !mobile_nav_open;
     };
 
     var closeMobileNav = function(e) {
@@ -50,7 +51,7 @@ jQuery(function($) {
 
     //checks whether to close the mobile nav depending on where your mouse traverses
     var checkMobileNav = function(e) {
-        if (OnionKnight.deviceWidth() <= width_tablet) {
+        if (OnionKnight.deviceWidth() <= wide_device) {
             var target = e.toElement || e.relatedTarget;
 
             var inside = $(target).closest('.nav__toggle, .nav__menu--depth-1').length;
@@ -80,7 +81,7 @@ jQuery(function($) {
         //physically show dropdowns (do NOT set variables), eg:
         // unsetDropdowns();
 
-        //se height based on li count & heights
+        //set height based on li count & heights
         // $(this).find(".nav__menu--depth-2").each(function() {
         //     var sublinkCount = $(this).find(".nav__item").length;
         //     var sublinkHeight = $(this).find(".nav__item:first-child").outerHeight();
@@ -92,7 +93,7 @@ jQuery(function($) {
 
     //remove dropdowns
     var unsetDropdowns = function() {
-        if (OnionKnight.deviceWidth() > width_tablet) {
+        if (OnionKnight.deviceWidth() > wide_device) {
             //physically hide dropdowns (do NOT set variables), eg:
             //dropdown.css("height", "0");
         }
@@ -103,7 +104,7 @@ jQuery(function($) {
     var toggleSubNav = function() {
         var target = $(this);
 
-        if (OnionKnight.deviceWidth() <= width_tablet) {
+        if (OnionKnight.deviceWidth() <= wide_device) {
             mobSubNav(target);
         } else {
             resetDropdowns(target);
@@ -121,7 +122,7 @@ jQuery(function($) {
     var closeSubNav = function() {
         var target = $(this);
 
-        if (OnionKnight.deviceWidth() > width_tablet) {
+        if (OnionKnight.deviceWidth() > wide_device) {
             resetDropdowns(target);
         };
     };
@@ -131,7 +132,7 @@ jQuery(function($) {
     var openSubNav = function() {
         var target = $(this);
 
-        if (OnionKnight.deviceWidth() > width_tablet) {
+        if (OnionKnight.deviceWidth() > wide_device) {
             resetDropdowns(target);
 
             setDropdowns.call(this);
@@ -148,7 +149,7 @@ jQuery(function($) {
         target.find('.nav__menu--depth-2').css({ "margin-left": "", "height": "" }).slideDown(500);
         target.addClass('nav__item--open');
         nav_parent.not(target).removeClass('nav__item--open');
-    }
+    };
 
 
     //closes dropdowns & prepares them to be opened/closed
@@ -163,7 +164,7 @@ jQuery(function($) {
         }
         unsetDropdowns();
         nav_top_li.removeClass('nav__item--open');
-    }
+    };
 
 
     //sub nav toggle on touch devices
@@ -200,16 +201,12 @@ jQuery(function($) {
         nav_top_li.on('click', touchSubNav);
 
         //mobile nav - mouse open
-        nav_toggle.on("mouseenter", openMobileNav);
-
-        //mobile nav - mouse close
-        nav_toggle.on("mouseleave", checkMobileNav);
-        nav.on("mouseleave", checkMobileNav);
+        nav_toggle.on("click", toggleMobileNav);
     }
 
     //close any dropdowns on touching other elements
     $('.touch').on('touchstart', function(e) {
-        if (OnionKnight.deviceWidth() > width_tablet) {
+        if (OnionKnight.deviceWidth() > wide_device) {
 
             //close *all* dropdowns, unless a dropdown anchor is being clicked
             var body_clicked = setTimeout(function() {

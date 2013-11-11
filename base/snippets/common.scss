@@ -112,9 +112,8 @@
     //output bgc before gradient so that transparent gradients will work in modern browsers, or ie9 will display background color when svg support is turned off
     @if $legacy-support-for-ie == false {
         background-color: mix($first, $second);
+        @include background(radial-gradient(circle at $startpoint, $colors) repeat scroll 0 0 transparent);
     }
-
-    @include background(radial-gradient($colors, $startpoint));
 
     //output bgc after gradient for legacy browsers
     @if $legacy-support-for-ie == true {
@@ -462,6 +461,9 @@
         @include at-breakpoint($above-large) {
             font-family: "#{no-unit($large-width)}" !important;
         }
+        @include at-breakpoint($above-xlarge) {
+            font-family: "#{no-unit($xlarge-width)}" !important;
+        }
     }
 }
 
@@ -575,11 +577,11 @@
 
 
 // XMod Site builder Grids
-@mixin xsb-grid($sml, $med, $lrg, $context-sml: false, $context-med: false, $context-lrg: false) {
+@mixin xsb-grid($sml, $med, $lrg, $xlrg: $lrg, $context-sml: false, $context-med: false, $context-lrg: false, $context-xlrg: false) {
     //check if context has been passed
-    @if $context-sml == false and $context-med == false and $context-lrg == false {
+    @if $context-sml == false and $context-med == false and $context-lrg == false and $context-xlrg == false {
         //gen classes
-        .xsb-grid__#{$sml}-#{$med}-#{$lrg} {
+        .xsb-grid__#{$sml}-#{$med}-#{$lrg}-#{$xlrg} {
             @include span-columns($sml);
 
             @include at-breakpoint($above-medium) {
@@ -588,14 +590,20 @@
             @include at-breakpoint($above-large) {
                 @include span-columns($lrg, $large-cols);
             }
+            @include at-breakpoint($above-xlarge) {
+                @include span-columns($xlrg, $xlarge-cols);
+            }
         }
-        .xsb-grid__#{$sml}-#{$med}-#{$lrg}_omega {
+        .xsb-grid__#{$sml}-#{$med}-#{$lrg}-#{$xlrg}_omega {
             @include span-columns($sml omega);
             @include at-breakpoint($above-medium) {
                 @include span-columns($med omega, $medium-cols);
             }
             @include at-breakpoint($above-large) {
                 @include span-columns($lrg omega, $large-cols);
+            }
+            @include at-breakpoint($above-xlarge) {
+                @include span-columns($xlrg omega, $xlarge-cols);
             }
         }
     } @else {
@@ -609,9 +617,12 @@
         @if $context-lrg == false {
             $context-lrg: $large-cols;
         }
+        @if $context-xlrg == false {
+            $context-xlrg: $xlarge-cols;
+        }
 
         //gen classes
-        .xsb-grid__#{$sml}-#{$med}-#{$lrg}--#{$context-sml}-#{$context-med}-#{$context-lrg} {
+        .xsb-grid__#{$sml}-#{$med}-#{$lrg}-#{$xlrg}--#{$context-sml}-#{$context-med}-#{$context-lrg}-#{$context-xlrg} {
             @include span-columns($sml, $context-sml);
 
             @include at-breakpoint($above-medium) {
@@ -620,14 +631,20 @@
             @include at-breakpoint($above-large) {
                 @include span-columns($lrg, $context-lrg);
             }
+            @include at-breakpoint($above-xlarge) {
+                @include span-columns($xlrg, $context-xlrg);
+            }
         }
-        .xsb-grid__#{$sml}-#{$med}-#{$lrg}--#{$context-sml}-#{$context-med}-#{$context-lrg}_omega {
+        .xsb-grid__#{$sml}-#{$med}-#{$lrg}--#{$context-sml}-#{$context-med}-#{$context-lrg}-#{$context-xlrg}_omega {
             @include span-columns($sml omega, $context-sml);
             @include at-breakpoint($above-medium) {
                 @include span-columns($med omega, $context-med);
             }
             @include at-breakpoint($above-large) {
                 @include span-columns($lrg omega, $context-lrg);
+            }
+            @include at-breakpoint($above-xlarge) {
+                @include span-columns($xlrg omega, $context-xlrg);
             }
         }
     }
@@ -649,6 +666,9 @@
         @include susy-grid-background;
     }
     @include at-breakpoint($above-large) {
+        @include susy-grid-background;
+    }
+    @include at-breakpoint($above-xlarge) {
         @include susy-grid-background;
     }
 }

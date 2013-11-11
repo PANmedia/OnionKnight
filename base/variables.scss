@@ -11,26 +11,28 @@
 $site-theme: tomato;
 $heading-color: $site-theme;
 $sub-heading-color: $site-theme;
-$link-color: $site-theme;
+$link-color: darken($site-theme, 5%);
 
 //responsive grid breakpoints
 
 // grid settings
-$col-num: 12;
-$column-width: 4.1em;   // default 4.2em is max col width for layouts to look nice on ipad
-$gutter-width: 1em;     // default 1em is max gutter width for layouts to look nice on ipad
+$column-width: 3.7em;   // default 3.7em is max col width for layouts to look nice on common tablets (eg: ipad & samsung)
+$gutter-width: 1em;     // default 1em (16px) is max col width for layouts to look nice on common tablets (eg: ipad & samsung)
 $grid-padding: $gutter-width;
 
 //column numbers
 //for constructing longhand susy layouts inside at-breakpoint mixins
+$total-columns: 6;
+
 $small-cols: $total-columns;
 $medium-cols: 9;
 $large-cols: 12;
+$xlarge-cols: 15;
 
 //function for calculating exact em widths of susy layouts
 @function calc-breakpoint($cols) {
     // gutters + columns + grid padding
-    @return ($cols - 1) * $gutter-width + $cols * $column-width + 2 * $grid-padding;
+    @return ($cols - 1) * $gutter-width + $cols * $column-width + 3 * $grid-padding;
 }
 
 //exact widths (as calculated by susy) - NOTE: these are buggy right now
@@ -38,17 +40,21 @@ $large-cols: 12;
 $small-width: calc-breakpoint($small-cols);
 $medium-width: calc-breakpoint($medium-cols);
 $large-width: calc-breakpoint($large-cols);
+$xlarge-width: calc-breakpoint($xlarge-cols);
 
 //susy standard responsive layouts
 //use as shorthand for your breakpoints
 //min-width breakpoints
-$above-small:     $small-cols no-mediaqueries;
-$above-medium:    $medium-cols no-mediaqueries;
-$above-large:     $large-cols no-mediaqueries;
+$above-small:     $small-width $small-cols no-mediaqueries;
+$above-mobile-large:     7 no-mediaqueries; //custom breakpoint
+$above-medium:    $medium-width $medium-cols no-mediaqueries;
+$above-large:     $large-width $large-cols no-mediaqueries;
+$above-xlarge:    $xlarge-width $xlarge-cols no-mediaqueries;
 //max-width breakpoints
-$below-small:     $small-cols 520 / 16 * 1em; //32.5 - calc-bp: 31.6 - diff 0.9
-$below-medium:    $medium-cols 766 / 16 * 1em; //47.875 - calc-bp: 46.9 - diff 0.975
-$below-large:     $large-cols 996 / 16 * 1em; //62.25 - calc-bp: 62.2 - diff 0.05
+$below-small:     $small-cols $small-width;
+$below-medium:    $medium-cols $medium-width;
+$below-large:     $large-cols $large-width;
+$below-xlarge:    $xlarge-cols $xlarge-width;
 
 // vertical rhythm
 $base-font-size: 16px;
