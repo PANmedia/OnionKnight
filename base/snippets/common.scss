@@ -704,3 +704,31 @@
         }
     }
 }
+
+
+//makes an element maintainan aspect ratio relative to it's width
+//content selector is recommended to be passed (must be direct child of target element)
+//passing this parameter allows elements to sit inside the target element
+@mixin keep-aspect-ratio($percentage: 100%, $content-selector: "*") {
+    &:after {
+        padding-top: $percentage; /* keeps ratio*/
+        @extend %keep-aspect-helper;
+    }
+
+    @if $content-selector != false {
+        > #{unquote($content-selector)} {
+            position: absolute;
+            left: 0;
+            top: 0;
+            right: 0;
+            bottom: 0;
+        }
+    }
+}
+//helper for above
+%keep-aspect-helper {
+    display: block;
+    content: '';
+    position: relative;
+}
+
