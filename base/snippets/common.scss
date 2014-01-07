@@ -86,7 +86,7 @@
 
 //returns rem values in the same format as the above rem mixin,
 //but only returns the values with units for the associated modern/legacy stylesheet being compiled
-@function conditional-rem($values) {
+@function rem($values) {
     $px-values: ();
     $rem-values: ();
 
