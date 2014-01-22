@@ -45,8 +45,6 @@ jQuery(function($) {
             nav.toggle();
             nav_toggle.text(toggle_text);
             nav_open = false;
-        } else {
-            //do nothing
         }
     });
     $('.xsb-header-nav').on('click touchstart', function(event){
