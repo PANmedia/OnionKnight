@@ -8,212 +8,71 @@ jQuery(function($) {
 
     //checks that a device supports touch
     OnionKnight.isTouchDevice = ("ontouchstart" in window) || navigator.msMaxTouchPoints;
+    OnionKnight.isLegacyIE = !!$('.no-mediaqueries').length;
 
     //"wide" device width (aka OnionKnight 'large' breakpoint)
-    var wide_device = 58.3125; //933px
+    var wide_device = 58.3125;
 
     //dom variables
     var nav_top_li = $('.nav--main .nav__menu--depth-1 > .nav__item--parent');
     var nav_toggle = $('.xsb-header-nav .nav__toggle');
-    var nav = $('.xsb-header-nav .nav__menu--depth-1');
+    var nav = $('.xsb-header-nav .nav');
     var nav_parent = $('.xsb-header-nav .nav__item--parent');
     var dropdown = $('.xsb-header-nav .nav__menu--depth-2');
 
     //menu states
     var nav_open = false;
-    var mobile_nav_open = false;
+    var toggle_text = nav_toggle.text();
+    var subtoggle_text = nav_toggle.text();
 
+    // toggle mobile nav
+    nav_toggle.click(function(){
+        nav.toggle();
 
-    //====================================
-    //-------------- MOBILE --------------
-    //====================================
-
-    var closeMobileSubNav = function(e) {
-        if (OnionKnight.deviceWidth() <= wide_device) {
-            nav_parent.find('.nav__menu--depth-2').hide();
-        };
-        nav_parent.removeClass('nav__item--open');
-    };
-
-    var openMobileNav = function(e) {
-        nav_toggle.toggleClass("nav__toggle--open");
-        nav.slideToggle(300);
-        closeMobileSubNav();
-        mobile_nav_open = !mobile_nav_open;
-    };
-
-    var closeMobileNav = function(e) {
-        nav_toggle.removeClass("nav__toggle--open");
-        closeMobileSubNav();
-        nav.hide();
-        mobile_nav_open = false;
-    };
-
-    //checks whether to close the mobile nav depending on where your mouse traverses
-    var checkMobileNav = function(e) {
-        if (OnionKnight.deviceWidth() <= wide_device) {
-            var target = e.toElement || e.relatedTarget;
-
-            var inside = $(target).closest('.nav__toggle, .nav__menu--depth-1').length;
-
-            if (!inside) {
-                closeMobileNav();
-            };
-        };
-    };
-
-    //touch version of mobile toggle
-    var toggleMobileNav = function(e) {
-        if (nav_open) {
-            closeMobileNav();
-        } else {
-            openMobileNav();
-        };
-    };
-
-
-    //====================================
-    //------------ DROPDOWNS -------------
-    //====================================
-
-    //show dropdowns
-    var setDropdowns = function() {
-        //physically show dropdowns (do NOT set variables), eg:
-        // unsetDropdowns();
-
-        //set height based on li count & heights
-        // $(this).find(".nav__menu--depth-2").each(function() {
-        //     var sublinkCount = $(this).find(".nav__item").length;
-        //     var sublinkHeight = $(this).find(".nav__item:first-child").outerHeight();
-
-        //     $(this).css("height", sublinkCount * sublinkHeight + 2);
-        // });
-    };
-
-
-    //remove dropdowns
-    var unsetDropdowns = function() {
-        if (OnionKnight.deviceWidth() > wide_device) {
-            //physically hide dropdowns (do NOT set variables), eg:
-            //dropdown.css("height", "0");
-        }
-    }
-
-
-    //generic nav toggle
-    var toggleSubNav = function() {
-        var target = $(this);
-
-        if (OnionKnight.deviceWidth() <= wide_device) {
-            mobSubNav(target);
-        } else {
-            resetDropdowns(target);
-
-            //remove other open classes and add open class to target if not already open
-            if (!nav_open) {
-                setDropdowns.call(this);
-                target.addClass('nav__item--open');
-            }
-        };
-    };
-
-
-    //mouse nav open
-    var closeSubNav = function() {
-        var target = $(this);
-
-        if (OnionKnight.deviceWidth() > wide_device) {
-            resetDropdowns(target);
-        };
-    };
-
-
-    //mouse nav close
-    var openSubNav = function() {
-        var target = $(this);
-
-        if (OnionKnight.deviceWidth() > wide_device) {
-            resetDropdowns(target);
-
-            setDropdowns.call(this);
-            target.addClass('nav__item--open');
-        };
-    };
-
-
-    //toggles sub nav on mobile
-    var mobSubNav = function(target) {
-        //close all other open subnavs to maintain dropdown height (and thus, usability)
-        nav_parent.not(target).find('.nav__menu--depth-2').slideUp(500);
-        //show subnav
-        target.find('.nav__menu--depth-2').css({ "margin-left": "", "height": "" }).slideDown(500);
-        target.addClass('nav__item--open');
-        nav_parent.not(target).removeClass('nav__item--open');
-    };
-
-
-    //closes dropdowns & prepares them to be opened/closed
-    var resetDropdowns = function(target) {
-        setDropdownMargins();
-
-        //check if dropdowns are open
-        if ($(target).closest('.nav__item--open').length) {
+        if( nav_open == false ) {
+            nav_toggle.text('Hide Menu');
             nav_open = true;
         } else {
+            nav_toggle.text(toggle_text);
             nav_open = false;
         }
-        unsetDropdowns();
-        nav_top_li.removeClass('nav__item--open');
-    };
+    });
 
+    //Close the navigation when clicked outside
+    $('html').on('click touchstart', function() {
 
-    //sub nav toggle on touch devices
-    var touchSubNav = function(e) {
-        //if menu isn't open then prevent navigation
-        if (!$(this).closest('.nav__menu--depth-2').length) {
-            if (!$(this).closest('.nav__item--open').length) {
-                e.preventDefault();
-                toggleSubNav.call(this);
+        if( nav_open == true ) {
+            nav.toggle();
+            nav_toggle.text(toggle_text);
+            nav_open = false;
+        } else {
+            //do nothing
+        }
+    });
+    $('.xsb-header-nav').on('click touchstart', function(event){
+        event.stopPropagation();
+    });
+
+    //support touch events
+    // if (OnionKnight.deviceWidth() <= wide_device) {
+    // Add a <span> to every nav_parent
+    nav_parent.prepend('<span class="nav__sub-toggle">+</span>');
+    // var subtoggle_text = $('.nav__sub-toggle').text();
+
+    // Dynamic binding to on 'click'
+    nav_parent.on('click', '.nav__sub-toggle', function(){
+        //check the viewport is less than the mobile breakpoint
+        if (OnionKnight.deviceWidth() <= wide_device) {
+
+            // Toggle the nested nav
+            $(this).siblings('.nav__menu--depth-2').slideToggle(200);
+
+            // Toggle the arrow using CSS3 transforms
+            if($(this).text() == '+') {
+                $(this).text('-');
+            } else {
+                $(this).text('+');
             }
         }
-    };
-
-
-    //====================================
-    //---------- EVENT BINDING -----------
-    //====================================
-
-    if (OnionKnight.isTouchDevice) {
-        //touch class
-        $('body').addClass('touch');
-
-        //touch toggle
-        nav_top_li.on('touchstart', touchSubNav);
-
-        nav_toggle.on("touchstart", toggleMobileNav);
-    } else {
-
-        //Dropdowns - mouse toggles
-        nav_top_li.on('mouseenter', openSubNav);
-        nav_top_li.on('mouseleave', closeSubNav);
-
-        //Dropdowns - mobile mouse toggle
-        nav_top_li.on('click', touchSubNav);
-
-        //mobile nav - mouse open
-        nav_toggle.on("click", toggleMobileNav);
-    }
-
-    //close any dropdowns on touching other elements
-    $('.touch').on('touchstart', function(e) {
-        if (OnionKnight.deviceWidth() > wide_device) {
-
-            //close *all* dropdowns, unless a dropdown anchor is being clicked
-            var body_clicked = setTimeout(function() {
-                if (!$(e.target).is('.nav__item, .nav__item *')) {
-                    toggleSubNav.call('.nav__item--open');
-                }
-            },5);
-        };
     });
 });
