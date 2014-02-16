@@ -807,3 +807,68 @@
     content: '';
     position: relative;
 }
+
+//sticky footer made responsive
+@import "compass/layout.scss";
+@mixin responsive-sticky-footer($sml, $med: false, $lrg: false, $xlrg: false, $wrapper:".xsb-wrapper", $wrapper-foot:".xsb-wrapper > *:last-child:after", $footer:".xsb-footer") {
+    @include sticky-footer($sml, $wrapper, $wrapper-foot, $footer);
+
+
+    #{unquote($wrapper)} {
+        @if $med != false and $med != $sml {
+            @include at-breakpoint($above-medium) {
+                margin-bottom: -1 * $med;
+            }
+        }
+
+        @if $lrg != false and $lrg != $med {
+            @include at-breakpoint($above-large) {
+                margin-bottom: -1 * $lrg;
+            }
+        }
+
+        @if $xlrg != false and $xlrg != $lrg {
+            @include at-breakpoint($above-xlarge) {
+                margin-bottom: -1 * $xlrg;
+            }
+        }
+    }
+
+    //only really required if $wrapper-foot is an :after selector (it usually should be)
+    #{unquote($wrapper-foot)} {
+        content: "";
+        display: block;
+    }
+
+    #{unquote($wrapper-foot)},
+    #{unquote($footer)} {
+        height: $sml;
+
+        @if $med != false and $med != $sml {
+            @include at-breakpoint($above-medium) {
+                height: $med;
+            }
+        }
+
+        @if $lrg != false and $lrg != $med {
+            @include at-breakpoint($above-large) {
+                height: $lrg;
+            }
+        }
+
+        @if $xlrg != false and $xlrg != $lrg {
+            @include at-breakpoint($above-xlarge) {
+                height: $xlrg;
+            }
+        }
+    }
+}
+
+//mixin to support old safari implementation of css calc
+@mixin xcalc($property, $calc, $unsupported: false) {
+    @if $unsupported != false {
+        #{$property}: $unsupported;
+    }
+    #{$property}: -webkit-calc(#{$calc});
+    #{$property}: calc(#{$calc});
+}
