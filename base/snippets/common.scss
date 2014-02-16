@@ -649,8 +649,8 @@
 @mixin xsb-grid($sml, $med, $lrg, $xlrg: $lrg, $context-sml: false, $context-med: false, $context-lrg: false, $context-xlrg: false) {
     //check if context has been passed
     @if $context-sml == false and $context-med == false and $context-lrg == false and $context-xlrg == false {
-        //gen classes
-        .xsb-grid__#{$sml}-#{$med}-#{$lrg}-#{$xlrg} {
+        //gen placeholder classes
+        %xsb-grid__#{$sml}-#{$med}-#{$lrg}-#{$xlrg} {
             @include span-columns($sml);
 
             @include at-breakpoint($above-medium) {
@@ -663,7 +663,7 @@
                 @include span-columns($xlrg, $xlarge-cols);
             }
         }
-        .xsb-grid__#{$sml}-#{$med}-#{$lrg}-#{$xlrg}_omega {
+        %xsb-grid__#{$sml}-#{$med}-#{$lrg}-#{$xlrg}_omega {
             @include span-columns($sml omega);
             @include at-breakpoint($above-medium) {
                 @include span-columns($med omega, $medium-cols);
@@ -690,8 +690,8 @@
             $context-xlrg: $xlarge-cols;
         }
 
-        //gen classes
-        .xsb-grid__#{$sml}-#{$med}-#{$lrg}-#{$xlrg}--#{$context-sml}-#{$context-med}-#{$context-lrg}-#{$context-xlrg} {
+        //gen placeholder classes
+        %xsb-grid__#{$sml}-#{$med}-#{$lrg}-#{$xlrg}--#{$context-sml}-#{$context-med}-#{$context-lrg}-#{$context-xlrg} {
             @include span-columns($sml, $context-sml);
 
             @include at-breakpoint($above-medium) {
@@ -704,7 +704,7 @@
                 @include span-columns($xlrg, $context-xlrg);
             }
         }
-        .xsb-grid__#{$sml}-#{$med}-#{$lrg}--#{$context-sml}-#{$context-med}-#{$context-lrg}-#{$context-xlrg}_omega {
+        %xsb-grid__#{$sml}-#{$med}-#{$lrg}-#{$xlrg}--#{$context-sml}-#{$context-med}-#{$context-lrg}-#{$context-xlrg}_omega {
             @include span-columns($sml omega, $context-sml);
             @include at-breakpoint($above-medium) {
                 @include span-columns($med omega, $context-med);
@@ -716,6 +716,13 @@
                 @include span-columns($xlrg omega, $context-xlrg);
             }
         }
+    }
+}
+
+//mixin for sitebuilder narrow grid styles
+@mixin narrow-content {
+    &, .xsb-col--narrow & {
+        @content;
     }
 }
 
@@ -800,4 +807,3 @@
     content: '';
     position: relative;
 }
-

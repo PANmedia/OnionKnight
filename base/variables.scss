@@ -16,6 +16,7 @@ $link-color: darken($site-theme, 5%);
 //responsive grid breakpoints
 
 // grid settings
+// note that when changing these you must also change their equivalents in the js for the grids to function properly
 $column-width: 3.7em;   // default 3.7em is max col width for layouts to look nice on common tablets (eg: ipad & samsung)
 $gutter-width: 1em;     // default 1em (16px) is max col width for layouts to look nice on common tablets (eg: ipad & samsung)
 $grid-padding: $gutter-width;
@@ -28,6 +29,9 @@ $small-cols: $total-columns;
 $medium-cols: 9;
 $large-cols: 12;
 $xlarge-cols: 15;
+
+//experimental - for container automation
+$min-grid-width: $column-width * $xlarge-cols + $xlarge-cols/2 * $gutter-width - 2 * $grid-padding;
 
 //function for calculating exact em widths of susy layouts
 @function calc-breakpoint($cols) {
