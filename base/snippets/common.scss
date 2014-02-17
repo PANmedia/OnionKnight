@@ -720,7 +720,7 @@
 }
 
 //mixin for sitebuilder narrow grid styles
-@mixin narrow-content {
+@mixin at-context-narrow {
     &, .xsb-col--narrow & {
         @content;
     }
@@ -801,6 +801,7 @@
         }
     }
 }
+
 //helper for above
 %keep-aspect-helper {
     display: block;
