@@ -64,7 +64,6 @@ $below-xlarge:    $xlarge-cols $xlarge-width;
 $base-font-size: 16px;
 $base-line-height: 24px;
 $round-to-nearest-half-line: true;
-@include establish-baseline;
 
 // sticky footer (entirely optional - for use with compass sticky footer mixin)
 $sticky-footer: 300px;
