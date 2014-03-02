@@ -24,8 +24,7 @@ $legacy-support-for-ie: true;
 
 // import css frameworks
 @import "compass",
-        "susy",
-        "compass/reset";
+        "susy";
 
 // import styles
 @import "screen";
