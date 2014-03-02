@@ -11,6 +11,7 @@ body, html {
     margin: 0;
     padding: 0;
     font-family: $body-font;
+    -webkit-font-smoothing: antialiased;
 }
 
 // ensures initial or successive headings will not be spaced too heavily apart
@@ -24,13 +25,10 @@ h1, h2, h3, h4, h5, h6 {
     }
 }
 
-// @todo add your font filenames
-h1, h2, h3, h4 {
-    @extend %heading-font;
-}
 
 // h1 & h2 have their bare font information abstracted for use in other modules
 %h1-style {
+    @extend %heading-font;
     @include adjust-font-size-to($h1-size);
     font-weight: bold;
     text-transform: $heading-case;
@@ -39,7 +37,8 @@ h1, h2, h3, h4 {
 h1 {
     color: $heading-color;
     @extend %h1-style;
-    @include rhythm(0, 1, 0.5, 0, $h1-size);
+    @include padding-leader(1, $h1-size);
+    @include padding-trailer(0.5, $h1-size);
 
     + h2, + h3, + h4, + h5, + h6 {
         @extend %heading-group;
@@ -48,6 +47,7 @@ h1 {
 
 // h1 & h2 have their bare font information abstracted for use in other modules
 %h2-style {
+    @extend %heading-font;
     @include adjust-font-size-to($h2-size);
     font-weight: bold;
     text-transform: $heading-case;
@@ -56,7 +56,8 @@ h1 {
 h2 {
     color: $sub-heading-color;
     @extend %h2-style;
-    @include rhythm(0, 1, 0.5, 0, $h2-size);
+    @include padding-leader(1, $h2-size);
+    @include padding-trailer(0.5, $h2-size);
 
     + h3, + h4, + h5, + h6 {
         @extend %heading-group;
@@ -64,9 +65,11 @@ h2 {
 }
 
 h3 {
+    @extend %heading-font;
     @include adjust-font-size-to($h3-size);
     color: $sub-heading-color;
-    @include rhythm(0, 1, 0.5, 0, $h3-size);
+    @include padding-leader(1, $h3-size);
+    @include padding-trailer(0.5, $h3-size);
 
     + h4, + h5, + h6 {
         @extend %heading-group;
@@ -74,9 +77,11 @@ h3 {
 }
 
 h4 {
+    @extend %heading-font;
     @include adjust-font-size-to($h4-size);
     color: $sub-heading-color;
-    @include rhythm(0, 1, 0.5, 0, $h4-size);
+    @include padding-leader(1, $h4-size);
+    @include padding-trailer(0.5, $h4-size);
 
     + h5, + h6 {
         @extend %heading-group;
@@ -85,8 +90,9 @@ h4 {
 
 h5 {
     @include adjust-font-size-to($h5-size);
-    @include rhythm(0, 1, 0.5, 0, $h5-size);
-    
+    @include padding-leader(1, $h5-size);
+    @include padding-trailer(0.5, $h5-size);
+
     + h6 {
         @extend %heading-group;
     }
@@ -94,18 +100,22 @@ h5 {
 
 h6 {
     @include adjust-font-size-to($h6-size);
-    @include rhythm(0, 1, 0.5, 0, $h6-size);
+    @include padding-leader(1, $h6-size);
+    @include padding-trailer(0.5, $h6-size);
 }
 
 dt {
-    @include adjust-font-size-to($small-size);
     text-transform: uppercase;
     font-weight: normal;
     color: #222;
 }
 
 dd, p, li, td, th {
-    @include adjust-font-size-to($p-size)
+    @include adjust-font-size-to($p-size);
+}
+
+dt, th, caption {
+    @include adjust-font-size-to($small-size);
 }
 
 p {
@@ -115,13 +125,13 @@ p {
 a:hover { text-decoration: none; }
 
 hr {
-    //draw top & bottom borders 
+    //draw top & bottom borders
     border-top-color: white(0.5);
     border-bottom-color: black(0.5);
     border-style: solid none;
     height: 0;
-    
-    //retain vertical rhythm by enabling the following styles. Will break some libraries if not scoped properly!
+
+    //retain vertical rhythm by enabling the following styles. May break some libraries if not scoped properly!
     //@include leading-border(1px, 0.5);
     //@include trailing-border(1px, 0.5);
 }
@@ -129,18 +139,17 @@ hr {
 ul {
     list-style: disc outside;
     padding-left: $base-font-size;
-} 
+}
 
 ol {
     list-style: decimal outside;
     padding-left: $base-font-size * 1.2;
 }
 
-th, caption {
-    font-size: $small-size;
-}
-
-label {
+label,
+select,
+option,
+button {
     cursor: pointer;
 }
 
@@ -166,4 +175,14 @@ code {
 
 img {
     max-width: 100%;
+}
+
+fieldset {
+    border: 0;
+    margin: 0;
+    padding: 0;
+}
+
+textarea {
+    resize: vertical;
 }
