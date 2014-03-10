@@ -7,6 +7,55 @@
  */
 
 @include xsb-grid(6, 6, 8, 10); //two thirds
-@include xsb-grid(6, 3, 4, 5); //one third
-@include xsb-grid(6, 4, 6, 7, 6, 8, 12, 14); // half
+@include xsb-grid(6, 6, 8, 11); //banner
+@include xsb-grid(6, 3, 4, 4); //sidebar
+@include xsb-grid(3, 3, 4, 4); //sidebar
 @include xsb-grid(6, 8, 10, 12); //most
+
+//Sitebuilder grid layouts
+// SINGLE (cut short)
+@include xsb-grid(6, 9, 11, 12);
+
+// HALVES
+@include xsb-grid(
+    6, 4, 6, 8,
+    6, 8, 12, 16);
+
+// THIRDS
+@include xsb-grid(6, 3, 4, 5);
+
+// QUARTER
+@include xsb-grid(
+    6, 2, 3, 4,
+    6, 8, 12, 16);
+
+// FIFTHS
+@include xsb-grid(
+    6, 9, 3, 3,
+    6, 9, 15, 15);
+
+// SIDEBARS (Priority)
+@include xsb-grid(
+    6, 4, 5, 5,
+    6, 9, 12, 15);
+// SIDEBARS (Non-priority)
+@include xsb-grid(
+    6, 3, 4, 4,
+    6, 9, 12, 15);
+
+// CONTENT (Priority - next to sidebar)
+@include xsb-grid(
+    6, 6, 8, 11,
+    6, 9, 12, 15);
+// CONTENT (Non-priority - next to sidebar)
+@include xsb-grid(
+    6, 5, 7, 10,
+    6, 9, 12, 15);
+
+// SIDEBARS BOTH SIDES
+@include xsb-grid(
+    6, 9, 6, 7,
+    6, 9, 12, 15);
+@include xsb-grid(
+    6, 5, 3, 4,
+    6, 10, 12, 15);
