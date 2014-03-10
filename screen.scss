@@ -7,10 +7,10 @@
  * @url https://github.com/tbredin/OnionKnight
  */
 
-@import "compass/reset";
+@import "base/fonts";
 
-@import "base/variables",
-        "base/fonts",
+@import "compass/reset",
+        "base/variables",
         "base/snippets/common",
         "base/snippets/animation",
         "base/snippets/navigation",

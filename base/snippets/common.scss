@@ -719,13 +719,12 @@
     }
 }
 
-//mixin for sitebuilder narrow grid styles
-@mixin at-context-narrow {
-    &, .xsb-col--narrow & {
+//mixin for sitebuilder grid contexts
+@mixin at-context-gt($breakpoint) {
+    .xsb-col--gt-#{$breakpoint} & {
         @content;
     }
 }
-
 
 %scaling-img {
     display: block;
@@ -872,4 +871,10 @@
     }
     #{$property}: -webkit-calc(#{$calc});
     #{$property}: calc(#{$calc});
+}
+
+//extend to add translateZ(0) to an element, promoting it to it's own layer composite
+//this is important for performance in some cases, but be warned: use sparingly & don't overuse or it can have the opposite effect!
+%make-layer {
+    @include translateZ(0);
 }

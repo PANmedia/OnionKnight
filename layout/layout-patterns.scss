@@ -5,3 +5,142 @@
  * @author Hemi Ormsby <hemi@panmedia.co.nz>
  * @url https://github.com/tbredin/OnionKnight
  */
+
+
+.xsb-col {
+    margin-bottom: rem(0.5);
+    position: relative;
+    min-height: rem(3);
+
+    @if $debug-grids == true {
+        //test grids
+        background-color: transparentize(tomato, 0.5);
+
+        &:before {
+            content: attr(class);
+            position: relative;
+            display: block;
+            color: #000;
+            padding: 3px 4px;
+            font-family: $code-font;
+            font-size: rem(0.6);
+            line-height: 1;
+            z-index: 1;
+            opacity: 0.75;
+        }
+    }
+}
+
+//gridwrapper
+.xsb-row {
+    min-height: rem(2);
+    padding: rem(1.5 0);
+    @extend %clearfix;
+    @extend %make-layer;
+    position: relative;
+    @include container($above-small, $above-medium, $above-large, $above-xlarge);
+
+    @if $debug-grids == true {
+        // TEST GRID HELPER OVERLAYS
+        @include test-grids;
+    }
+
+    // LEGACY BROWSERS FALLBACK
+    @if $legacy-support-for-ie == true {
+        .no-mediaqueries & {
+            min-width: rem(60.2);
+            overflow: auto;
+        }
+   }
+
+   // add margins on smallest breakpoint then reset them
+    padding-left: rem(10px);
+    padding-right: rem(10px);
+
+    @include at-breakpoint($above-small) {
+        padding-left: 0;
+        padding-right: 0;
+    }
+}
+
+// SINGLE (cut short)
+.xsb-col__single {
+    @extend %xsb-grid__6-9-11-12;
+}
+
+// HALVES
+.xsb-col__halves {
+    @extend %xsb-grid__6-4-6-8--6-8-12-16;
+    @include nth-omega(2n);
+}
+
+// THIRDS
+.xsb-col__thirds {
+    @extend %xsb-grid__6-3-4-5;
+    @include nth-omega(3n);
+}
+
+// QUARTER
+.xsb-col__quarters {
+    @extend %xsb-grid__6-2-3-4--6-8-12-16;
+    @include nth-omega(4n); //this will need to add omega to every 2n on smallest breakpoint
+}
+
+// FIFTHS
+.xsb-col__fifths {
+    @extend %xsb-grid__6-9-3-3--6-9-15-15;
+    @include nth-omega(5n);
+}
+
+// CONTENT (non-priority)
+.xsb-col__content-left,
+.xsb-col__content-right {
+    @extend %xsb-grid__6-5-7-10--6-9-12-15;
+}
+.xsb-col__content-right {
+    @extend %col-omega;
+}
+
+// CONTENT (Priority)
+.xsb-col__content-left.xsb-col--priority,
+.xsb-col__content-right.xsb-col--priority {
+    @extend %xsb-grid__6-6-8-11--6-9-12-15;
+}
+.xsb-col__content-right.xsb-col--priority {
+    @extend %col-omega;
+}
+
+// SIDEBARS (non-priority)
+.xsb-col__sidebar-left,
+.xsb-col__sidebar-right {
+    @extend %xsb-grid__6-3-4-4--6-9-12-15;
+}
+.xsb-col__sidebar-right {
+    @extend %col-omega;
+}
+
+// SIDEBARS (priority)
+.xsb-col__sidebar-left.xsb-col--priority,
+.xsb-col__sidebar-right.xsb-col--priority {
+    @extend %xsb-grid__6-4-5-5--6-9-12-15;
+}
+.xsb-col__sidebar-right.xsb-col--priority {
+    @extend %col-omega;
+}
+
+// CONTENT CENTERED
+.xsb-col__content-center {
+    @extend %xsb-grid__6-9-6-7--6-9-12-15;
+}
+.xsb-col__sidebar-left.xsb-col--sidebar-expanded,
+.xsb-col__sidebar-right.xsb-col--sidebar-expanded {
+    @extend %xsb-grid__6-5-3-4--6-10-12-15;
+}
+.xsb-col__sidebar-right.xsb-col--sidebar-expanded {
+    @extend %col-omega;
+}
+
+//last column
+%col-omega {
+  @include omega;
+}
