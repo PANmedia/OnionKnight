@@ -1,7 +1,7 @@
 OnionKnight
 ===========
 
-SCSS Framework for BEM / SMACSS projects (and the bravest Lost Boy in all of Lordran)
+SCSS Framework for BEM / SMACSS projects
 
 **Dependencies:**
 Compass http://compass-style.org  
@@ -130,13 +130,9 @@ OnionKnight filestructure
 
             and so on... (hovers, actives, tag states, opened, hidden, etc?)
 
-        Themes (IE stylesheets count as a theme)
+        Themes 
 
             example-holiday.scss
-
-            IEx.scss
-
-        shame.scss (included last)
 
 
 Example HTML
@@ -144,18 +140,6 @@ Example HTML
 
 ```HTML
 
-    <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico" />
-    <link rel="icon" type="image/png" href="/images/favicon.png" />
-    
-    <!-- Standard iPhone -->
-    <link rel="apple-touch-icon-precomposed" sizes="57x57" href="/images/favicon-low-57.png" />
-    <!-- Retina iPhone -->
-    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/images/favicon-high-114.png" />
-    <!-- Standard iPad -->
-    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/images/favicon-low-72.png" />
-    <!-- Retina iPad -->
-    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/images/favicon-high-144.png" />
-        
     <!--[if !IE]> -->
         <?= css('/css/screen-modern.css') ?>
     <!-- <![endif]-->
