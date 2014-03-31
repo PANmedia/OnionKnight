@@ -878,3 +878,18 @@
 %make-layer {
     @include translateZ(0);
 }
+
+//Browser support mixins
+//apply styles only for legacy stylesheet
+@mixin for-legacy {
+    @if $legacy-support-for-ie == true {
+        @content;
+    }
+}
+
+//apply styles only for modern stylesheet
+@mixin for-modern {
+    @if $legacy-support-for-ie != true {
+        @content;
+    }
+}
